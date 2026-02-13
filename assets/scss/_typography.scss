@@ -1,0 +1,178 @@
+// ========================================
+// TYPOGRAPHY - KINNOV'ART
+// ========================================
+
+// Base Typography
+// ========================================
+body {
+    @include body-text;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// Headings
+// ========================================
+h1,
+.h1 {
+    @include heading-1;
+    margin-bottom: $spacing-6;
+}
+
+h2,
+.h2 {
+    @include heading-2;
+    margin-bottom: $spacing-5;
+}
+
+h3,
+.h3 {
+    @include heading-3;
+    margin-bottom: $spacing-4;
+}
+
+h4,
+.h4 {
+    @include heading-4;
+    margin-bottom: $spacing-4;
+}
+
+h5,
+.h5 {
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-normal;
+    color: $color-primary;
+    margin-bottom: $spacing-3;
+}
+
+h6,
+.h6 {
+    font-family: $font-heading;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-normal;
+    color: $color-primary;
+    margin-bottom: $spacing-3;
+}
+
+// Paragraphs
+// ========================================
+p {
+    margin-bottom: $spacing-4;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// Links
+// ========================================
+a {
+    color: $color-secondary;
+    text-decoration: none;
+    transition: color $transition-base $easing-in-out;
+
+    &:hover {
+        color: $color-secondary-dark;
+        text-decoration: underline;
+    }
+}
+
+// Text Utilities
+// ========================================
+.text-primary {
+    color: $color-primary !important;
+}
+
+.text-secondary {
+    color: $color-secondary !important;
+}
+
+.text-accent {
+    color: $color-accent !important;
+}
+
+.text-white {
+    color: $color-white !important;
+}
+
+.text-gray {
+    color: $color-gray-600 !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-uppercase {
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em;
+}
+
+.text-bold {
+    font-weight: $font-weight-bold !important;
+}
+
+.text-semibold {
+    font-weight: $font-weight-semibold !important;
+}
+
+.text-normal {
+    font-weight: $font-weight-normal !important;
+}
+
+.text-light {
+    font-weight: $font-weight-light !important;
+}
+
+// Special Text Styles
+// ========================================
+.text-gradient {
+    background: linear-gradient(135deg, $color-secondary, $color-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba($color-black, 0.1);
+}
+
+// Lead Text
+// ========================================
+.lead {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-normal;
+    line-height: $line-height-relaxed;
+    color: $color-gray-700;
+
+    @include respond-to('md') {
+        font-size: $font-size-xl;
+    }
+}
+
+// Small Text
+// ========================================
+.small,
+small {
+    @include small-text;
+}
+
+// Blockquote
+// ========================================
+blockquote {
+    padding-left: $spacing-6;
+    border-left: 4px solid $color-accent;
+    font-style: italic;
+    color: $color-gray-700;
+    margin: $spacing-8 0;
+}

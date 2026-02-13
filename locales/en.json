@@ -1,0 +1,90 @@
+{
+    "nav": {
+        "home": "Home",
+        "gallery": "Gallery",
+        "artists": "Artists",
+        "blog": "Blog",
+        "about": "About",
+        "contact": "Contact"
+    },
+    "gallery": {
+        "title": "Our Gallery",
+        "subtitle": "Discover our creations in furniture, art and audiovisual",
+        "all": "All",
+        "furniture": "Furniture Design",
+        "artProjects": "Art Projects",
+        "audiovisual": "Audio & Video"
+    },
+    "artists": {
+        "title": "Our Talents",
+        "subtitle": "Discover the creators of tomorrow we support every day",
+        "featured": "Featured Artists",
+        "newTalents": "New Talents",
+        "alumni": "Alumni"
+    },
+    "blog": {
+        "title": "News & Resources",
+        "subtitle": "Follow our projects, events and creative tutorials",
+        "search": "Search...",
+        "readMore": "Read more",
+        "news": "News",
+        "tutorials": "Tutorials",
+        "events": "Events"
+    },
+    "about": {
+        "title": "About Kinnov'art",
+        "subtitle": "Our history, mission and team",
+        "history": "History",
+        "mission": "Mission",
+        "team": "Team",
+        "missionTitle": "Our Commitment",
+        "missionText": "Kinnov'art merges furniture design, artist management, and AV production to empower creative youth in Guinea.",
+        "teamTitle": "The Heart of Kinnov'art",
+        "location": "Find us in Nongo, Maison des Jeunes, opposite Bilal Mansour Fadiga Mosque."
+    },
+    "contact": {
+        "title": "Got an idea? A project?",
+        "subtitle": "Our team is listening in Nongo",
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "send": "Send",
+        "address": "Address",
+        "phone": "Phone",
+        "directEmail": "Direct Email",
+        "location": "Kinnov'art Workshop",
+        "locationDetails": "Nongo, Maison des Jeunes, Opposite Bilal Mansour Fadiga Mosque, Conakry, Guinea"
+    },
+    "home": {
+        "heroTitle": "The Art of Creative Innovation",
+        "heroSubtitle": "Based in Nongo, Maison des Jeunes, Kinnov'art is the hub for furniture, audiovisual, and Guinean talent.",
+        "heroCta": "Explore Our World",
+        "featuredProjects": "Featured Creations",
+        "brandIntro": "Kinnov'art merges furniture design, artist management, and AV production to empower creative youth.",
+        "services": "Our Services",
+        "furnitureDesign": "Furniture Design",
+        "furnitureDesc": "Creation of unique handcrafted chairs, armchairs and furniture",
+        "artistManagement": "Artist Management",
+        "artistDesc": "Promotion, guidance and coordination of artistic projects",
+        "audioVideo": "Audiovisual Production",
+        "audioVideoDesc": "Professional video editing, production and editing",
+        "talentDiscovery": "Talent Discovery",
+        "talentDesc": "Support and promotion of young creators"
+    },
+    "footer": {
+        "newsletter": "Stay Updated",
+        "subscribe": "Subscribe",
+        "rights": "© 2024 Kinnov'art. All rights reserved.",
+        "quickLinks": "Quick Links",
+        "followUs": "Follow Us",
+        "emailPlaceholder": "Your email"
+    },
+    "common": {
+        "learnMore": "Learn more",
+        "viewAll": "View all",
+        "loading": "Loading...",
+        "close": "Close",
+        "next": "Next",
+        "previous": "Previous"
+    }
+}
