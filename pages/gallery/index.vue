@@ -2,8 +2,8 @@
   <div class="gallery-page">
     <Section bg="primary" padding="md">
       <div class="text-center">
-        <h1 class="page-title" style="color: var(--color-accent);">{{ $t('gallery.title') }}</h1>
-        <p class="page-subtitle" style="color: rgba(255, 255, 255, 0.9);">{{ $t('gallery.subtitle') }}</p>
+        <h1 class="page-title page-title--accent">{{ $t('gallery.title') }}</h1>
+        <p class="page-subtitle page-subtitle--light">{{ $t('gallery.subtitle') }}</p>
       </div>
     </Section>
 
@@ -22,7 +22,7 @@
       </div>
 
       <!-- Projects Grid -->
-      <div class="grid grid-cols-3" style="margin-top: 3rem;">
+      <div class="gallery-grid">
         <Card 
           v-for="project in filteredProjects" 
           :key="project.id"
@@ -31,6 +31,9 @@
           :description="project.description[locale]"
           :badge="$t(`gallery.${project.category}`)"
           @click="openLightbox(project)"
+          @keydown.enter="openLightbox(project)"
+          role="button"
+          tabindex="0"
           class="gallery-card scroll-reveal"
         />
       </div>
@@ -96,6 +99,10 @@ useHead({
   @include respond-to('md') {
     font-size: $font-size-5xl;
   }
+
+  &--accent {
+    color: var(--color-accent);
+  }
 }
 
 .page-subtitle {
@@ -105,6 +112,10 @@ useHead({
 
   @include respond-to('md') {
     font-size: $font-size-xl;
+  }
+
+  &--light {
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -135,9 +146,24 @@ useHead({
   }
 
   &--active {
-    background-color: $color-secondary;
-    border-color: $color-secondary;
-    color: $color-white;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  margin-top: $spacing-12;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

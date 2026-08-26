@@ -16,7 +16,7 @@
             :image="post.image"
             :title="post.title[locale]"
             :description="post.excerpt[locale]"
-            :badge="post.category"
+            :badge="$t(`blog.${post.category}`)"
             class="scroll-reveal"
           />
         </div>
@@ -61,5 +61,9 @@ useHead({
   font-weight: $font-weight-bold;
   color: var(--color-primary);
   margin-bottom: $spacing-4;
+
+  @include respond-to('md') {
+    font-size: $font-size-5xl;
+  }
 }
 </style>

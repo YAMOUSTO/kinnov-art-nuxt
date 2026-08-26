@@ -76,7 +76,7 @@
           </div>
 
           <!-- Artist Management -->
-          <div class="service-card scroll-reveal" style="transition-delay: 100ms;">
+          <div class="service-card scroll-reveal service-card--delay-1">
              <div class="service-card__icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
@@ -85,7 +85,7 @@
           </div>
 
           <!-- Audiovisual -->
-          <div class="service-card scroll-reveal" style="transition-delay: 200ms;">
+          <div class="service-card scroll-reveal service-card--delay-2">
              <div class="service-card__icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
             </div>
@@ -94,7 +94,7 @@
           </div>
 
           <!-- Talent Discovery -->
-          <div class="service-card scroll-reveal" style="transition-delay: 300ms;">
+          <div class="service-card scroll-reveal service-card--delay-3">
              <div class="service-card__icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             </div>
@@ -114,7 +114,7 @@
             {{ $t('common.viewAll') }}
           </Button>
         </div>
-        <div class="grid grid-cols-3" style="margin-top: 3rem;">
+        <div class="featured-grid">
           <Card 
             v-for="project in featuredProjects" 
             :key="project.id"
@@ -138,7 +138,7 @@
             {{ $t('common.viewAll') }}
           </Button>
         </div>
-        <div class="grid grid-cols-3" style="margin-top: 3rem;">
+        <div class="artists-grid">
           <Card 
             v-for="artist in featuredArtists" 
             :key="artist.id"
@@ -162,7 +162,7 @@
             {{ $t('common.viewAll') }}
           </Button>
         </div>
-        <div class="grid grid-cols-3" style="margin-top: 3rem;">
+        <div class="audiovisual-grid">
           <MediaCard 
             v-for="project in audiovisualProjects" 
             :key="project.id"
@@ -187,7 +187,7 @@
             {{ $t('common.viewAll') }}
           </Button>
         </div>
-        <div class="grid grid-cols-2" style="margin-top: 3rem; gap: 2rem;">
+        <div class="news-grid">
           <HorizontalCard 
             v-for="post in latestPosts" 
             :key="post.id"
@@ -207,8 +207,8 @@
     <!-- Location CTA -->
     <Section class="section--cta" bg="primary">
       <div class="container text-center scroll-reveal">
-        <h2 class="section-title" style="color: var(--color-accent); margin-bottom: 1rem;">{{ $t('about.location') }}</h2>
-        <p class="lead" style="color: var(--color-white); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+        <h2 class="section-title cta-title">{{ $t('about.location') }}</h2>
+        <p class="lead cta-text">
           Nongo, Conakry, Guinée. {{ $t('home.heroSubtitle') }}
         </p>
         <Button variant="accent" size="lg" :to="localePath('/contact')">
@@ -264,7 +264,7 @@ useHead({
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(46, 64, 87, 0.9), rgba(255, 107, 107, 0.8)); // Hardcoded RGB for overlay transparency
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.85), rgba(0, 0, 0, 0.9));
     z-index: 1;
   }
 
@@ -542,5 +542,50 @@ useHead({
   font-size: $font-size-lg;
   color: var(--color-text-muted);
   max-width: 600px;
+}
+
+.featured-grid,
+.artists-grid,
+.audiovisual-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  margin-top: $spacing-12;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  margin-top: $spacing-12;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.service-card--delay-1 { transition-delay: 100ms; }
+.service-card--delay-2 { transition-delay: 200ms; }
+.service-card--delay-3 { transition-delay: 300ms; }
+
+.cta-title {
+  color: var(--color-accent);
+  margin-bottom: $spacing-4;
+}
+
+.cta-text {
+  color: var(--color-white);
+  margin-bottom: $spacing-8;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

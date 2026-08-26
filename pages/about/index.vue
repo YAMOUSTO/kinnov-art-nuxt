@@ -2,8 +2,8 @@
   <div class="about-page">
     <Section bg="primary" padding="md">
       <div class="text-center">
-        <h1 class="page-title" style="color: var(--color-accent);">{{ $t('about.title') }}</h1>
-        <p class="page-subtitle" style="color: rgba(255, 255, 255, 0.9);">{{ $t('about.subtitle') }}</p>
+        <h1 class="page-title page-title--accent">{{ $t('about.title') }}</h1>
+        <p class="page-subtitle page-subtitle--light">{{ $t('about.subtitle') }}</p>
       </div>
     </Section>
 
@@ -13,9 +13,7 @@
         <h2 class="section-title">{{ $t('about.missionTitle') }}</h2>
         <p class="lead">{{ $t('about.missionText') }}</p>
         <p class="body-text">
-          Depuis notre création, nous nous engageons à fournir un espace où la créativité peut s'épanouir. 
-          Notre atelier situé à Nongo, face à la Mosquée Bilal Mansour Fadiga, est devenu un hub pour les 
-          artistes, designers et créateurs de toute la Guinée.
+          {{ $t('about.missionBody') }}
         </p>
       </div>
     </Section>
@@ -23,7 +21,7 @@
     <!-- Team -->
     <Section bg="gray">
       <h2 class="section-title text-center scroll-reveal">{{ $t('about.teamTitle') }}</h2>
-      <div class="grid grid-cols-3" style="margin-top: 3rem;">
+      <div class="team-grid">
         <Card 
           v-for="member in teamMembers" 
           :key="member.id"
@@ -47,7 +45,10 @@
             class="map-image"
           />
           <div class="map-marker">
-            <div class="marker-pin">📍</div>
+            <svg class="marker-pin" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
             <span class="marker-text">Kinnov'art Nongo</span>
           </div>
         </div>
@@ -95,6 +96,10 @@ useHead({
   @include respond-to('md') {
     font-size: $font-size-5xl;
   }
+
+  &--accent {
+    color: var(--color-accent);
+  }
 }
 
 .page-subtitle {
@@ -104,6 +109,10 @@ useHead({
 
   @include respond-to('md') {
     font-size: $font-size-xl;
+  }
+
+  &--light {
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -146,6 +155,21 @@ useHead({
   height: 400px;
 }
 
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  margin-top: $spacing-12;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .map-image {
   width: 100%;
   height: 100%;
@@ -163,8 +187,8 @@ useHead({
 }
 
 .marker-pin {
-  font-size: $font-size-5xl;
-  filter: drop-shadow(0 4px 8px rgba($color-black, 0.3));
+  color: var(--color-accent);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .marker-text {

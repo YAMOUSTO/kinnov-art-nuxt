@@ -29,6 +29,7 @@
         "search": "Search...",
         "readMore": "Read more",
         "news": "News",
+        "tutorial": "Tutorials",
         "tutorials": "Tutorials",
         "events": "Events",
         "viewAll": "View All Posts"
@@ -41,6 +42,7 @@
         "team": "Team",
         "missionTitle": "Our Commitment",
         "missionText": "Kinnov'art merges furniture design, artist management, and AV production to empower creative youth in Guinea.",
+        "missionBody": "Since our creation, we have been committed to providing a space where creativity can flourish. Our workshop located in Nongo, opposite the Bilal Mansour Fadiga Mosque, has become a hub for artists, designers, and creators from across Guinea.",
         "teamTitle": "The Heart of Kinnov'art",
         "location": "Find us in Nongo, Maison des Jeunes, opposite Bilal Mansour Fadiga Mosque."
     },
@@ -51,6 +53,7 @@
         "email": "Email",
         "message": "Message",
         "send": "Send",
+        "successMessage": "Message sent successfully! We will get back to you soon.",
         "address": "Address",
         "phone": "Phone",
         "directEmail": "Direct Email",
@@ -75,8 +78,9 @@
     },
     "footer": {
         "newsletter": "Stay Updated",
+        "newsletterDesc": "Subscribe to our newsletter for the latest news and updates.",
         "subscribe": "Subscribe",
-        "rights": "© 2024 Kinnov'art. All rights reserved.",
+        "rights": "© 2026 Kinnov'art. All rights reserved.",
         "quickLinks": "Quick Links",
         "followUs": "Follow Us",
         "emailPlaceholder": "Your email"

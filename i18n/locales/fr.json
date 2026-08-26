@@ -29,6 +29,7 @@
         "search": "Rechercher...",
         "readMore": "Lire plus",
         "news": "Actualités",
+        "tutorial": "Tutoriels",
         "tutorials": "Tutoriels",
         "events": "Événements",
         "viewAll": "Voir tous les articles"
@@ -41,6 +42,7 @@
         "team": "Équipe",
         "missionTitle": "Notre Engagement",
         "missionText": "Kinnov'art fusionne le design de mobilier, la gestion d'artistes et la production audiovisuelle pour propulser la jeunesse créative de Guinée.",
+        "missionBody": "Depuis notre création, nous nous engageons à fournir un espace où la créativité peut s'épanouir. Notre atelier situé à Nongo, face à la Mosquée Bilal Mansour Fadiga, est devenu un hub pour les artistes, designers et créateurs de toute la Guinée.",
         "teamTitle": "Le Cœur de Kinnov'art",
         "location": "Retrouvez-nous à Nongo, à la Maison des Jeunes, en face à la Mosquée Bilal Fadiga."
     },
@@ -51,6 +53,7 @@
         "email": "Email",
         "message": "Message",
         "send": "Envoyer",
+        "successMessage": "Message envoyé avec succès ! Nous vous répondrons bientôt.",
         "address": "Adresse",
         "phone": "Téléphone",
         "directEmail": "Email Direct",
@@ -75,8 +78,9 @@
     },
     "footer": {
         "newsletter": "Restez informé",
+        "newsletterDesc": "Abonnez-vous à notre newsletter pour les dernières actualités.",
         "subscribe": "S'abonner",
-        "rights": "© 2024 Kinnov'art. Tous droits réservés.",
+        "rights": "© 2026 Kinnov'art. Tous droits réservés.",
         "quickLinks": "Liens Rapides",
         "followUs": "Suivez-nous",
         "emailPlaceholder": "Votre email"

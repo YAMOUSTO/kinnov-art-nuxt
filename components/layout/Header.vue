@@ -20,7 +20,7 @@
 
             <!-- Gallery Dropdown -->
             <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('gallery')" @mouseleave="closeDropdown">
-              <button class="header__link header__link--dropdown" @click="toggleDropdown('gallery')">
+              <button class="header__link header__link--dropdown" @click="toggleDropdown('gallery')" :aria-expanded="activeDropdown === 'gallery'">
                 {{ $t('nav.gallery') }}
                 <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'gallery' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -44,7 +44,7 @@
 
             <!-- Artists Dropdown -->
             <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('artists')" @mouseleave="closeDropdown">
-              <button class="header__link header__link--dropdown" @click="toggleDropdown('artists')">
+              <button class="header__link header__link--dropdown" @click="toggleDropdown('artists')" :aria-expanded="activeDropdown === 'artists'">
                 {{ $t('nav.artists') }}
                 <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'artists' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -68,7 +68,7 @@
 
             <!-- Blog Dropdown -->
             <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('blog')" @mouseleave="closeDropdown">
-              <button class="header__link header__link--dropdown" @click="toggleDropdown('blog')">
+              <button class="header__link header__link--dropdown" @click="toggleDropdown('blog')" :aria-expanded="activeDropdown === 'blog'">
                 {{ $t('nav.blog') }}
                 <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'blog' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -92,7 +92,7 @@
 
             <!-- About Dropdown -->
             <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('about')" @mouseleave="closeDropdown">
-              <button class="header__link header__link--dropdown" @click="toggleDropdown('about')">
+              <button class="header__link header__link--dropdown" @click="toggleDropdown('about')" :aria-expanded="activeDropdown === 'about'">
                 {{ $t('nav.about') }}
                 <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'about' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -378,13 +378,9 @@ onUnmounted(() => {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease-in-out;
-      background: var(--color-gray-50); // Slight contrast
+      background: var(--color-gray-50);
       box-shadow: none;
       text-align: left;
-      margin-left: -$spacing-8; // Bleed to edges if needed, or keep contained
-      margin-right: -$spacing-8;
-      padding-left: $spacing-8;
-      padding-right: $spacing-8;
       
       &--open {
         max-height: 500px;

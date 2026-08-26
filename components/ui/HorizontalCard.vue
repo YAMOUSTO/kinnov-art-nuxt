@@ -37,7 +37,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   to: '#',
-  actionText: 'Lire Plus'
+  actionText: 'View More'
 })
 </script>
 
@@ -45,7 +45,7 @@ withDefaults(defineProps<Props>(), {
 .h-card {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-white);
+  background-color: var(--color-surface);
   border-radius: $radius-xl;
   overflow: hidden;
   box-shadow: $shadow-md;
@@ -108,14 +108,7 @@ withDefaults(defineProps<Props>(), {
   }
 
   &__category {
-    color: var(--color-accent); // Or a specific red like in screenshot? Using project accent.
-    // Screenshot has red text "EVENTS". If accent is yellow, might need an override. 
-    // Assuming project secondary color (often red/orange in standard themes) or text-muted.
-    // Let's use color-secondary for now to be distinct.
-    color: #FF6B6B; // Hardcoded to match screenshot vibe if variables don't match, but better to use var.
-    // Let's stick to var(--color-secondary) or similar if defined. 
-    // Variables have: primary, secondary, accent. 
-    color: var(--color-secondary); 
+    color: var(--color-accent);
   }
 
   &__date {

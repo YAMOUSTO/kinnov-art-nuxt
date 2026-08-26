@@ -2,8 +2,8 @@
   <div class="contact-page">
     <Section bg="primary" padding="md">
       <div class="text-center">
-        <h1 class="page-title" style="color: var(--color-accent);">{{ $t('contact.title') }}</h1>
-        <p class="page-subtitle" style="color: rgba(255, 255, 255, 0.9);">{{ $t('contact.subtitle') }}</p>
+        <h1 class="page-title page-title--accent">{{ $t('contact.title') }}</h1>
+        <p class="page-subtitle page-subtitle--light">{{ $t('contact.subtitle') }}</p>
       </div>
     </Section>
 
@@ -89,6 +89,7 @@
             <Button type="submit" variant="secondary" size="lg" block :loading="isSubmitting">
               {{ $t('contact.send') }}
             </Button>
+            <p v-if="submitSuccess" class="form-success">{{ $t('contact.successMessage') }}</p>
           </form>
         </div>
       </div>
@@ -103,8 +104,11 @@
           class="map-bg"
         />
         <div class="map-overlay">
-          <div class="map-marker">
-            <div class="marker-pin">📍</div>
+            <div class="map-marker">
+              <svg class="marker-pin" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
             <span class="marker-text">Kinnov'art Nongo</span>
           </div>
         </div>
@@ -123,23 +127,22 @@ const form = reactive({
 })
 
 const isSubmitting = ref(false)
+const submitSuccess = ref(false)
 
 const handleSubmit = async () => {
   isSubmitting.value = true
+  submitSuccess.value = false
   
-  // Simulate form submission
   await new Promise(resolve => setTimeout(resolve, 1500))
   
-  console.log('Form submitted:', form)
-  
-  // Reset form
   form.name = ''
   form.email = ''
   form.message = ''
   
   isSubmitting.value = false
+  submitSuccess.value = true
   
-  alert('Message envoyé avec succès!')
+  setTimeout(() => { submitSuccess.value = false }, 5000)
 }
 
 useHead({
@@ -159,6 +162,10 @@ useHead({
   @include respond-to('md') {
     font-size: $font-size-5xl;
   }
+
+  &--accent {
+    color: var(--color-accent);
+  }
 }
 
 .page-subtitle {
@@ -168,6 +175,10 @@ useHead({
 
   @include respond-to('md') {
     font-size: $font-size-xl;
+  }
+
+  &--light {
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -254,6 +265,18 @@ useHead({
   }
 }
 
+.form-success {
+  margin-top: $spacing-4;
+  padding: $spacing-3 $spacing-4;
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  text-align: center;
+}
+
 .map-section {
   position: relative;
   height: 400px;
@@ -282,8 +305,8 @@ useHead({
 }
 
 .marker-pin {
-  font-size: $font-size-5xl;
-  filter: drop-shadow(0 4px 8px rgba($color-black, 0.3));
+  color: var(--color-accent);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .marker-text {

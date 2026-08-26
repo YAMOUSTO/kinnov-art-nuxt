@@ -16,10 +16,6 @@
     --color-accent-light: #dc2626;
     --color-accent-dark: #991b1b;
 
-    --color-accent-yellow: #FFD700; // Gold Accent
-    --color-accent-yellow-light: #ffe44d;
-    --color-accent-yellow-dark: #ccac00;
-
     // Background & Text - Minimalist Gallery
     --color-background: #FFFFFF; // Pure White
     --color-surface: #FDFDFD;
@@ -31,6 +27,7 @@
     --color-black: #000000;
 
     // Grays (Scale)
+    --color-gray-50: #F9FAFB;
     --color-gray-100: #F8F9FA;
     --color-gray-200: #E9ECEF;
     --color-gray-300: #DEE2E6;
@@ -69,9 +66,14 @@
     // Note: --color-white remains #FFFFFF for text on buttons etc.
 
     // Grays - Inverted for dark mode surfaces/borders
+    --color-gray-50: #1A1A1A;
     --color-gray-100: #1E1E1E;
     --color-gray-200: #2D2D2D;
     --color-gray-300: #404040;
+    --color-gray-400: #555555;
+    --color-gray-500: #6B6B6B;
+    --color-gray-600: #999999;
+    --color-gray-700: #BBBBBB;
     --color-gray-800: #E0E0E0;
     --color-gray-900: #F5F5F5;
 

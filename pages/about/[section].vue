@@ -43,7 +43,7 @@
             <p class="mb-8">
               Une équipe passionnée et diversifiée, unie par la volonté de créer et d'innover.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="team-grid">
               <div class="team-member">
                 <div class="team-member__image-wrapper">
                    <img src="https://i.pravatar.cc/300?u=director" alt="Directeur" class="team-member__image" />
@@ -104,6 +104,10 @@ useHead({
   font-weight: $font-weight-bold;
   color: var(--color-primary);
   margin-bottom: $spacing-4;
+
+  @include respond-to('md') {
+    font-size: $font-size-5xl;
+  }
 }
 
 .content-wrapper {
@@ -139,10 +143,17 @@ useHead({
 }
 
 // Team Grid - More space
-.grid {
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: $spacing-6;
   
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
     gap: $spacing-8;
   }
 }

@@ -2,8 +2,8 @@
   <div class="blog-page">
     <Section bg="primary" padding="md">
       <div class="text-center">
-        <h1 class="page-title" style="color: var(--color-accent);">{{ $t('blog.title') }}</h1>
-        <p class="page-subtitle" style="color: rgba(255, 255, 255, 0.9);">{{ $t('blog.subtitle') }}</p>
+        <h1 class="page-title page-title--accent">{{ $t('blog.title') }}</h1>
+        <p class="page-subtitle page-subtitle--light">{{ $t('blog.subtitle') }}</p>
       </div>
     </Section>
 
@@ -30,7 +30,7 @@
       </div>
 
       <!-- Blog Posts Grid -->
-      <div class="grid grid-cols-3" style="margin-top: 3rem;">
+      <div class="blog-grid">
         <Card 
           v-for="post in filteredPosts" 
           :key="post.id"
@@ -66,7 +66,7 @@ const activeCategory = ref('all')
 const categories = [
   { value: 'all', label: 'gallery.all' },
   { value: 'news', label: 'blog.news' },
-  { value: 'tutorial', label: 'blog.tutorials' },
+  { value: 'tutorial', label: 'blog.tutorial' },
   { value: 'event', label: 'blog.events' }
 ]
 
@@ -110,6 +110,10 @@ useHead({
   @include respond-to('md') {
     font-size: $font-size-5xl;
   }
+
+  &--accent {
+    color: var(--color-accent);
+  }
 }
 
 .page-subtitle {
@@ -119,6 +123,10 @@ useHead({
 
   @include respond-to('md') {
     font-size: $font-size-xl;
+  }
+
+  &--light {
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -171,9 +179,24 @@ useHead({
   }
 
   &--active {
-    background-color: $color-secondary;
-    border-color: $color-secondary;
-    color: $color-white;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  margin-top: $spacing-12;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

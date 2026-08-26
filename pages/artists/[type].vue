@@ -61,5 +61,9 @@ useHead({
   font-weight: $font-weight-bold;
   color: var(--color-primary);
   margin-bottom: $spacing-4;
+
+  @include respond-to('md') {
+    font-size: $font-size-5xl;
+  }
 }
 </style>

@@ -5,12 +5,12 @@
     class="card" 
     :class="{ 'card--hover': hover, 'card--link': to }"
   >
-    <div v-if="image" class="card__image">
+    <div v-if="image" class="card__image-wrapper">
       <NuxtImg 
         :src="image" 
         :alt="imageAlt || title"
         loading="lazy"
-        class="card__img"
+        class="card__image"
       />
       <div v-if="badge" class="card__badge">{{ badge }}</div>
     </div>

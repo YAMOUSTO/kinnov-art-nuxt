@@ -29,8 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 interface Props {
   variant?: 'primary' | 'secondary' | 'accent' | 'outline'
   size?: 'sm' | 'md' | 'lg'
@@ -49,8 +47,6 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   block: false
 })
-
-const tag = computed(() => props.to ? 'NuxtLink' : 'button')
 </script>
 
 <style lang="scss" scoped>

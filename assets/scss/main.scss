@@ -21,7 +21,6 @@
 
 html {
     font-size: 16px;
-    scroll-behavior: smooth;
 }
 
 body {
@@ -34,11 +33,6 @@ body {
 
 // Selection
 ::selection {
-    background-color: $color-secondary;
-    color: $color-white;
-}
-
-::-moz-selection {
     background-color: $color-secondary;
     color: $color-white;
 }

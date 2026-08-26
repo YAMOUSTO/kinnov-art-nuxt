@@ -1,12 +1,15 @@
 // Scroll Animation Composable
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, nextTick } from 'vue'
 
 export const useScrollAnimation = () => {
     let observer: IntersectionObserver | null = null
 
     const initScrollAnimation = () => {
-        const elements = document.querySelectorAll('.scroll-reveal')
+        if (observer) {
+            observer.disconnect()
+        }
 
+        const elements = document.querySelectorAll('.scroll-reveal:not(.is-visible)')
         if (!elements.length) return
 
         observer = new IntersectionObserver(
@@ -14,6 +17,7 @@ export const useScrollAnimation = () => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible')
+                        observer?.unobserve(entry.target)
                     }
                 })
             },
@@ -34,8 +38,7 @@ export const useScrollAnimation = () => {
     }
 
     onMounted(() => {
-        // Delay to ensure DOM is ready
-        setTimeout(initScrollAnimation, 100)
+        nextTick(initScrollAnimation)
     })
 
     onUnmounted(() => {

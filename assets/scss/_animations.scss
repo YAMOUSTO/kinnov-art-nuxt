@@ -25,42 +25,6 @@
     }
 }
 
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
 @keyframes slideUp {
     from {
         transform: translateY(20px);
@@ -82,18 +46,6 @@
     to {
         opacity: 1;
         transform: scale(1);
-    }
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.7;
     }
 }
 
@@ -119,44 +71,14 @@
     }
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
-    }
-
-    100% {
-        background-position: 1000px 0;
-    }
-}
-
 // Animation Utility Classes
 // ========================================
-.fade-in {
-    animation: fadeIn $transition-slow $easing-out;
-}
-
 .fade-in-up {
     animation: fadeInUp $transition-slow $easing-out;
 }
 
-.fade-in-down {
-    animation: fadeInDown $transition-slow $easing-out;
-}
-
-.slide-in-left {
-    animation: slideInLeft $transition-slow $easing-out;
-}
-
-.slide-in-right {
-    animation: slideInRight $transition-slow $easing-out;
-}
-
 .scale-in {
     animation: scaleIn $transition-slow $easing-out;
-}
-
-.pulse {
-    animation: pulse 2s $easing-in-out infinite;
 }
 
 .bounce {
@@ -197,14 +119,6 @@
     }
 }
 
-.hover-rotate {
-    transition: transform $transition-base $easing-in-out;
-
-    &:hover {
-        transform: rotate(5deg);
-    }
-}
-
 .hover-glow {
     transition: box-shadow $transition-base $easing-in-out;
 
@@ -236,9 +150,6 @@
 html {
     scroll-behavior: smooth;
 }
-
-// Loading Spinner
-// ========================================
 .spinner {
     width: 40px;
     height: 40px;
