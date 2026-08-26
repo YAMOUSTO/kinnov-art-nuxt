@@ -43,25 +43,25 @@
             </li>
 
             <!-- Artists Dropdown -->
-            <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('artists')" @mouseleave="closeDropdown">
-              <button class="header__link header__link--dropdown" @click="toggleDropdown('artists')" :aria-expanded="activeDropdown === 'artists'">
-                {{ $t('nav.artists') }}
-                <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'artists' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
+            <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('creators')" @mouseleave="closeDropdown">
+              <button class="header__link header__link--dropdown" @click="toggleDropdown('creators')" :aria-expanded="activeDropdown === 'creators'">
+                {{ $t('nav.creators') }}
+                <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'creators' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'artists' }">
-                <NuxtLink :to="localePath('/artists')" class="header__dropdown-link" @click="closeMobileMenu">
-                  {{ $t('nav.artists') }}
+              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'creators' }">
+                <NuxtLink :to="localePath('/creators')" class="header__dropdown-link" @click="closeMobileMenu">
+                  {{ $t('nav.creators') }}
                 </NuxtLink>
-                <NuxtLink :to="localePath('/artists/featured')" class="header__dropdown-link" @click="closeMobileMenu">
-                  {{ $t('artists.featured') }}
+                <NuxtLink :to="localePath('/creators/featured')" class="header__dropdown-link" @click="closeMobileMenu">
+                  {{ $t('creators.featured') }}
                 </NuxtLink>
-                <NuxtLink :to="localePath('/artists/new-talents')" class="header__dropdown-link" @click="closeMobileMenu">
-                  {{ $t('artists.newTalents') }}
+                <NuxtLink :to="localePath('/creators/new-talents')" class="header__dropdown-link" @click="closeMobileMenu">
+                  {{ $t('creators.newTalents') }}
                 </NuxtLink>
-                <NuxtLink :to="localePath('/artists/alumni')" class="header__dropdown-link" @click="closeMobileMenu">
-                  {{ $t('artists.alumni') }}
+                <NuxtLink :to="localePath('/creators/alumni')" class="header__dropdown-link" @click="closeMobileMenu">
+                  {{ $t('creators.alumni') }}
                 </NuxtLink>
               </div>
             </li>

@@ -2,7 +2,7 @@
     "nav": {
         "home": "Home",
         "gallery": "Gallery",
-        "artists": "Artists",
+        "creators": "Creators",
         "blog": "Blog",
         "about": "About",
         "contact": "Contact"
@@ -16,10 +16,10 @@
         "audiovisual": "Audio & Video",
         "viewAll": "View Full Gallery"
     },
-    "artists": {
-        "title": "Our Talents",
+    "creators": {
+        "title": "Our Creators",
         "subtitle": "Discover the creators of tomorrow we support every day",
-        "featured": "Featured Artists",
+        "featured": "Featured Creators",
         "newTalents": "New Talents",
         "alumni": "Alumni"
     },

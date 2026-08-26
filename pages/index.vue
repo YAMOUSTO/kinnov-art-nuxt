@@ -37,7 +37,7 @@
             <div class="intro__stats">
               <div class="stat-item">
                 <span class="stat-number">50+</span>
-                <span class="stat-label">{{ $t('artists.title') }}</span>
+                <span class="stat-label">{{ $t('creators.title') }}</span>
               </div>
               <div class="stat-item">
                 <span class="stat-number">100+</span>
@@ -130,15 +130,15 @@
     </Section>
 
     <!-- Featured Artists -->
-    <Section class="section--artists" bg="gray">
+    <Section class="section--creators" bg="gray">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title scroll-reveal">{{ $t('artists.title') }}</h2>
-          <Button variant="outline" :to="localePath('/artists')">
+          <h2 class="section-title scroll-reveal">{{ $t('creators.title') }}</h2>
+          <Button variant="outline" :to="localePath('/creators')">
             {{ $t('common.viewAll') }}
           </Button>
         </div>
-        <div class="artists-grid">
+        <div class="creators-grid">
           <Card 
             v-for="artist in featuredArtists" 
             :key="artist.id"
@@ -146,7 +146,7 @@
             :title="artist.name"
             :description="artist.bio[locale]"
             :badge="artist.specialty"
-            :to="localePath(`/artists`)"
+            :to="localePath(`/creators`)"
             class="scroll-reveal"
           />
         </div>
@@ -545,7 +545,7 @@ useHead({
 }
 
 .featured-grid,
-.artists-grid,
+.creators-grid,
 .audiovisual-grid {
   display: grid;
   grid-template-columns: 1fr;

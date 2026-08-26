@@ -1,9 +1,9 @@
 <template>
-  <div class="artists-page">
+  <div class="creators-page">
     <Section bg="primary" padding="md">
       <div class="text-center">
-        <h1 class="page-title page-title--accent">{{ $t('artists.title') }}</h1>
-        <p class="page-subtitle page-subtitle--light">{{ $t('artists.subtitle') }}</p>
+        <h1 class="page-title page-title--accent">{{ $t('creators.title') }}</h1>
+        <p class="page-subtitle page-subtitle--light">{{ $t('creators.subtitle') }}</p>
       </div>
     </Section>
 
@@ -22,7 +22,7 @@
       </div>
 
       <!-- Artists Grid -->
-      <div class="artists-grid">
+      <div class="creators-grid">
         <Card 
           v-for="artist in filteredArtists" 
           :key="artist.id"
@@ -47,9 +47,9 @@ const activeType = ref('all')
 
 const artistTypes = [
   { value: 'all', label: 'gallery.all' },
-  { value: 'featured', label: 'artists.featured' },
-  { value: 'new', label: 'artists.newTalents' },
-  { value: 'alumni', label: 'artists.alumni' }
+  { value: 'featured', label: 'creators.featured' },
+  { value: 'new', label: 'creators.newTalents' },
+  { value: 'alumni', label: 'creators.alumni' }
 ]
 
 const filteredArtists = computed(() => getArtistsByType(activeType.value))
@@ -123,7 +123,7 @@ useHead({
     color: var(--color-white);
   }
 }
-.artists-grid {
+.creators-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: $spacing-6;
