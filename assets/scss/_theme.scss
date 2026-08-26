@@ -1,0 +1,81 @@
+// ========================================
+// THEME - KINNOV'ART
+// ========================================
+
+:root {
+    // Brand Colors
+    --color-primary: #D4AF37; // Classic Gold
+    --color-primary-light: #e4c56e;
+    --color-primary-dark: #b8952b;
+
+    --color-secondary: #000000; // Pure Black
+    --color-secondary-light: #333333;
+    --color-secondary-dark: #000000;
+
+    --color-accent: #B91C1C; // Deep Red (Muted)
+    --color-accent-light: #dc2626;
+    --color-accent-dark: #991b1b;
+
+    --color-accent-yellow: #FFD700; // Gold Accent
+    --color-accent-yellow-light: #ffe44d;
+    --color-accent-yellow-dark: #ccac00;
+
+    // Background & Text - Minimalist Gallery
+    --color-background: #FFFFFF; // Pure White
+    --color-surface: #FDFDFD;
+    --color-text: #000000; // Pure Black
+    --color-text-muted: #4B5563;
+
+    // Neutrals (Static)
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+
+    // Grays (Scale)
+    --color-gray-100: #F8F9FA;
+    --color-gray-200: #E9ECEF;
+    --color-gray-300: #DEE2E6;
+    --color-gray-400: #CED4DA;
+    --color-gray-500: #ADB5BD;
+    --color-gray-600: #6C757D;
+    --color-gray-700: #495057;
+    --color-gray-800: #343A40;
+    --color-gray-900: #212529;
+
+    // UI Elements
+    --border-color: #DEE2E6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+// Dark Mode Overrides
+[data-theme="dark"] {
+    // Brand Colors - Adjusted for dark mode
+    --color-primary: #f0d588;
+    --color-primary-light: #f5e4b3;
+    --color-primary-dark: #D4AF37;
+
+    --color-secondary: #FFFFFF; // Pure White for dark mode
+    --color-secondary-light: #F3F4F6;
+    --color-secondary-dark: #D1D5DB;
+
+    --color-accent: #ef4444;
+    --color-accent-light: #f87171;
+    --color-accent-dark: #b91c1c;
+
+    // Background & Text - Minimalist Dark
+    --color-background: #0A0A0A; // Rich Ebony
+    --color-surface: #121212;
+    --color-text: #FAFAFA;
+    --color-text-muted: #9CA3AF;
+    // Note: --color-white remains #FFFFFF for text on buttons etc.
+
+    // Grays - Inverted for dark mode surfaces/borders
+    --color-gray-100: #1E1E1E;
+    --color-gray-200: #2D2D2D;
+    --color-gray-300: #404040;
+    --color-gray-800: #E0E0E0;
+    --color-gray-900: #F5F5F5;
+
+    // UI Elements
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+}

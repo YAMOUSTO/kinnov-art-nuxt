@@ -2,14 +2,12 @@
 // MAIN SCSS - KINNOV'ART
 // ========================================
 
-// Import Variables and Mixins (imported globally in nuxt.config)
-// These are available in all components without explicit import
-// @use "variables" as *;
-// @use "mixins" as *;
-
-// Import Partials
-@import 'typography';
-@import 'animations';
+// Import Partials using modern Sass @use
+@use "theme";
+@use "variables" as *;
+@use "mixins" as *;
+@use "typography";
+@use "animations";
 
 // Global Styles
 // ========================================

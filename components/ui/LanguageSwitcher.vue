@@ -30,30 +30,31 @@ const switchLanguage = (code: string) => {
 <style lang="scss" scoped>
 .lang-switcher {
   display: flex;
-  gap: $spacing-2;
-  background-color: $color-gray-100;
-  padding: $spacing-1;
-  border-radius: $radius-full;
+  background-color: var(--color-gray-200);
+  padding: 4px;
+  border-radius: $radius-lg;
+  border: 1px solid var(--border-color);
 
   &__button {
-    padding: $spacing-2 $spacing-4;
+    padding: $spacing-1 $spacing-3;
     font-family: $font-heading;
     font-size: $font-size-xs;
     font-weight: $font-weight-bold;
-    color: $color-gray-600;
+    color: var(--color-text-muted);
     background-color: transparent;
     border: none;
-    border-radius: $radius-full;
+    border-radius: $radius-md;
     cursor: pointer;
     transition: all $transition-base $easing-in-out;
 
     &:hover {
-      color: $color-primary;
+      color: var(--color-primary);
     }
 
     &--active {
-      background-color: $color-primary;
-      color: $color-white;
+      background-color: var(--color-white);
+      color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
     }
   }
 }

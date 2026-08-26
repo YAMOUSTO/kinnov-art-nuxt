@@ -41,10 +41,10 @@ export const useProjects = () => {
         },
         {
             id: 'av1',
-            title: { fr: 'Rythmes de Nongo', en: 'Nongo Rhythms' },
+            title: { fr: 'Court Métrage Culturel', en: 'Cultural Short Film' },
             category: 'audiovisual',
-            image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800',
-            description: { fr: 'Production vidéo d\'un concert live à la Maison des Jeunes.', en: 'Video production of a live concert at Maison des Jeunes.' },
+            image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=800',
+            description: { fr: 'Réalisation d\'un court-métrage sur la culture guinéenne.', en: 'Production of a short film about Guinean culture.' },
             featured: true
         },
         {
@@ -174,8 +174,8 @@ export const useArtists = () => {
             name: 'Alpha Condé',
             type: 'alumni',
             image: 'https://i.pravatar.cc/300?u=alpha',
-            bio: { fr: 'Producteur musical et ingénieur du son.', en: 'Music producer and sound engineer.' },
-            specialty: 'Music Production'
+            bio: { fr: 'Monteur vidéo et coloriste passionné.', en: 'Passionate video editor and colorist.' },
+            specialty: 'Video Editing'
         }
     ]
 

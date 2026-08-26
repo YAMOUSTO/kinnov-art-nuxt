@@ -13,7 +13,8 @@
         "all": "All",
         "furniture": "Furniture Design",
         "artProjects": "Art Projects",
-        "audiovisual": "Audio & Video"
+        "audiovisual": "Audio & Video",
+        "viewAll": "View Full Gallery"
     },
     "artists": {
         "title": "Our Talents",
@@ -29,7 +30,8 @@
         "readMore": "Read more",
         "news": "News",
         "tutorials": "Tutorials",
-        "events": "Events"
+        "events": "Events",
+        "viewAll": "View All Posts"
     },
     "about": {
         "title": "About Kinnov'art",
@@ -85,6 +87,7 @@
         "loading": "Loading...",
         "close": "Close",
         "next": "Next",
-        "previous": "Previous"
+        "previous": "Previous",
+        "noResults": "No results found"
     }
 }

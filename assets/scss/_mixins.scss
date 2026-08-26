@@ -1,6 +1,4 @@
-// ========================================
-// MIXINS - KINNOV'ART
-// ========================================
+@use "variables" as *;
 
 // Responsive Breakpoints
 // ========================================
@@ -68,7 +66,6 @@
 }
 
 // Typography Mixins
-// ========================================
 @mixin heading-1 {
     font-family: $font-heading;
     font-size: $font-size-4xl;
@@ -288,6 +285,15 @@
     &:hover {
         transform: scale(1.05);
     }
+}
+
+@mixin spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-gray-200;
+    border-top-color: $color-primary;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
 }
 
 // Overlay Mixin

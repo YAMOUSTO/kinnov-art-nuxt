@@ -1,5 +1,5 @@
 <template>
-  <section class="section" :class="[bgClass, paddingClass]">
+  <section class="section" :class="[bgClass, paddingClass]" v-bind="$attrs">
     <div v-if="container" class="container">
       <slot />
     </div>
@@ -8,6 +8,9 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({
+  inheritAttrs: false
+})
 import { computed } from 'vue'
 
 interface Props {
@@ -28,41 +31,40 @@ const paddingClass = computed(() => props.padding ? `section--padding-${props.pa
 
 <style lang="scss" scoped>
 .section {
-  width: 100%;
+  position: relative;
+  overflow: hidden;
 
+  // Background Variants
   &--bg-white {
-    background-color: $color-white;
+    background-color: var(--color-background);
   }
 
   &--bg-gray {
-    background-color: $color-background;
+    background-color: var(--color-gray-100);
   }
 
   &--bg-primary {
-    background-color: $color-primary;
-    color: $color-white;
+    background-color: var(--color-primary);
+    color: var(--color-white);
   }
 
   &--bg-secondary {
-    background-color: $color-secondary;
-    color: $color-white;
+    background-color: var(--color-secondary);
+    color: var(--color-white);
   }
 
   &--bg-accent {
-    background-color: $color-accent;
-    color: $color-primary;
+    background-color: var(--color-accent);
+    color: var(--color-primary);
   }
 
+  // Padding Variants
   &--padding-none {
     padding: 0;
   }
 
   &--padding-sm {
     padding: $spacing-8 0;
-
-    @include respond-to('md') {
-      padding: $spacing-12 0;
-    }
   }
 
   &--padding-md {
@@ -70,11 +72,7 @@ const paddingClass = computed(() => props.padding ? `section--padding-${props.pa
   }
 
   &--padding-lg {
-    padding: $spacing-20 0;
-
-    @include respond-to('md') {
-      padding: $spacing-24 0;
-    }
+    padding: $spacing-24 0;
 
     @include respond-to('lg') {
       padding: $spacing-32 0;

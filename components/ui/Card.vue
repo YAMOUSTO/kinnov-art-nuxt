@@ -1,5 +1,10 @@
 <template>
-  <div class="card" :class="{ 'card--hover': hover }">
+  <component 
+    :is="to ? 'NuxtLink' : 'div'"
+    v-bind="to ? { to } : {}"
+    class="card" 
+    :class="{ 'card--hover': hover, 'card--link': to }"
+  >
     <div v-if="image" class="card__image">
       <NuxtImg 
         :src="image" 
@@ -17,7 +22,7 @@
     <div v-if="$slots.footer" class="card__footer">
       <slot name="footer" />
     </div>
-  </div>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -28,74 +33,106 @@ interface Props {
   description?: string
   badge?: string
   hover?: boolean
+  to?: string
 }
 
 withDefaults(defineProps<Props>(), {
-  hover: true
+  hover: true,
+  to: undefined
 })
 </script>
 
 <style lang="scss" scoped>
 .card {
   @include card-base;
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-color);
+  color: var(--color-text);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
 
   &--hover {
     @include card-hover;
   }
 
-  &__image {
+  &--link {
+    cursor: pointer;
+  }
+
+  &__image-wrapper {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 10;
+    padding-top: 66.66%; // 3:2 Aspect Ratio
     overflow: hidden;
   }
 
-  &__img {
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform $transition-slow $easing-in-out;
+    transition: transform $transition-slow $easing-out;
+  }
 
-    .card--hover:hover & {
-      transform: scale(1.1);
-    }
+  &:hover &__image {
+    transform: scale(1.05);
   }
 
   &__badge {
     position: absolute;
-    top: $spacing-4;
-    right: $spacing-4;
-    padding: $spacing-2 $spacing-4;
-    background-color: $color-accent;
-    color: $color-primary;
-    font-family: $font-heading;
+    top: $spacing-3;
+    right: $spacing-3;
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    padding: $spacing-1 $spacing-3;
+    border-radius: $radius-full;
     font-size: $font-size-xs;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border-radius: $radius-full;
+    z-index: 1;
+    box-shadow: $shadow-md;
   }
 
   &__content {
-    padding: $spacing-6;
+    padding: $spacing-5;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   &__title {
     font-family: $font-heading;
-    font-size: $font-size-xl;
+    font-size: $font-size-lg;
     font-weight: $font-weight-bold;
-    color: $color-primary;
-    margin-bottom: $spacing-3;
+    color: var(--color-text);
+    margin-bottom: $spacing-2;
+    transition: color $transition-base $easing-in-out;
+  }
+
+  &:hover &__title {
+    color: var(--color-secondary);
   }
 
   &__description {
     font-size: $font-size-sm;
-    color: $color-gray-600;
+    color: var(--color-text-muted);
     line-height: $line-height-relaxed;
+    margin-bottom: $spacing-4;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &__footer {
-    padding: 0 $spacing-6 $spacing-6;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+    padding-top: $spacing-4;
   }
 }
 </style>

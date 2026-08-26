@@ -3,8 +3,10 @@
     <div class="container">
       <div class="header__content">
         <!-- Logo -->
-        <NuxtLink :to="localePath('/')" class="header__logo">
-          <span class="header__logo-text">Kinnov'art</span>
+        <NuxtLink :to="localePath('/')" class="header__logo" aria-label="Kinnov'art">
+          <div class="header__logo-container">
+            <img src="/logo.jpeg" alt="Kinnov'art Logo" class="header__logo-img" />
+          </div>
         </NuxtLink>
 
         <!-- Desktop Navigation -->
@@ -24,7 +26,7 @@
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="header__dropdown" v-show="activeDropdown === 'gallery'">
+              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'gallery' }">
                 <NuxtLink :to="localePath('/gallery')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('gallery.all') }}
                 </NuxtLink>
@@ -48,7 +50,7 @@
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="header__dropdown" v-show="activeDropdown === 'artists'">
+              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'artists' }">
                 <NuxtLink :to="localePath('/artists')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('nav.artists') }}
                 </NuxtLink>
@@ -72,7 +74,7 @@
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="header__dropdown" v-show="activeDropdown === 'blog'">
+              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'blog' }">
                 <NuxtLink :to="localePath('/blog')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('nav.blog') }}
                 </NuxtLink>
@@ -96,7 +98,7 @@
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="header__dropdown" v-show="activeDropdown === 'about'">
+              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'about' }">
                 <NuxtLink :to="localePath('/about')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('nav.about') }}
                 </NuxtLink>
@@ -119,14 +121,26 @@
             </li>
           </ul>
 
-          <!-- Language Switcher -->
-          <LanguageSwitcher class="header__lang-switcher" />
+          <!-- Desktop Switchers (Hidden on Mobile) -->
+          <div class="header__switchers header__switchers--desktop">
+            <ThemeSwitcher />
+            <LanguageSwitcher />
+          </div>
         </nav>
 
-        <!-- Mobile Menu Toggle -->
-        <button class="header__mobile-toggle" @click="toggleMobileMenu" :aria-label="mobileMenuOpen ? 'Close menu' : 'Open menu'">
-          <span class="header__hamburger" :class="{ 'header__hamburger--open': mobileMenuOpen }"></span>
-        </button>
+        <!-- Group for Top Right Actions -->
+        <div class="header__actions">
+          <!-- Switchers (Mobile: Top Right, Desktop: Hidden) -->
+          <div class="header__switchers header__switchers--mobile">
+               <ThemeSwitcher />
+               <LanguageSwitcher />
+          </div>
+
+          <!-- Mobile Menu Toggle -->
+          <button class="header__mobile-toggle" @click="toggleMobileMenu" :aria-label="mobileMenuOpen ? 'Close menu' : 'Open menu'">
+            <span class="header__hamburger" :class="{ 'header__hamburger--open': mobileMenuOpen }"></span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -193,51 +207,74 @@ onUnmounted(() => {
   position: sticky;
   top: 0;
   z-index: $z-index-sticky;
-  background-color: $color-white;
-  transition: box-shadow $transition-base $easing-in-out;
+  background-color: var(--color-surface);
+  transition: all $transition-base $easing-in-out;
+  border-bottom: 1px solid transparent;
 
   &--scrolled {
     box-shadow: $shadow-md;
+    border-color: var(--border-color);
   }
 
   &__content {
     @include flex-between;
     padding: $spacing-4 0;
+    position: relative;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
   }
 
   &__logo {
     text-decoration: none;
-    z-index: $z-index-sticky + 1;
+    z-index: $z-index-fixed + 20;
+    display: block;
+    max-width: 240px;
+
+    @media (max-width: ($breakpoint-lg - 1px)) {
+      max-width: 180px;
+    }
   }
 
-  &__logo-text {
-    font-family: $font-heading;
-    font-size: $font-size-2xl;
-    font-weight: $font-weight-bold;
-    background: linear-gradient(135deg, $color-primary, $color-secondary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  &__logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__logo-img {
+    width: 100%;
+    height: auto;
+    max-height: 64px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  &__logo-slogan {
+    display: none;
   }
 
   &__nav {
     @include flex-between;
-    gap: $spacing-8;
+    gap: $spacing-2;
 
-    @media (max-width: $breakpoint-lg - 1px) {
+    @media (max-width: ($breakpoint-lg - 1px)) {
       position: fixed;
       top: 0;
       right: 0;
       width: 100%;
-      max-width: 400px;
       height: 100vh;
-      background-color: $color-white;
+      background-color: var(--color-background);
       flex-direction: column;
-      align-items: flex-start;
-      padding: $spacing-20 $spacing-6 $spacing-6;
+      align-items: flex-start; // Left aligned
+      justify-content: flex-start; // Start from top
+      padding: $spacing-24 $spacing-8 $spacing-8; // Extra top padding for header area
       transform: translateX(100%);
       transition: transform $transition-base $easing-in-out;
-      box-shadow: $shadow-2xl;
+      z-index: $z-index-fixed;
       overflow-y: auto;
 
       &--open {
@@ -248,21 +285,23 @@ onUnmounted(() => {
 
   &__menu {
     @include flex-start;
-    gap: $spacing-2;
+    gap: $spacing-4;
 
-    @media (max-width: $breakpoint-lg - 1px) {
+    @media (max-width: ($breakpoint-lg - 1px)) {
       flex-direction: column;
       width: 100%;
-      gap: 0;
+      align-items: flex-start; // Left aligned
+      gap: 0; // Remove gap, handle with padding/margin in items
     }
   }
 
   &__menu-item {
     position: relative;
 
-    @media (max-width: $breakpoint-lg - 1px) {
-      width: 100%;
-      border-bottom: 1px solid $color-gray-200;
+    @media (max-width: ($breakpoint-lg - 1px)) {
+      width: 100%; // Full width
+      text-align: left; // Left aligned
+      border-bottom: 1px solid var(--border-color); // Optional separator
     }
 
     &--dropdown {
@@ -280,25 +319,26 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     gap: $spacing-2;
-    padding: $spacing-3 $spacing-4;
+    padding: $spacing-2;
     font-family: $font-heading;
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: $color-primary;
+    color: var(--color-text);
     text-decoration: none;
     transition: color $transition-base $easing-in-out;
     white-space: nowrap;
 
-    @media (max-width: $breakpoint-lg - 1px) {
+    @media (max-width: ($breakpoint-lg - 1px)) {
+      font-size: $font-size-xl;
+      padding: $spacing-4 0; // Bigger click area
+      justify-content: space-between; // Push icon to right if exists
       width: 100%;
-      padding: $spacing-4;
-      font-size: $font-size-base;
     }
 
     &:hover {
-      color: $color-secondary;
+      color: var(--color-secondary);
     }
 
     &--dropdown {
@@ -310,7 +350,7 @@ onUnmounted(() => {
 
   &__dropdown-icon {
     transition: transform $transition-base $easing-in-out;
-
+    
     &--open {
       transform: rotate(180deg);
     }
@@ -320,31 +360,36 @@ onUnmounted(() => {
     @include respond-to('lg') {
       position: absolute;
       top: 100%;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
       min-width: 220px;
-      background-color: $color-white;
+      background-color: var(--color-surface);
+      border: 1px solid var(--border-color);
       border-radius: $radius-lg;
       box-shadow: $shadow-xl;
       padding: $spacing-2;
       opacity: 0;
       visibility: hidden;
-      transform: translateY(-10px);
-      transition: opacity $transition-base $easing-in-out,
-                  visibility $transition-base $easing-in-out,
-                  transform $transition-base $easing-in-out;
+      transition: all $transition-base $easing-in-out;
     }
 
-    @media (max-width: $breakpoint-lg - 1px) {
-      padding-left: $spacing-4;
+    @media (max-width: ($breakpoint-lg - 1px)) {
+      padding: 0;
       max-height: 0;
       overflow: hidden;
-      transition: max-height $transition-base $easing-in-out;
-    }
-  }
-
-  .header__menu-item--dropdown .header__dropdown-icon--open ~ .header__dropdown {
-    @media (max-width: $breakpoint-lg - 1px) {
-      max-height: 300px;
+      transition: max-height 0.3s ease-in-out;
+      background: var(--color-gray-50); // Slight contrast
+      box-shadow: none;
+      text-align: left;
+      margin-left: -$spacing-8; // Bleed to edges if needed, or keep contained
+      margin-right: -$spacing-8;
+      padding-left: $spacing-8;
+      padding-right: $spacing-8;
+      
+      &--open {
+        max-height: 500px;
+        padding-bottom: $spacing-4;
+      }
     }
   }
 
@@ -353,35 +398,58 @@ onUnmounted(() => {
     padding: $spacing-3 $spacing-4;
     font-family: $font-body;
     font-size: $font-size-sm;
-    color: $color-text;
+    color: var(--color-text);
     text-decoration: none;
     border-radius: $radius-md;
-    transition: background-color $transition-base $easing-in-out,
-                color $transition-base $easing-in-out;
+    transition: all $transition-base $easing-in-out;
 
     &:hover {
-      background-color: $color-gray-100;
-      color: $color-secondary;
+      background-color: var(--color-gray-100);
+      color: var(--color-primary);
+    }
+    
+    @media (max-width: ($breakpoint-lg - 1px)) {
+      font-size: $font-size-lg;
+      color: var(--color-text-muted);
+      padding: $spacing-3 0; // Adjust padding
     }
   }
 
-  &__lang-switcher {
-    @media (max-width: $breakpoint-lg - 1px) {
-      margin-top: $spacing-6;
+  &__switchers {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+
+    &--desktop {
+      display: none;
+      @include respond-to('lg') {
+        display: flex;
+        margin-left: $spacing-2;
+      }
+    }
+
+    &--mobile {
+      display: flex;
+      margin-right: $spacing-12; // Space for hamburger
+      z-index: $z-index-fixed + 20; // Above nav
+      
+      @include respond-to('lg') {
+        display: none; // Hide on desktop
+      }
     }
   }
 
   &__mobile-toggle {
     display: none;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     background: none;
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: $z-index-sticky + 1;
+    z-index: $z-index-fixed + 20;
 
-    @media (max-width: $breakpoint-lg - 1px) {
+    @media (max-width: ($breakpoint-lg - 1px)) {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -392,7 +460,7 @@ onUnmounted(() => {
     position: relative;
     width: 24px;
     height: 2px;
-    background-color: $color-primary;
+    background-color: var(--color-text);
     transition: background-color $transition-base $easing-in-out;
 
     &::before,
@@ -402,7 +470,7 @@ onUnmounted(() => {
       left: 0;
       width: 100%;
       height: 2px;
-      background-color: $color-primary;
+      background-color: var(--color-text);
       transition: transform $transition-base $easing-in-out;
     }
 
@@ -425,20 +493,6 @@ onUnmounted(() => {
         transform: translateY(-8px) rotate(-45deg);
       }
     }
-  }
-}
-
-// Mobile menu overlay
-@media (max-width: $breakpoint-lg - 1px) {
-  .header__nav--open::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba($color-black, 0.5);
-    z-index: -1;
   }
 }
 </style>

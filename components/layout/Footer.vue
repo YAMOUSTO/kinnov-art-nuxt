@@ -6,7 +6,9 @@
         <div class="footer__grid">
           <!-- Brand Section -->
           <div class="footer__section">
-            <h3 class="footer__logo">Kinnov'art</h3>
+            <NuxtLink :to="localePath('/')" class="footer__logo-link">
+              <img src="/logo.jpeg" alt="Kinnov'art Logo" class="footer__logo-img" />
+            </NuxtLink>
             <p class="footer__description">
               {{ $t('home.brandIntro') }}
             </p>
@@ -146,12 +148,18 @@ const handleNewsletterSubmit = () => {
     gap: $spacing-4;
   }
 
-  &__logo {
-    font-family: $font-heading;
-    font-size: $font-size-2xl;
-    font-weight: $font-weight-bold;
-    color: $color-accent;
+  &__logo-link {
+    display: inline-block;
+    max-width: 220px;
     margin-bottom: $spacing-2;
+  }
+
+  &__logo-img {
+    width: 100%;
+    height: auto;
+    max-height: 56px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
   }
 
   &__description,

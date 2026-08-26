@@ -1,7 +1,19 @@
 <template>
-  <component 
-    :is="tag"
+  <NuxtLink 
+    v-if="to"
     :to="to"
+    class="btn"
+    :class="[
+      `btn--${variant}`,
+      `btn--${size}`,
+      { 'btn--loading': loading, 'btn--block': block }
+    ]"
+  >
+    <span v-if="loading" class="btn__spinner"></span>
+    <slot />
+  </NuxtLink>
+  <button 
+    v-else
     :type="type"
     class="btn"
     :class="[
@@ -13,7 +25,7 @@
   >
     <span v-if="loading" class="btn__spinner"></span>
     <slot />
-  </component>
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -87,10 +99,7 @@ const tag = computed(() => props.to ? 'NuxtLink' : 'button')
   }
 
   &__spinner {
-    @extend .spinner;
-    width: 16px;
-    height: 16px;
-    border-width: 2px;
+    @include spinner;
     margin-right: $spacing-2;
   }
 }

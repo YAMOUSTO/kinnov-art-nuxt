@@ -60,7 +60,7 @@ watch(() => props.modelValue, (newValue) => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba($color-black, 0.8);
+  background-color: rgba(0, 0, 0, 0.5); // Static backdrop
   backdrop-filter: blur(4px);
   z-index: $z-index-modal;
   @include flex-center;
@@ -68,7 +68,9 @@ watch(() => props.modelValue, (newValue) => {
 
   &__content {
     position: relative;
-    background-color: $color-white;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--border-color);
     border-radius: $radius-2xl;
     max-height: 90vh;
     overflow-y: auto;
@@ -108,17 +110,17 @@ watch(() => props.modelValue, (newValue) => {
     width: 40px;
     height: 40px;
     @include flex-center;
-    background-color: $color-white;
+    background-color: var(--color-gray-100);
     border: none;
     border-radius: $radius-full;
     cursor: pointer;
-    color: $color-gray-600;
+    color: var(--color-text-muted);
     transition: all $transition-base $easing-in-out;
     z-index: 1;
 
     &:hover {
-      background-color: $color-gray-100;
-      color: $color-primary;
+      background-color: var(--color-primary);
+      color: var(--color-white);
     }
   }
 }
