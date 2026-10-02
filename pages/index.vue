@@ -41,7 +41,7 @@
               </div>
               <div class="stat-item">
                 <span class="stat-number">100+</span>
-                <span class="stat-label">{{ $t('gallery.artProjects') }}</span>
+                <span class="stat-label">{{ $t('gallery.art') }}</span>
               </div>
             </div>
           </div>
@@ -58,49 +58,35 @@
     </Section>
 
     <!-- Services -->
-    <Section class="section--services">
+    <Section class="section--services" id="services">
       <div class="container">
         <div class="section-header text-center">
-          <h2 class="section-title scroll-reveal">{{ $t('home.services') }}</h2>
-          <p class="section-subtitle">{{ $t('home.heroSubtitle') }}</p>
+          <h2 class="section-title scroll-reveal">{{ $t('services.title') }}</h2>
+          <p class="section-subtitle">{{ $t('services.subtitle') }}</p>
         </div>
-        
+
         <div class="services-grid">
-          <!-- Furniture Design -->
-          <div class="service-card scroll-reveal">
+          <div
+            v-for="service in services"
+            :key="service.slug"
+            class="service-card scroll-reveal"
+          >
             <div class="service-card__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"/></svg>
+              <ServiceIcon :name="service.icon" />
             </div>
-            <h3 class="service-card__title">{{ $t('home.furnitureDesign') }}</h3>
-            <p class="service-card__desc">{{ $t('home.furnitureDesc') }}</p>
+            <h3 class="service-card__title">
+              {{ $t(`services.items.${service.slug}.title`) }}
+            </h3>
+            <p class="service-card__desc">
+              {{ $t(`services.items.${service.slug}.description`) }}
+            </p>
           </div>
+        </div>
 
-          <!-- Artist Management -->
-          <div class="service-card scroll-reveal service-card--delay-1">
-             <div class="service-card__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <h3 class="service-card__title">{{ $t('home.artistManagement') }}</h3>
-            <p class="service-card__desc">{{ $t('home.artistDesc') }}</p>
-          </div>
-
-          <!-- Audiovisual -->
-          <div class="service-card scroll-reveal service-card--delay-2">
-             <div class="service-card__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
-            </div>
-            <h3 class="service-card__title">{{ $t('home.audioVideo') }}</h3>
-            <p class="service-card__desc">{{ $t('home.audioVideoDesc') }}</p>
-          </div>
-
-          <!-- Talent Discovery -->
-          <div class="service-card scroll-reveal service-card--delay-3">
-             <div class="service-card__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <h3 class="service-card__title">{{ $t('home.talentDiscovery') }}</h3>
-            <p class="service-card__desc">{{ $t('home.talentDesc') }}</p>
-          </div>
+        <div class="services-cta text-center scroll-reveal">
+          <Button variant="outline" :to="localePath('/services')">
+            {{ $t('home.servicesCta') }}
+          </Button>
         </div>
       </div>
     </Section>
@@ -129,7 +115,7 @@
       </div>
     </Section>
 
-    <!-- Featured Artists -->
+        <!-- Featured Creators -->
     <Section class="section--creators" bg="gray">
       <div class="container">
         <div class="section-header">
@@ -145,7 +131,7 @@
             :image="artist.image"
             :title="artist.name"
             :description="artist.bio[locale]"
-            :badge="artist.specialty"
+            :badge="$t(artist.specialtyKey!)"
             :to="localePath(`/creators`)"
             class="scroll-reveal"
           />
@@ -157,8 +143,8 @@
     <Section class="section--audiovisual">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title scroll-reveal">{{ $t('home.audioVideo') }}</h2>
-          <Button variant="outline" :to="localePath('/gallery')">
+          <h2 class="section-title scroll-reveal">{{ $t('services.items.production.title') }}</h2>
+          <Button variant="outline" :to="localePath('/services')">
             {{ $t('common.viewAll') }}
           </Button>
         </div>
@@ -169,7 +155,7 @@
             :image="project.image"
             :title="project.title[locale]"
             :description="project.description[locale]"
-            :badge="$t('home.audioVideo')"
+            :badge="$t('services.items.production.title')"
             :actionText="$t('common.learnMore')"
             :to="localePath('/gallery')"
             class="scroll-reveal"
@@ -209,7 +195,7 @@
       <div class="container text-center scroll-reveal">
         <h2 class="section-title cta-title">{{ $t('about.location') }}</h2>
         <p class="lead cta-text">
-          Nongo, Conakry, Guinée. {{ $t('home.heroSubtitle') }}
+          {{ $t('contact.locationDetails') }}
         </p>
         <Button variant="accent" size="lg" :to="localePath('/contact')">
           {{ $t('nav.contact') }}
@@ -220,11 +206,12 @@
 </template>
 
 <script setup lang="ts">
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const localePath = useLocalePath()
 const { getFeaturedProjects, getProjectsByCategory } = useProjects()
 const { getArtistsByType } = useArtists()
 const { getPosts } = useBlogPosts()
+const { services } = useServices()
 
 const featuredProjects = getFeaturedProjects().slice(0, 3)
 const audiovisualProjects = getProjectsByCategory('audiovisual').slice(0, 3)
@@ -239,12 +226,10 @@ const scrollToSection = (id: string) => {
 }
 
 // SEO
-useHead({
-  title: 'Kinnov\'art - L\'art de l\'Innovation Créative',
-  meta: [
-    { name: 'description', content: 'Centre créatif à Nongo spécialisé dans le design de mobilier, la gestion d\'artistes et la production audiovisuelle.' }
-  ]
-})
+useHead(() => ({
+  title: t('pageMeta.home.title'),
+  meta: [{ name: 'description', content: t('pageMeta.home.description') }]
+}))
 </script>
 
 <style lang="scss" scoped>
@@ -264,7 +249,14 @@ useHead({
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.85), rgba(0, 0, 0, 0.9));
+    // The gold stop mixes against the *active* --color-primary, so the scrim
+    // follows the theme instead of being pinned to the light-theme #D4AF37.
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-primary) 85%, var(--hero-scrim-base)) 0%,
+      var(--hero-scrim-base) 100%
+    );
+    opacity: var(--hero-scrim-strength);
     z-index: 1;
   }
 
@@ -275,7 +267,9 @@ useHead({
 
   &__content {
     text-align: center;
-    color: #FFFFFF; // Always white on hero
+    // Always white on hero: the scrim behind it is dark in both themes, so this
+    // must not be a theme token (audit H6).
+    color: #FFFFFF;
     max-width: 900px;
     margin: 0 auto;
   }
@@ -284,7 +278,7 @@ useHead({
     font-size: $font-size-4xl;
     font-weight: $font-weight-extrabold;
     margin-bottom: $spacing-6;
-    text-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    text-shadow: 0 4px 6px var(--shadow-color);
 
     @include respond-to('md') {
       font-size: $font-size-5xl;
@@ -299,7 +293,8 @@ useHead({
     font-size: $font-size-lg;
     line-height: $line-height-relaxed;
     margin-bottom: $spacing-10;
-    color: rgba(255, 255, 255, 0.95);
+    // White at 95% over the dark hero scrim, in both themes.
+    color: color-mix(in srgb, #FFFFFF 95%, transparent);
     font-weight: $font-weight-medium;
 
     @include respond-to('md') {
@@ -448,21 +443,18 @@ useHead({
 }
 
 .services-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  // Flex rather than grid: five cards in a 3-column grid leaves a visibly empty
+  // third slot on the second row. Centred wrapping reads as a deliberate 3 + 2.
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: $spacing-8;
   margin-top: $spacing-12;
-
-  @include respond-to('md') {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include respond-to('lg') {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
 
 .service-card {
+  flex: 1 1 280px;
+  max-width: 380px;
   background-color: var(--color-background);
   padding: $spacing-8 $spacing-6;
   border-radius: $radius-xl;
@@ -572,9 +564,12 @@ useHead({
   }
 }
 
-.service-card--delay-1 { transition-delay: 100ms; }
-.service-card--delay-2 { transition-delay: 200ms; }
-.service-card--delay-3 { transition-delay: 300ms; }
+// The service cards are now rendered by v-for with no per-index delay modifier.
+// The staggered `service-card--delay-*` classes were removed with the old
+// hand-written cards; `scroll-reveal` handles entry animation.
+.services-cta {
+  margin-top: $spacing-12;
+}
 
 .cta-title {
   color: var(--color-accent);
