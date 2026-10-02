@@ -1,11 +1,10 @@
 <template>
   <div class="blog-page">
-    <Section bg="primary" padding="md">
-      <div class="text-center">
-        <h1 class="page-title page-title--accent">{{ $t('blog.title') }}</h1>
-        <p class="page-subtitle page-subtitle--light">{{ $t('blog.subtitle') }}</p>
-      </div>
-    </Section>
+    <PageHeader
+      bg="primary"
+      :title="$t('blog.title')"
+      :subtitle="$t('blog.subtitle')"
+    />
 
     <Section bg="white">
       <!-- Search and Filter -->
@@ -57,7 +56,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const { getPostsByCategory } = useBlogPosts()
 
 const searchQuery = ref('')
@@ -67,7 +66,7 @@ const categories = [
   { value: 'all', label: 'gallery.all' },
   { value: 'news', label: 'blog.news' },
   { value: 'tutorial', label: 'blog.tutorial' },
-  { value: 'event', label: 'blog.events' }
+  { value: 'event', label: 'blog.event' }
 ]
 
 const filteredPosts = computed(() => {
@@ -93,43 +92,13 @@ const formatDate = (dateString: string) => {
   })
 }
 
-useHead({
-  title: 'Blog - Kinnov\'art',
-  meta: [
-    { name: 'description', content: 'Actualités, tutoriels et événements de Kinnov\'art' }
-  ]
-})
+useHead(() => ({
+  title: t('pageMeta.blog.title'),
+  meta: [{ name: 'description', content: t('pageMeta.blog.description') }]
+}))
 </script>
 
 <style lang="scss" scoped>
-.page-title {
-  font-size: $font-size-4xl;
-  font-weight: $font-weight-bold;
-  margin-bottom: $spacing-4;
-
-  @include respond-to('md') {
-    font-size: $font-size-5xl;
-  }
-
-  &--accent {
-    color: var(--color-accent);
-  }
-}
-
-.page-subtitle {
-  font-size: $font-size-lg;
-  max-width: 700px;
-  margin: 0 auto;
-
-  @include respond-to('md') {
-    font-size: $font-size-xl;
-  }
-
-  &--light {
-    color: rgba(255, 255, 255, 0.9);
-  }
-}
-
 .blog-controls {
   display: flex;
   flex-direction: column;

@@ -9,6 +9,8 @@ $color-secondary: var(--color-secondary);
 $color-accent: var(--color-accent);
 $color-background: var(--color-background);
 $color-text: var(--color-text);
+$color-text-muted: var(--color-text-muted);
+$color-surface: var(--color-surface);
 $color-white: #FFFFFF; // Keep static for text on dark backgrounds
 $color-black: #000000; // Keep static
 
@@ -103,13 +105,16 @@ $radius-3xl: 2rem; // 32px
 $radius-full: 9999px;
 
 // Shadows
-// ========================================
-$shadow-sm: 0 1px 2px 0 var(--shadow-color);
-$shadow-md: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-$shadow-lg: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-$shadow-xl: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-$shadow-2xl: 0 25px 50px -12px var(--shadow-color);
-$shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+// Every layer resolves through a `--shadow-color-*` token from _theme.scss so
+// shadows adapt to the active theme (audit H1). Three depths, not one: the
+// ambient layers of md/lg/xl need a lower alpha than the key layer.
+// `$shadow-color` is the base for interactive states (hover, focus) in mixins.
+$shadow-sm: 0 1px 2px 0 var(--shadow-color-sm);
+$shadow-md: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color-sm);
+$shadow-lg: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px var(--shadow-color-sm);
+$shadow-xl: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color-sm);
+$shadow-2xl: 0 25px 50px -12px var(--shadow-color-lg);
+$shadow-inner: inset 0 2px 4px 0 var(--shadow-color-sm);
 
 // Transitions
 // ========================================

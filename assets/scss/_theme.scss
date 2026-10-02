@@ -40,7 +40,19 @@
 
     // UI Elements
     --border-color: #DEE2E6;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    // Shadows are split into three depths so every layer of a multi-layer shadow
+    // scales with the theme. A single token cannot do this: the second layer of
+    // $shadow-md/lg/xl needs a much lower alpha than the first, and hardcoding it
+    // was audit H1.
+    --shadow-color-sm: rgba(0, 0, 0, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.10);
+    --shadow-color-lg: rgba(0, 0, 0, 0.16);
+
+    // Hero scrim. The hero always renders white text over a photo, so the scrim
+    // has to stay dark in both themes; what changes is the brand tint mixed
+    // into it and the overall strength (audit H6).
+    --hero-scrim-base: #000000;
+    --hero-scrim-strength: 0.9;
 }
 
 // Dark Mode Overrides
@@ -79,5 +91,16 @@
 
     // UI Elements
     --border-color: #404040;
-    --shadow-color: rgba(0, 0, 0, 0.5);
+    // Dark mode needs deeper, more opaque shadows: a shadow cast by a light
+    // surface onto a near-black background is barely visible at light-theme
+    // alphas, so the depths are boosted rather than reused.
+    --shadow-color-sm: rgba(0, 0, 0, 0.40);
+    --shadow-color: rgba(0, 0, 0, 0.50);
+    --shadow-color-lg: rgba(0, 0, 0, 0.65);
+
+    // Dark mode lightens the brand, so the gold tint mixed into the hero scrim
+    // would wash out; a deeper base and a stronger scrim keep the white hero
+    // text at the same effective contrast as in light mode.
+    --hero-scrim-base: #000000;
+    --hero-scrim-strength: 0.94;
 }

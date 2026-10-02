@@ -48,13 +48,17 @@ const switchLanguage = (code: string) => {
     transition: all $transition-base $easing-in-out;
 
     &:hover {
-      color: var(--color-primary);
+      color: var(--color-text);
     }
 
+    // The active pill is white in BOTH themes (--color-white stays #FFFFFF in
+    // dark mode), so its label must be a static dark colour. Using
+    // var(--color-secondary) here made the label white-on-white in dark mode,
+    // and var(--color-primary) was gold-on-white at 2.10:1.
     &--active {
       background-color: var(--color-white);
-      color: var(--color-primary);
-      box-shadow: var(--shadow-sm);
+      color: $color-black;
+      box-shadow: $shadow-sm;
     }
   }
 }

@@ -1,11 +1,10 @@
 <template>
   <div class="creators-page">
-    <Section bg="primary" padding="md">
-      <div class="text-center">
-        <h1 class="page-title page-title--accent">{{ $t('creators.title') }}</h1>
-        <p class="page-subtitle page-subtitle--light">{{ $t('creators.subtitle') }}</p>
-      </div>
-    </Section>
+    <PageHeader
+      bg="primary"
+      :title="$t('creators.title')"
+      :subtitle="$t('creators.subtitle')"
+    />
 
     <Section bg="white">
       <!-- Filter Tabs -->
@@ -21,7 +20,7 @@
         </button>
       </div>
 
-      <!-- Artists Grid -->
+      <!-- Creators Grid -->
       <div class="creators-grid">
         <Card 
           v-for="artist in filteredArtists" 
@@ -29,7 +28,7 @@
           :image="artist.image"
           :title="artist.name"
           :description="artist.bio[locale]"
-          :badge="artist.specialty"
+          :badge="$t(artist.specialtyKey!)"
           class="scroll-reveal"
         />
       </div>
@@ -40,7 +39,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const { getArtistsByType } = useArtists()
 
 const activeType = ref('all')
@@ -48,49 +47,19 @@ const activeType = ref('all')
 const artistTypes = [
   { value: 'all', label: 'gallery.all' },
   { value: 'featured', label: 'creators.featured' },
-  { value: 'new', label: 'creators.newTalents' },
+  { value: 'new', label: 'creators.new' },
   { value: 'alumni', label: 'creators.alumni' }
 ]
 
 const filteredArtists = computed(() => getArtistsByType(activeType.value))
 
-useHead({
-  title: 'Nos Talents - Kinnov\'art',
-  meta: [
-    { name: 'description', content: 'Découvrez les créateurs de demain que nous accompagnons' }
-  ]
-})
+useHead(() => ({
+  title: t('pageMeta.creators.title'),
+  meta: [{ name: 'description', content: t('pageMeta.creators.description') }]
+}))
 </script>
 
 <style lang="scss" scoped>
-.page-title {
-  font-size: $font-size-4xl;
-  font-weight: $font-weight-bold;
-  margin-bottom: $spacing-4;
-
-  @include respond-to('md') {
-    font-size: $font-size-5xl;
-  }
-
-  &--accent {
-    color: var(--color-accent);
-  }
-}
-
-.page-subtitle {
-  font-size: $font-size-lg;
-  max-width: 700px;
-  margin: 0 auto;
-
-  @include respond-to('md') {
-    font-size: $font-size-xl;
-  }
-
-  &--light {
-    color: rgba(255, 255, 255, 0.9);
-  }
-}
-
 .filter-tabs {
   display: flex;
   justify-content: center;

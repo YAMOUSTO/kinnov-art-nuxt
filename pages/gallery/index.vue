@@ -1,11 +1,10 @@
 <template>
   <div class="gallery-page">
-    <Section bg="primary" padding="md">
-      <div class="text-center">
-        <h1 class="page-title page-title--accent">{{ $t('gallery.title') }}</h1>
-        <p class="page-subtitle page-subtitle--light">{{ $t('gallery.subtitle') }}</p>
-      </div>
-    </Section>
+    <PageHeader
+      bg="primary"
+      :title="$t('gallery.title')"
+      :subtitle="$t('gallery.subtitle')"
+    />
 
     <Section bg="white">
       <!-- Filter Tabs -->
@@ -44,7 +43,11 @@
     </Section>
 
     <!-- Lightbox Modal -->
-    <Modal v-model="lightboxOpen" size="xl">
+    <Modal
+      v-model="lightboxOpen"
+      size="xl"
+      :aria-label="selectedProject?.title[locale]"
+    >
       <div v-if="selectedProject" class="lightbox">
         <NuxtImg :src="selectedProject.image" :alt="selectedProject.title[locale]" class="lightbox__image" />
         <div class="lightbox__content">
@@ -61,7 +64,7 @@
 import { ref, computed } from 'vue'
 import type { Project } from '~/types'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const { getProjectsByCategory } = useProjects()
 
 const activeCategory = ref('all')
@@ -71,7 +74,7 @@ const selectedProject = ref<Project | null>(null)
 const categories = [
   { value: 'all', label: 'gallery.all' },
   { value: 'furniture', label: 'gallery.furniture' },
-  { value: 'art', label: 'gallery.artProjects' },
+  { value: 'art', label: 'gallery.art' },
   { value: 'audiovisual', label: 'gallery.audiovisual' }
 ]
 
@@ -82,43 +85,13 @@ const openLightbox = (project: Project) => {
   lightboxOpen.value = true
 }
 
-useHead({
-  title: 'Galerie - Kinnov\'art',
-  meta: [
-    { name: 'description', content: 'Découvrez nos créations en mobilier, art et audiovisuel' }
-  ]
-})
+useHead(() => ({
+  title: t('pageMeta.gallery.title'),
+  meta: [{ name: 'description', content: t('pageMeta.gallery.description') }]
+}))
 </script>
 
 <style lang="scss" scoped>
-.page-title {
-  font-size: $font-size-4xl;
-  font-weight: $font-weight-bold;
-  margin-bottom: $spacing-4;
-
-  @include respond-to('md') {
-    font-size: $font-size-5xl;
-  }
-
-  &--accent {
-    color: var(--color-accent);
-  }
-}
-
-.page-subtitle {
-  font-size: $font-size-lg;
-  max-width: 700px;
-  margin: 0 auto;
-
-  @include respond-to('md') {
-    font-size: $font-size-xl;
-  }
-
-  &--light {
-    color: rgba(255, 255, 255, 0.9);
-  }
-}
-
 .filter-tabs {
   display: flex;
   justify-content: center;
@@ -169,12 +142,6 @@ useHead({
 
 .gallery-card {
   cursor: pointer;
-}
-
-.empty-state {
-  text-align: center;
-  padding: $spacing-16 0;
-  color: $color-gray-500;
 }
 
 .lightbox {

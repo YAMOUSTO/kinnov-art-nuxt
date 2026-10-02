@@ -3,16 +3,11 @@
 
 // Keyframe Animations
 // ========================================
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
+// NOTE: `fadeIn` and `slideUp` were removed. Their only consumers were the
+// `fade-in` / `slide-up` mixins, which are themselves unused (audit L5 + L6).
+// `bounce` is live in pages/index.vue, `rotate` in `.spinner` and the Button
+// loading state, `shimmer` in `.skeleton`, `fadeInUp`/`scaleIn` in the utility
+// classes below. Keep those five.
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -71,6 +66,16 @@
     }
 }
 
+@keyframes shimmer {
+    from {
+        background-position: 200% 0;
+    }
+
+    to {
+        background-position: -200% 0;
+    }
+}
+
 // Animation Utility Classes
 // ========================================
 .fade-in-up {
@@ -123,7 +128,7 @@
     transition: box-shadow $transition-base $easing-in-out;
 
     &:hover {
-        box-shadow: 0 0 20px rgba($color-secondary, 0.5);
+        box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary) 50%, transparent);
     }
 }
 

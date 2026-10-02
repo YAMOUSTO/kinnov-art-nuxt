@@ -1,37 +1,55 @@
+/**
+ * Single owner of the `.scroll-reveal` IntersectionObserver.
+ *
+ * This replaces the previous per-component `useScrollAnimation()` composable,
+ * which built a *new* IntersectionObserver on every mount and raced the
+ * `page:finish` hook here. One observer now serves the whole app.
+ */
+import { nextTick } from 'vue'
+
+const REVEAL_SELECTOR = '.scroll-reveal:not(.is-visible)'
+
+const OBSERVER_OPTIONS = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+} as const
+
 export default defineNuxtPlugin((nuxtApp) => {
-    const observerCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+  let observer: IntersectionObserver | null = null
+
+  const observeElements = () => {
+    if (!observer) return
+    document.querySelectorAll(REVEAL_SELECTOR).forEach((el) => observer!.observe(el))
+  }
+
+  if (import.meta.client && 'IntersectionObserver' in window) {
+    observer = new IntersectionObserver(
+      (entries, obs) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible')
-                observer.unobserve(entry.target)
-            }
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            obs.unobserve(entry.target)
+          }
         })
-    }
+      },
+      OBSERVER_OPTIONS
+    )
+  }
 
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    }
+  nuxtApp.hook('app:mounted', () => {
+    observeElements()
+  })
 
-    let observer: IntersectionObserver | null = null
+  // `page:finish` fires once the new page component has mounted, so a single
+  // nextTick is enough. The previous `setTimeout(100)` + `setTimeout(500)`
+  // fallback pair existed to paper over racing the DOM update.
+  nuxtApp.hook('page:finish', async () => {
+    await nextTick()
+    observeElements()
+  })
 
-    if (import.meta.client) {
-        observer = new IntersectionObserver(observerCallback, observerOptions)
-    }
-
-    const observeElements = () => {
-        if (!observer) return
-        const elements = document.querySelectorAll('.scroll-reveal:not(.is-visible)')
-        elements.forEach((el) => observer!.observe(el))
-    }
-
-    nuxtApp.hook('app:mounted', () => {
-        observeElements()
-    })
-
-    nuxtApp.hook('page:finish', () => {
-        // Delay slightly to ensure DOM is ready after navigation
-        setTimeout(observeElements, 100)
-        setTimeout(observeElements, 500) // Fallback for slower renders
-    })
+  if (import.meta.client) {
+    // Without this the observer outlives the app and keeps closures alive.
+    window.addEventListener('beforeunload', () => observer?.disconnect())
+  }
 })

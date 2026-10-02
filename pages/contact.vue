@@ -86,9 +86,10 @@
               ></textarea>
             </div>
 
-            <Button type="submit" variant="secondary" size="lg" block :loading="isSubmitting">
+            <Button type="submit" variant="secondary" size="lg" block>
               {{ $t('contact.send') }}
             </Button>
+            <p v-if="submitError" class="form-error" role="alert">{{ submitError }}</p>
             <p v-if="submitSuccess" class="form-success">{{ $t('contact.successMessage') }}</p>
           </form>
         </div>
@@ -97,22 +98,7 @@
 
     <!-- Map Section -->
     <Section bg="gray" padding="none">
-      <div class="map-section">
-        <NuxtImg 
-          src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1920"
-          alt="Map"
-          class="map-bg"
-        />
-        <div class="map-overlay">
-            <div class="map-marker">
-              <svg class="marker-pin" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-            <span class="marker-text">Kinnov'art Nongo</span>
-          </div>
-        </div>
-      </div>
+      <LocationMap />
     </Section>
   </div>
 </template>
@@ -120,37 +106,55 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 
+const { t } = useI18n()
+
+const CONTACT_EMAIL = 'contact@kinnovart.com'
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 const form = reactive({
   name: '',
   email: '',
   message: ''
 })
 
-const isSubmitting = ref(false)
 const submitSuccess = ref(false)
+const submitError = ref('')
 
-const handleSubmit = async () => {
-  isSubmitting.value = true
+const handleSubmit = () => {
   submitSuccess.value = false
-  
-  await new Promise(resolve => setTimeout(resolve, 1500))
-  
+  submitError.value = ''
+
+  const name = form.name.trim()
+  const email = form.email.trim()
+  const message = form.message.trim()
+
+  if (!name || !email || !message) {
+    submitError.value = t('contact.errorEmpty')
+    return
+  }
+
+  if (!EMAIL_PATTERN.test(email)) {
+    submitError.value = t('contact.errorEmail')
+    return
+  }
+
+  const subject = t('contact.mailSubject', { name })
+  const body = `${message}\n\n---\n${t('contact.mailFrom')}: ${name}\n${t('contact.email')}: ${email}`
+
+  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+
   form.name = ''
   form.email = ''
   form.message = ''
-  
-  isSubmitting.value = false
+
   submitSuccess.value = true
-  
-  setTimeout(() => { submitSuccess.value = false }, 5000)
+  setTimeout(() => { submitSuccess.value = false }, 8000)
 }
 
-useHead({
-  title: 'Contact - Kinnov\'art',
-  meta: [
-    { name: 'description', content: 'Contactez Kinnov\'art à Nongo, Conakry' }
-  ]
-})
+useHead(() => ({
+  title: t('pageMeta.contact.title'),
+  meta: [{ name: 'description', content: t('pageMeta.contact.description') }]
+}))
 </script>
 
 <style lang="scss" scoped>
@@ -208,7 +212,7 @@ useHead({
   width: 48px;
   height: 48px;
   @include flex-center;
-  background-color: rgba($color-accent, 0.2);
+  background-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
   color: $color-primary;
   border-radius: $radius-lg;
 }
@@ -277,49 +281,17 @@ useHead({
   text-align: center;
 }
 
-.map-section {
-  position: relative;
-  height: 400px;
-  overflow: hidden;
-}
-
-.map-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(0.5);
-}
-
-.map-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  @include flex-center;
-}
-
-.map-marker {
+.form-error {
+  margin-top: $spacing-4;
+  padding: $spacing-3 $spacing-4;
+  background-color: rgba(220, 38, 38, 0.1);
+  color: $color-accent;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
   text-align: center;
-  animation: bounce 2s infinite;
 }
 
-.marker-pin {
-  color: var(--color-accent);
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-}
 
-.marker-text {
-  display: block;
-  margin-top: $spacing-2;
-  padding: $spacing-3 $spacing-6;
-  background-color: $color-white;
-  color: $color-primary;
-  font-family: $font-heading;
-  font-size: $font-size-base;
-  font-weight: $font-weight-bold;
-  text-transform: uppercase;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-xl;
-}
 </style>

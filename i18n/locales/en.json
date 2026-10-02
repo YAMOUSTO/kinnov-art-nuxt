@@ -1,18 +1,22 @@
 {
     "nav": {
         "home": "Home",
+        "services": "Services",
         "gallery": "Gallery",
         "creators": "Creators",
         "blog": "Blog",
         "about": "About",
-        "contact": "Contact"
+        "contact": "Contact",
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu",
+        "mainNav": "Main navigation"
     },
     "gallery": {
         "title": "Our Gallery",
         "subtitle": "Discover our creations in furniture, art and audiovisual",
         "all": "All",
         "furniture": "Furniture Design",
-        "artProjects": "Art Projects",
+        "art": "Art Projects",
         "audiovisual": "Audio & Video",
         "viewAll": "View Full Gallery"
     },
@@ -20,8 +24,9 @@
         "title": "Our Creators",
         "subtitle": "Discover the creators of tomorrow we support every day",
         "featured": "Featured Creators",
-        "newTalents": "New Talents",
-        "alumni": "Alumni"
+        "new": "New Talents",
+        "alumni": "Alumni",
+        "viewAll": "View All Creators"
     },
     "blog": {
         "title": "News & Resources",
@@ -30,8 +35,7 @@
         "readMore": "Read more",
         "news": "News",
         "tutorial": "Tutorials",
-        "tutorials": "Tutorials",
-        "events": "Events",
+        "event": "Events",
         "viewAll": "View All Posts"
     },
     "about": {
@@ -41,7 +45,7 @@
         "mission": "Mission",
         "team": "Team",
         "missionTitle": "Our Commitment",
-        "missionText": "Kinnov'art merges furniture design, artist management, and AV production to empower creative youth in Guinea.",
+        "missionText": "From set design to artistic editing, Kinnov'art puts its five crafts to work for creative youth across Guinea.",
         "missionBody": "Since our creation, we have been committed to providing a space where creativity can flourish. Our workshop located in Nongo, opposite the Bilal Mansour Fadiga Mosque, has become a hub for artists, designers, and creators from across Guinea.",
         "teamTitle": "The Heart of Kinnov'art",
         "location": "Find us in Nongo, Maison des Jeunes, opposite Bilal Mansour Fadiga Mosque."
@@ -53,7 +57,11 @@
         "email": "Email",
         "message": "Message",
         "send": "Send",
-        "successMessage": "Message sent successfully! We will get back to you soon.",
+        "successMessage": "Your email app is now open with the message. Press send there to reach us.",
+        "errorEmpty": "Please fill in your name, email and message.",
+        "errorEmail": "Please enter a valid email address.",
+        "mailSubject": "Contact from {name}",
+        "mailFrom": "Sent from",
         "address": "Address",
         "phone": "Phone",
         "directEmail": "Direct Email",
@@ -62,19 +70,58 @@
     },
     "home": {
         "heroTitle": "The Art of Creative Innovation",
-        "heroSubtitle": "Based in Nongo, Maison des Jeunes, Kinnov'art is the hub for furniture, audiovisual, and Guinean talent.",
+        "heroSubtitle": "Based in Nongo at the Maison des Jeunes, Kinnov'art builds sets, furniture and productions for Guinean creative talent.",
         "heroCta": "Explore Our World",
         "featuredProjects": "Featured Creations",
-        "brandIntro": "Kinnov'art merges furniture design, artist management, and AV production to empower creative youth.",
+        "brandIntro": "From set design to artistic editing, Kinnov'art brings five crafts together for Guinean creative youth.",
         "services": "Our Services",
-        "furnitureDesign": "Furniture Design",
-        "furnitureDesc": "Creation of unique handcrafted chairs, armchairs and furniture",
-        "artistManagement": "Artist Management",
-        "artistDesc": "Promotion, guidance and coordination of artistic projects",
-        "audioVideo": "Audiovisual Production",
-        "audioVideoDesc": "Professional video editing, production and editing",
-        "talentDiscovery": "Talent Discovery",
-        "talentDesc": "Support and promotion of young creators"
+        "servicesCta": "Discover our services"
+    },
+    "services": {
+        "title": "Our Services",
+        "subtitle": "Five crafts under one roof, from set design to artistic editing.",
+        "intro": "Every project starts with a conversation. Tell us your idea and we will take it from there.",
+        "examplesLabel": "Work",
+        "items": {
+            "scenography": {
+                "title": "Set Design",
+                "description": "Designing and producing sets for music videos, concerts and television studios.",
+                "examples": [
+                    "Music video set builds"
+                ]
+            },
+            "tireFurniture": {
+                "title": "Furniture Made From Tyres",
+                "description": "Furniture crafted from recycled tyres, in Kinnov'art's own signature style.",
+                "examples": [
+                    "Tyre armchair"
+                ]
+            },
+            "wigs": {
+                "title": "Wig Making",
+                "description": "Bespoke wigs made for the stage, for photography and for the screen.",
+                "examples": []
+            },
+            "spaceDesign": {
+                "title": "Public and Private Space Design",
+                "description": "Setting up and dressing spaces for your events and your productions.",
+                "examples": [
+                    "Photo shoots",
+                    "Fairs",
+                    "Street corners",
+                    "TV studios"
+                ]
+            },
+            "production": {
+                "title": "Production and Artistic Editing",
+                "description": "Production, photo coverage and editing for your concerts and your tours.",
+                "examples": [
+                    "Course photo coverage",
+                    "Melody concerts",
+                    "National tour"
+                ]
+            }
+        }
     },
     "footer": {
         "newsletter": "Stay Updated",
@@ -92,6 +139,96 @@
         "close": "Close",
         "next": "Next",
         "previous": "Previous",
-        "noResults": "No results found"
+        "noResults": "No results found",
+        "dialog": "Dialog",
+        "openInMaps": "Open in OpenStreetMap"
+    },
+    "pageMeta": {
+        "siteTitle": "Kinnov'art - The Art of Creative Innovation",
+        "siteDescription": "Kinnov'art - Creative centre in Nongo: set design, tyre furniture, wig making, space design and artistic production.",
+        "home": {
+            "title": "Home",
+            "description": "Kinnov'art merges furniture design, artist management and AV production to empower creative youth in Guinea."
+        },
+        "gallery": {
+            "title": "Our Gallery",
+            "description": "Browse Kinnov'art's furniture, art and audiovisual projects."
+        },
+        "services": {
+            "title": "Our Services",
+            "description": "Set design, tyre furniture, wig making, space design and artistic production from Kinnov'art in Nongo."
+        },
+        "galleryCategory": {
+            "title": "{category}",
+            "description": "Discover our {category} projects at Kinnov'art."
+        },
+        "creators": {
+            "title": "Our Creators",
+            "description": "Meet the furniture designers, painters and filmmakers Kinnov'art supports."
+        },
+        "creatorsType": {
+            "title": "{type}",
+            "description": "Meet our {type} creators at Kinnov'art."
+        },
+        "blog": {
+            "title": "News & Resources",
+            "description": "Project news, events and creative tutorials from Kinnov'art."
+        },
+        "blogCategory": {
+            "title": "{category}",
+            "description": "Read our latest {category} articles from Kinnov'art."
+        },
+        "about": {
+            "title": "About",
+            "description": "The history, mission and team of Kinnov'art in Nongo, Conakry."
+        },
+        "aboutSection": {
+            "title": "{section}",
+            "description": "Learn more about our {section} at Kinnov'art."
+        },
+        "contact": {
+            "title": "Contact",
+            "description": "Contact Kinnov'art in Nongo, Conakry - set design, tyre furniture, wig making, space design and artistic production."
+        }
+    },
+    "aboutContent": {
+        "historyTitle": "Our Story",
+        "historyP1": "Founded in 2020 in the heart of Nongo, Kinnov'art grew out of a shared passion for local craftsmanship and digital innovation. What started as a small carpentry workshop quickly became a multidisciplinary creative centre.",
+        "historyP2": "Over the years we broadened our horizons to include audiovisual production, artist management and events, becoming a pillar of Conakry's cultural scene.",
+        "missionTitle": "Our Mission",
+        "missionP": "Our mission is twofold: to showcase Guinean craftsmanship through modern creations, and to give young talent a platform for expression.",
+        "missionInnovation": "Innovation",
+        "missionInnovationText": "Push the boundaries of local creation.",
+        "missionTraining": "Training",
+        "missionTrainingText": "Pass skills on to the next generation.",
+        "missionCollaboration": "Collaboration",
+        "missionCollaborationText": "Build synergies between artists from every background.",
+        "teamTitle": "The Team",
+        "teamIntro": "A passionate, diverse team united by a shared will to create and innovate."
+    },
+    "team": {
+        "roles": {
+            "creativeDirector": "Creative Director",
+            "trainingManager": "Training Manager",
+            "furnitureLead": "Furniture Workshop Lead"
+        }
+    },
+    "specialties": {
+        "furnitureDesign": "Furniture Design",
+        "painting": "Painting",
+        "videography": "Videography",
+        "videoEditing": "Video Editing",
+        "sculpture": "Sculpture",
+        "photography": "Photography",
+        "mixedMedia": "Mixed Media",
+        "graphicDesign": "Graphic Design"
+    },
+    "error": {
+        "title": "Something went wrong",
+        "body": "This page could not be displayed. Please try again, or head back to the home page.",
+        "retry": "Try again",
+        "notFound": "Page not found",
+        "notFoundBody": "We could not find the page you were looking for.",
+        "backHome": "Back to home"
     }
 }

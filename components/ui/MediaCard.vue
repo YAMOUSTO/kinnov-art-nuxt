@@ -38,13 +38,12 @@ interface Props {
   title: string
   description?: string
   badge?: string
-  to?: string
+  to: string
   actionText?: string
 }
 
 withDefaults(defineProps<Props>(), {
-  to: '#',
-  actionText: 'View More' // Default, will come from i18n in parent
+  actionText: 'View More'
 })
 </script>
 

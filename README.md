@@ -4,13 +4,13 @@ A professional, bilingual (French/English) website for Kinnov'art creative cente
 
 ## 🌟 Features
 
-- ✅ **Bilingual Support**: French (primary) and English with seamless language switching
-- ✅ **Dropdown Navigation**: Professional header with dropdown menus for Gallery, Artists, Blog, and About
-- ✅ **SCSS Design System**: Complete design tokens with responsive breakpoints
-- ✅ **6 Main Pages**: Homepage, Gallery, Artists, Blog, About, Contact
+- ✅ **Bilingual Support**: French (primary, unprefixed) and English (`/en/`) with seamless language switching
+- ✅ **Dropdown Navigation**: Professional header with dropdown menus for Gallery, Creators, Blog, and About
+- ✅ **SCSS Design System**: Complete design tokens with responsive breakpoints and dark mode
+- ✅ **6 Main Pages**: Homepage, Gallery, Creators, Blog, About, Contact
 - ✅ **Advanced Features**: Lightbox gallery, search functionality, scroll animations
 - ✅ **Responsive Design**: Mobile-first approach with tablet and desktop optimization
-- ✅ **SEO Optimized**: Meta tags, semantic HTML, and accessibility features
+- ✅ **SEO Optimized**: Localized meta tags, `hreflang` alternates, semantic HTML, and accessibility features
 
 ## 🚀 Quick Start
 
@@ -37,7 +37,7 @@ kinnov-art-nuxt/
 │   ├── layout/          # Header, Footer
 │   └── ui/              # Button, Card, Modal, etc.
 ├── composables/          # Reusable logic
-├── locales/              # i18n translations (FR/EN)
+├── i18n/locales/         # i18n translations (FR/EN)
 ├── pages/                # Route pages
 ├── types/                # TypeScript definitions
 └── nuxt.config.ts        # Nuxt configuration
@@ -46,9 +46,16 @@ kinnov-art-nuxt/
 ## 🎨 Design System
 
 ### Colors
-- **Primary**: #2E4057 (Deep Blue)
-- **Secondary**: #FF6B6B (Vibrant Coral)
-- **Accent**: #FFD166 (Soft Yellow)
+
+Light and dark themes are defined as CSS custom properties in `assets/scss/_variables.scss`.
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `--color-primary` | `#D4AF37` Classic Gold | `#F0D588` |
+| `--color-secondary` | `#000000` Pure Black | `#FFFFFF` |
+| `--color-accent` | `#B91C1C` Deep Red | `#EF4444` |
+| `--color-background` | `#FFFFFF` Pure White | `#0A0A0A` Rich Ebony |
+| `--color-text` | `#000000` Pure Black | `#FAFAFA` |
 
 ### Typography
 - **Headings**: Montserrat
@@ -56,25 +63,28 @@ kinnov-art-nuxt/
 
 ## 📄 Pages
 
-1. **Homepage** - Hero section, services, featured projects and artists
+1. **Homepage** - Hero section, services, featured projects and creators
 2. **Gallery** - Filterable portfolio with lightbox (Furniture, Art, Audiovisual)
-3. **Artists** - Talent showcase (Featured, New Talents, Alumni)
+3. **Creators** - Talent showcase (Featured, New Talents, Alumni)
 4. **Blog** - News, tutorials, and events with search
 5. **About** - Mission, team, and location
-6. **Contact** - Contact form and map
+6. **Contact** - Contact form (opens in the visitor's email client) and location
 
 ## 🛠️ Technologies
 
-- **Framework**: Nuxt.js 3
+- **Framework**: Nuxt 4
 - **Styling**: SCSS
-- **i18n**: @nuxtjs/i18n
+- **i18n**: @nuxtjs/i18n (v10)
 - **Images**: @nuxt/image
 - **TypeScript**: Full type safety
 - **Utilities**: @vueuse/nuxt
 
+> **Note:** there is no backend in this repository. The contact form validates input and
+> hands off to the visitor's email client via `mailto:`; it does not send messages on the server.
+
 ## 📝 License
 
-© 2024 Kinnov'art. All rights reserved.
+© 2026 Kinnov'art. All rights reserved.
 
 ## 📍 Location
 

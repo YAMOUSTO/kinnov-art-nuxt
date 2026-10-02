@@ -22,7 +22,8 @@ export interface Artist {
     type: 'featured' | 'new' | 'alumni'
     image: string
     bio: LocalizedString
-    specialty?: string
+    /** i18n key for the creator's specialty, e.g. `specialties.painting` */
+    specialtyKey?: string
     portfolio?: string[]
 }
 
@@ -38,11 +39,22 @@ export interface BlogPost {
 }
 
 export interface TeamMember {
-    id: string
+    id: number
     name: string
-    role: LocalizedString
+    /** i18n key for the member's role, e.g. `team.roles.creativeDirector` */
+    roleKey: string
     image: string
-    bio: LocalizedString
+}
+
+export interface Service {
+    /** URL-safe identifier, also the i18n key suffix: `services.items.${slug}` */
+    slug: string
+    /** Feather icon name, rendered by ServiceIcon */
+    icon: string
+    /** i18n key for the concrete realisations, e.g. `services.items.tireFurniture.examples` */
+    examplesKey: string
+    /** Optional representative image. Placeholder Unsplash photo until real work is shot. */
+    image: string
 }
 
 export interface NavItem {

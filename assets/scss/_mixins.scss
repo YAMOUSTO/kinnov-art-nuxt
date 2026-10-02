@@ -54,17 +54,6 @@
     justify-content: flex-start;
 }
 
-@mixin flex-end {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-@mixin flex-column {
-    display: flex;
-    flex-direction: column;
-}
-
 // Typography Mixins
 @mixin heading-1 {
     font-family: $font-heading;
@@ -271,22 +260,10 @@
 
 // Animation Mixins
 // ========================================
-@mixin fade-in {
-    animation: fadeIn $transition-slow $easing-out;
-}
-
-@mixin slide-up {
-    animation: slideUp $transition-slow $easing-out;
-}
-
-@mixin scale-hover {
-    transition: transform $transition-base $easing-in-out;
-
-    &:hover {
-        transform: scale(1.05);
-    }
-}
-
+// NOTE: `fade-in`, `slide-up` and `scale-hover` were removed. The equivalent
+// utility classes in _animations.scss are unused by any template, and an unused
+// mixin is dead weight (audit L6). `.hover-scale` still covers the scale-hover
+// behaviour for markup that wants it. `spinner` is live in Button.vue.
 @mixin spinner {
     width: 20px;
     height: 20px;
@@ -294,58 +271,4 @@
     border-top-color: $color-primary;
     border-radius: 50%;
     animation: rotate 1s linear infinite;
-}
-
-// Overlay Mixin
-// ========================================
-@mixin overlay($opacity: 0.5) {
-    position: relative;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba($color-black, $opacity);
-        z-index: 1;
-    }
-}
-
-// Truncate Text
-// ========================================
-@mixin truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-@mixin line-clamp($lines: 2) {
-    display: -webkit-box;
-    -webkit-line-clamp: $lines;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-// Aspect Ratio
-// ========================================
-@mixin aspect-ratio($width, $height) {
-    position: relative;
-
-    &::before {
-        content: '';
-        display: block;
-        padding-bottom: percentage($height / $width);
-    }
-}
-
-// Clearfix
-// ========================================
-@mixin clearfix {
-    &::after {
-        content: '';
-        display: table;
-        clear: both;
-    }
 }

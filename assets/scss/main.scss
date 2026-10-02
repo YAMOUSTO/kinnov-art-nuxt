@@ -147,6 +147,26 @@ body {
 }
 
 // Display Utilities
+// Empty State
+// ========================================
+// Shared empty/no-results block. Replaces per-page copies of the old
+// `text-center py-12` / `text-xl text-gray-500` / `mt-4` class combination,
+// which were Tailwind-style names that resolved to nothing in this project.
+.empty-state {
+    text-align: center;
+    padding: $spacing-16 0;
+    color: $color-text-muted;
+
+    &__text {
+        font-size: $font-size-xl;
+        color: inherit;
+    }
+
+    &__action {
+        margin-top: $spacing-4;
+    }
+}
+
 .hidden {
     display: none !important;
 }
@@ -260,7 +280,7 @@ select {
     &:focus {
         outline: none;
         border-color: $color-secondary;
-        box-shadow: 0 0 0 3px rgba($color-secondary, 0.1);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
     }
 
     &::placeholder {

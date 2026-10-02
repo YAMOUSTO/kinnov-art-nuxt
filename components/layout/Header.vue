@@ -10,7 +10,12 @@
         </NuxtLink>
 
         <!-- Desktop Navigation -->
-        <nav class="header__nav" :class="{ 'header__nav--open': mobileMenuOpen }">
+        <nav
+          id="primary-nav"
+          class="header__nav"
+          :class="{ 'header__nav--open': mobileMenuOpen }"
+          :aria-label="$t('nav.mainNav')"
+        >
           <ul class="header__menu">
             <li class="header__menu-item">
               <NuxtLink :to="localePath('/')" class="header__link" @click="closeMobileMenu">
@@ -18,23 +23,41 @@
               </NuxtLink>
             </li>
 
+            <!-- Services sit directly after Home: the studio's five service lines are
+                 the primary reason to visit, and they are what the owner leads with. -->
+            <li class="header__menu-item">
+              <NuxtLink :to="localePath('/services')" class="header__link" @click="closeMobileMenu">
+                {{ $t('nav.services') }}
+              </NuxtLink>
+            </li>
+
             <!-- Gallery Dropdown -->
             <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('gallery')" @mouseleave="closeDropdown">
-              <button class="header__link header__link--dropdown" @click="toggleDropdown('gallery')" :aria-expanded="activeDropdown === 'gallery'">
+              <button
+              type="button"
+              class="header__link header__link--dropdown"
+              @click="toggleDropdown('gallery')"
+              :aria-expanded="activeDropdown === 'gallery'"
+              aria-controls="gallery-dropdown"
+            >
                 {{ $t('nav.gallery') }}
                 <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'gallery' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'gallery' }">
+              <div
+              id="gallery-dropdown"
+              class="header__dropdown"
+              :class="{ 'header__dropdown--open': activeDropdown === 'gallery' }"
+            >
                 <NuxtLink :to="localePath('/gallery')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('gallery.all') }}
                 </NuxtLink>
                 <NuxtLink :to="localePath('/gallery/furniture')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('gallery.furniture') }}
                 </NuxtLink>
-                <NuxtLink :to="localePath('/gallery/art-projects')" class="header__dropdown-link" @click="closeMobileMenu">
-                  {{ $t('gallery.artProjects') }}
+                <NuxtLink :to="localePath('/gallery/art')" class="header__dropdown-link" @click="closeMobileMenu">
+                  {{ $t('gallery.art') }}
                 </NuxtLink>
                 <NuxtLink :to="localePath('/gallery/audiovisual')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('gallery.audiovisual') }}
@@ -42,23 +65,33 @@
               </div>
             </li>
 
-            <!-- Artists Dropdown -->
+            <!-- Creators Dropdown -->
             <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('creators')" @mouseleave="closeDropdown">
-              <button class="header__link header__link--dropdown" @click="toggleDropdown('creators')" :aria-expanded="activeDropdown === 'creators'">
+              <button
+              type="button"
+              class="header__link header__link--dropdown"
+              @click="toggleDropdown('creators')"
+              :aria-expanded="activeDropdown === 'creators'"
+              aria-controls="creators-dropdown"
+            >
                 {{ $t('nav.creators') }}
                 <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'creators' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'creators' }">
+              <div
+              id="creators-dropdown"
+              class="header__dropdown"
+              :class="{ 'header__dropdown--open': activeDropdown === 'creators' }"
+            >
                 <NuxtLink :to="localePath('/creators')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('nav.creators') }}
                 </NuxtLink>
                 <NuxtLink :to="localePath('/creators/featured')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('creators.featured') }}
                 </NuxtLink>
-                <NuxtLink :to="localePath('/creators/new-talents')" class="header__dropdown-link" @click="closeMobileMenu">
-                  {{ $t('creators.newTalents') }}
+                <NuxtLink :to="localePath('/creators/new')" class="header__dropdown-link" @click="closeMobileMenu">
+                  {{ $t('creators.new') }}
                 </NuxtLink>
                 <NuxtLink :to="localePath('/creators/alumni')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('creators.alumni') }}
@@ -68,24 +101,34 @@
 
             <!-- Blog Dropdown -->
             <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('blog')" @mouseleave="closeDropdown">
-              <button class="header__link header__link--dropdown" @click="toggleDropdown('blog')" :aria-expanded="activeDropdown === 'blog'">
+              <button
+              type="button"
+              class="header__link header__link--dropdown"
+              @click="toggleDropdown('blog')"
+              :aria-expanded="activeDropdown === 'blog'"
+              aria-controls="blog-dropdown"
+            >
                 {{ $t('nav.blog') }}
                 <svg class="header__dropdown-icon" :class="{ 'header__dropdown-icon--open': activeDropdown === 'blog' }" width="12" height="8" viewBox="0 0 12 8" fill="none">
                   <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="header__dropdown" :class="{ 'header__dropdown--open': activeDropdown === 'blog' }">
+              <div
+              id="blog-dropdown"
+              class="header__dropdown"
+              :class="{ 'header__dropdown--open': activeDropdown === 'blog' }"
+            >
                 <NuxtLink :to="localePath('/blog')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('nav.blog') }}
                 </NuxtLink>
                 <NuxtLink :to="localePath('/blog/news')" class="header__dropdown-link" @click="closeMobileMenu">
                   {{ $t('blog.news') }}
                 </NuxtLink>
-                <NuxtLink :to="localePath('/blog/tutorials')" class="header__dropdown-link" @click="closeMobileMenu">
-                  {{ $t('blog.tutorials') }}
+                <NuxtLink :to="localePath('/blog/tutorial')" class="header__dropdown-link" @click="closeMobileMenu">
+                  {{ $t('blog.tutorial') }}
                 </NuxtLink>
-                <NuxtLink :to="localePath('/blog/events')" class="header__dropdown-link" @click="closeMobileMenu">
-                  {{ $t('blog.events') }}
+                <NuxtLink :to="localePath('/blog/event')" class="header__dropdown-link" @click="closeMobileMenu">
+                  {{ $t('blog.event') }}
                 </NuxtLink>
               </div>
             </li>
@@ -137,9 +180,20 @@
           </div>
 
           <!-- Mobile Menu Toggle -->
-          <button class="header__mobile-toggle" @click="toggleMobileMenu" :aria-label="mobileMenuOpen ? 'Close menu' : 'Open menu'">
-            <span class="header__hamburger" :class="{ 'header__hamburger--open': mobileMenuOpen }"></span>
-          </button>
+        <button
+          type="button"
+          class="header__mobile-toggle"
+          @click="toggleMobileMenu"
+          :aria-label="mobileMenuOpen ? $t('nav.closeMenu') : $t('nav.openMenu')"
+          :aria-expanded="mobileMenuOpen"
+          aria-controls="primary-nav"
+        >
+          <span
+            class="header__hamburger"
+            :class="{ 'header__hamburger--open': mobileMenuOpen }"
+            aria-hidden="true"
+          ></span>
+        </button>
         </div>
       </div>
     </div>
@@ -250,7 +304,11 @@ onUnmounted(() => {
     height: auto;
     max-height: 64px;
     object-fit: contain;
-    mix-blend-mode: multiply;
+    // `mix-blend-mode: multiply` was removed: the header background is
+    // --color-surface (#121212 in dark mode), so a multiply-blended logo
+    // rendered near-black on near-black and disappeared. /logo.jpeg has no
+    // alpha channel, so the blend bought nothing either. Replacing the asset
+    // with a transparent PNG/SVG is the correct long-term fix.
   }
 
   &__logo-slogan {

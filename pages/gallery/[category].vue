@@ -1,11 +1,10 @@
 <template>
   <div class="gallery-category">
-    <Section class="header-section" bg="gray">
-      <div class="container text-center scroll-reveal">
-        <h1 class="page-title">{{ categoryTitle }}</h1>
-        <p class="lead">{{ $t('gallery.subtitle') }}</p> 
-      </div>
-    </Section>
+    <PageHeader
+      bg="gray"
+      :title="categoryTitle"
+      :subtitle="$t('gallery.subtitle')"
+    />
 
     <Section>
       <div class="container">
@@ -20,9 +19,9 @@
             class="scroll-reveal"
           />
         </div>
-        <div v-else class="text-center py-12">
-          <p class="text-xl text-gray-500">{{ $t('common.noResults') }}</p>
-          <Button variant="outline" :to="localePath('/gallery')" class="mt-4">
+        <div v-else class="empty-state">
+          <p class="empty-state__text">{{ $t('common.noResults') }}</p>
+          <Button variant="outline" :to="localePath('/gallery')" class="empty-state__action">
             {{ $t('gallery.viewAll') }}
           </Button>
         </div>
@@ -46,24 +45,10 @@ const categoryTitle = computed(() => {
 
 const filteredProjects = computed(() => getProjectsByCategory(category.value))
 
-useHead({
-  title: `${categoryTitle.value} - Kinnov'art`,
+useHead(() => ({
+  title: t('pageMeta.galleryCategory.title', { category: categoryTitle.value }),
   meta: [
-    { name: 'description', content: `Découvrez nos projets en ${categoryTitle.value}` }
+    { name: 'description', content: t('pageMeta.galleryCategory.description', { category: categoryTitle.value }) }
   ]
-})
+}))
 </script>
-
-<style lang="scss" scoped>
-.page-title {
-  font-family: $font-heading;
-  font-size: $font-size-4xl;
-  font-weight: $font-weight-bold;
-  color: var(--color-primary);
-  margin-bottom: $spacing-4;
-
-  @include respond-to('md') {
-    font-size: $font-size-5xl;
-  }
-}
-</style>

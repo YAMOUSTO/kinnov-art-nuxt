@@ -31,12 +31,11 @@ interface Props {
   date: string
   title: string
   description: string
-  to?: string
+  to: string
   actionText?: string
 }
 
 withDefaults(defineProps<Props>(), {
-  to: '#',
   actionText: 'View More'
 })
 </script>
