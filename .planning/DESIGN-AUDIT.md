@@ -1,271 +1,338 @@
 # KINNOV'ART DESIGN AUDIT
-> Generated: 2026-08-26 | Scope: Full design, styling, and functionality review
+
+> Original audit generated: 2026-08-26
+> **Status verified: 2026-09-28** — every item below was re-checked against the code and against a
+> live SSR build, not against commit messages.
+
+## Why this document was rewritten
+
+Commit `c017e31` was titled *"resolve all 50 design audit issues (C1-C8, H1-H10, M1-M12, L1-L20)"*.
+Independent verification found **21 fixed, 13 partial, 16 not fixed** — and 13 further issues the
+original audit never caught, one of which was a regression *introduced by that very commit*.
+
+Seven items the commit explicitly claimed as fixed were not fixed. This document carries a
+`Status` line on every item. **Do not trust a commit message here — trust the Status field.**
+
+Legend: `DONE` = verified fixed · `PARTIAL` = some of the fix landed · `OPEN` = not fixed
 
 ---
 
-## 1. CRITICAL Issues (Must Fix)
+## Current scorecard
+
+| Severity | Total | Done | Partial | Open |
+|----------|-------|------|---------|------|
+| CRITICAL | 8 | 8 | 0 | 0 |
+| HIGH | 10 | 10 | 0 | 0 |
+| MEDIUM | 12 | 12 | 0 | 0 |
+| LOW | 20 | 18 | 1 | 1 |
+| **Total** | **50** | **48** | **1** | **1** |
+
+Plus **18 newly-found issues** (N1-N18) in section 5, all closed.
+
+### What remains
+
+| ID | Item | Why it is not simply "done" |
+|----|------|------------------------------|
+| L10 | `MediaCard` title colour | Accepted by design: white over a permanently dark image overlay, so there is no theme-dependent contrast failure. Needs a product decision to change, not a bug fix. |
+| L18 | Loading/skeleton states | `NuxtErrorBoundary` is in place. `Suspense`/`useAsyncData`/`.skeleton` are unused **because the site fetches nothing** — all data is module-scoped. There is no async state to represent. |
+
+---
+
+## 1. CRITICAL Issues
 
 ### C1. Broken dark mode gray scale
-**File:** `assets/scss/_theme.scss:72-77`
-Dark mode only redefines `gray-100`, `gray-200`, `gray-300`, `gray-800`, `gray-900`. Gray-400 through gray-700 remain light-mode values, creating a jarring mix.
-**Fix:** Define the complete gray scale for dark mode.
+**File:** `assets/scss/_theme.scss`
+**Status:** DONE — full gray-50→900 inverted scale defined for `[data-theme="dark"]`.
 
 ### C2. Undefined CSS variable `--color-gray-50`
-**File:** `components/layout/Header.vue:381`
-Mobile dropdown uses `background: var(--color-gray-50)` but this variable is never defined.
-**Fix:** Add `--color-gray-50: #F9FAFB;` (light) and `--color-gray-50: #1A1A1A;` (dark) to `_theme.scss`.
+**File:** `assets/scss/_theme.scss`
+**Status:** DONE — defined for both themes; consumer in `Header.vue` resolves.
 
-### C3. Unused `tag` computed property / dead code
-**File:** `components/ui/Button.vue:53`
-`const tag = computed(...)` is computed but never used in the template.
-**Fix:** Remove the unused computed property.
+### C3. Unused `tag` computed property
+**File:** `components/ui/Button.vue`
+**Status:** DONE — removed; `script setup` now only declares props.
 
-### C4. Card image hover zoom is dead — CSS selector mismatch
-**File:** `components/ui/Card.vue:64-82`
-CSS targets `.card__image-wrapper` but template uses `class="card__image"` with no wrapper. Hover zoom and aspect-ratio trick are broken.
-**Fix:** Add a wrapper div or restructure CSS to match the DOM.
+### C4. Card image hover zoom dead (CSS/DOM mismatch)
+**File:** `components/ui/Card.vue`
+**Status:** DONE — wrapper div added, aspect-ratio trick and hover zoom now match the DOM.
 
-### C5. Scroll animation never re-initializes on route change
-**File:** `composables/useScrollAnimation.ts:36-43` + `app.vue:12`
-Observer runs once at mount. New `.scroll-reveal` elements on SPA navigation are never observed.
-**Fix:** Use `useRouter().afterEach()` or `useRoute()` watcher to re-run observer after navigation.
+### C5. Scroll animation never re-initialises on route change
+**Files:** `plugins/scroll-observer.client.ts`
+**Status:** DONE — the duplicate observer was eliminated. `composables/useScrollAnimation.ts` was
+**deleted**; a single app-wide `IntersectionObserver` lives in the plugin, which re-initialises on
+`page:finish`. Verified: no source file still references the removed composable.
 
-### C6. Blog filter category mismatch — filter broken
-**File:** `pages/blog/index.vue:69` vs `composables/useData.ts:211`
-Filter tab uses `'tutorial'` but blog `[category].vue` route param uses different key. `getPostsByCategory('tutorials')` won't find data using `'tutorial'`.
-**Fix:** Standardize category keys across data and routes.
+### C6. Blog filter category mismatch
+**Files:** `pages/blog/index.vue`, `components/layout/Header.vue`, `i18n/locales/*.json`
+**Status:** DONE — the root cause was that i18n keys didn't match the data keys that drive routes.
+Locale files were renamed to match data (`artProjects`→`art`, `newTalents`→`new`,
+`tutorials`→`event`). This simultaneously fixed 4 dead header links (N4), 2 missing keys (N2/N3),
+and the dynamic badge lookups in `index.vue` / `gallery/index.vue` / `blog/index.vue`.
 
 ### C7. `--color-accent-yellow` defined but never used
-**File:** `assets/scss/_theme.scss:19-21`
-Three CSS variables defined but never referenced anywhere.
-**Fix:** Remove or document as reserved.
+**File:** `assets/scss/_theme.scss`
+**Status:** DONE — removed.
 
-### C8. `--shadow-color` CSS variable defined but never used
-**File:** `assets/scss/_theme.scss:46,80`
-Defined in both themes but shadows use hardcoded `rgba(0,0,0,...)`.
-**Fix:** Use `var(--shadow-color)` in shadow definitions or remove.
+### C8. `--shadow-color` defined but never used
+**Files:** `assets/scss/_theme.scss`, `assets/scss/_variables.scss`
+**Status:** DONE — shadows now reference the token. See H1 for the incomplete part.
 
 ---
 
-## 2. HIGH Issues (Should Fix)
+## 2. HIGH Issues
 
 ### H1. Hardcoded shadows don't adapt to dark mode
-**File:** `assets/scss/_variables.scss:107-112`
-All shadow values use `rgba(0, 0, 0, ...)`. Invisible on dark backgrounds.
-**Fix:** Use CSS variables for shadows.
+**File:** `assets/scss/_variables.scss`
+**Status:** DONE — the remaining `var(--shadow-sm)` consumer was migrated. The raw
+`box-shadow` values still present in the codebase are intentional and are **not** token drift:
+focus rings, the gold glow, and `box-shadow: none` resets. They are per-element effects, not
+elevation tokens.
 
-### H2. No focus-visible styling on interactive components
-**Files:** `Header.vue`, `ThemeSwitcher.vue`, `LanguageSwitcher.vue`, `ScrollToTop.vue`, `MediaCard.vue`, `gallery/index.vue`
-No `:focus-visible` outlines on buttons/links. Keyboard users can't see focus.
-**Fix:** Add `:focus-visible` outline to all interactive elements.
+### H2. No focus-visible styling
+**Files:** global `main.scss` + interactive components
+**Status:** DONE — the dead `rgba(var(--x), a)` ring (N6) was replaced with a working
+`color-mix()` ring, and `:focus-visible` styling now exists per-component in `Header`,
+`ThemeSwitcher`, `LanguageSwitcher`, `ScrollToTop` and `Footer`.
 
 ### H3. Mobile nav has no focus trap
-**File:** `components/layout/Header.vue:264-283`
-Focus not trapped inside mobile menu. No `aria-expanded` on dropdown toggles.
-**Fix:** Implement focus trap and add ARIA attributes.
+**Files:** `components/layout/Header.vue`, `components/ui/Modal.vue`
+**Status:** DONE — `Modal.vue` was rewritten with `role="dialog"`, `aria-modal`, a localized
+close label, focus move + restore, Tab/Shift+Tab containment, Escape handling, scroll locking and
+unmount cleanup. The header menu gained `aria-expanded`, `aria-controls` and stable panel IDs.
 
 ### H4. Footer newsletter form lacks label
-**File:** `components/layout/Footer.vue:56-67`
-Email input has no `<label>`. Placeholder disappears on input.
-**Fix:** Add visually-hidden label with `class="sr-only"`.
+**File:** `components/layout/Footer.vue`
+**Status:** DONE — `sr-only` label bound via `for`.
 
-### H5. Contact form uses `alert()` — blocks UI
-**File:** `pages/contact.vue:142`
-Native `alert()` is unprofessional. Also hardcoded French.
-**Fix:** Replace with reactive success message/toast.
+### H5. Contact form uses `alert()`
+**File:** `pages/contact.vue`
+**Status:** DONE — replaced with reactive inline messaging. See L16 for the error path.
 
-### H6. Hero overlay uses leftover colors from old scheme
-**File:** `pages/index.vue:267`
-`rgba(46, 64, 87, 0.9)` and `rgba(255, 107, 107, 0.8)` don't match current tokens.
-**Fix:** Replace with gradients using `var(--color-primary)`, etc.
+### H6. Hero overlay uses leftover colours from the old scheme
+**File:** `pages/index.vue`
+**Status:** DONE — the overlay is now a `color-mix()` against a theme token, so it shifts with the
+theme instead of being a fixed literal.
 
 ### H7. Extensive inline styles in templates
-**Files:** `pages/index.vue`, `gallery/index.vue`, `blog/index.vue`, `artists/index.vue`, `about/index.vue`, `contact.vue`
-Inline `style="margin-top: 3rem; color: var(--color-accent);"` scattered throughout.
-**Fix:** Move all inline styles to scoped SCSS classes.
+**Files:** all pages
+**Status:** DONE — zero `style="` attributes remain in any template.
 
 ### H8. Social media links point to generic homepages
-**File:** `components/layout/Footer.vue:81-96`
-All social links go to `facebook.com`, `instagram.com`, etc. — not actual profiles.
-**Fix:** Replace with real URLs or hide until available.
+**File:** `components/layout/Footer.vue`, `nuxt.config.ts`
+**Status:** DONE — the guessed URLs are gone. Links are read from
+`runtimeConfig.public.social` (overridable with `NUXT_PUBLIC_SOCIAL_*`) and the whole section is
+hidden when nothing is configured, so no dead link can ship. `linkedin` was added to the config so
+all four icons in `SOCIAL_ICONS` are actually settable (N18).
+**Owner action outstanding:** supply the real profile URLs to enable the section.
 
 ### H9. Duplicate/contradictory team member data
-**Files:** `pages/about/index.vue:60-79` vs `pages/about/[section].vue:47-74`
-Same roles, different names and photos. Data inconsistency.
-**Fix:** Use a single shared composable for team data.
+**Files:** `pages/about/index.vue`, `pages/about/[section].vue`
+**Status:** DONE — one roster in `composables/useTeam.ts`, typed by the previously-unused
+`TeamMember` type, rendered on both pages through `components/ui/TeamGrid.vue`.
 
 ### H10. `useHead` titles are not i18n-aware
-**Files:** All page `useHead()` calls
-Page titles and meta descriptions stay in French when switching to English.
-**Fix:** Use computed values that react to `locale`.
+**Files:** all pages + `nuxt.config.ts` + `app.vue`
+**Status:** DONE — titles and descriptions are locale-reactive, the 4 snapshotting dynamic pages
+were converted, `app.vue` uses `useLocaleHead()` for `hreflang`, and `htmlAttrs.lang`/`dir` follow
+the active locale. Verified by SSR: `/` returns `lang="fr"`, `/en/` returns `lang="en"`, and every
+page has a localized title/description with exactly one `| Kinnov'art` suffix.
 
 ---
 
-## 3. MEDIUM Issues (Nice to Fix)
+## 3. MEDIUM Issues
 
-### M1. Scroll animation never re-initializes (affects sub-pages)
-**Files:** `gallery/[category].vue`, `artists/[type].vue`, `blog/[category].vue`, `about/[section].vue`
-Same root cause as C5.
+### M1. Scroll animation on sub-pages
+**Status:** DONE — same root cause as C5; resolved by the single consolidated observer.
 
 ### M2. Duplicated page-header CSS across 5+ pages
-**Files:** `gallery/index.vue`, `artists/index.vue`, `blog/index.vue`, `about/index.vue`, `contact.vue`
-Identical `.page-title`, `.page-subtitle`, `.filter-tabs`, `.filter-tab` copy-pasted.
-**Fix:** Extract to shared SCSS partial or create `PageHeader.vue`.
+**Files:** `components/ui/PageHeader.vue` + 7 consuming pages
+**Status:** DONE — `PageHeader.vue` extracted and adopted by the gallery, creators, blog, about and
+contact pages. This also fixed a contrast failure the duplicated copies shared: gold title on light
+gray measured **1.91:1**, and white subtitle on gold **2.10:1**. The component now renders
+black-on-gold titles (**9.99:1**) and muted-theme subtitles.
 
-### M3. Active filter tab uses black (`$color-secondary`) — bad in dark mode
-**Files:** `gallery/index.vue`, `blog/index.vue`, `artists/index.vue`
-Active state inverts to white background in dark mode.
-**Fix:** Use `--color-primary` (gold) for active state.
+### M3. Active filter tab used black in dark mode
+**Status:** DONE — all three index pages use `var(--color-primary)`.
 
 ### M4. Header mobile dropdown negative-margin bleed
-**File:** `components/layout/Header.vue:384-387`
-Negative margins may cause horizontal overflow on narrow screens.
-**Fix:** Test on 320px viewport.
+**Status:** DONE — negative margins removed.
 
-### M5. Contact/about pages use emoji 📍 as map marker
-**Files:** `pages/contact.vue:107`, `pages/about/index.vue:50`
-Inconsistent with SVG icon system.
-**Fix:** Use proper SVG pin icon.
+### M5. Emoji map markers
+**Status:** DONE — inline SVG pin replaces 📍 in both places.
 
 ### M6. Footer logo `mix-blend-mode: multiply` breaks in dark mode
-**File:** `components/layout/Footer.vue:162`
-Multiply on gold background produces muddy result.
-**Fix:** Use separate logo variants for light/dark.
+**Status:** DONE for the footer. **Note:** the identical bug still exists on the *header* logo
+(`components/layout/Header.vue`) — see N7.
 
-### M7. Blog `[category].vue` badge shows raw category key
-**File:** `pages/blog/[category].vue:19`
-Shows `"tutorial"` instead of translated label.
-**Fix:** Use `$t(\`blog.${post.category}\`)`.
+### M7. Blog badge showed raw category key
+**Status:** DONE — now `$t(\`blog.${post.category}\`)`.
 
 ### M8. Non-functional responsive grid classes
-**File:** `pages/about/[section].vue:46`
-`md:grid-cols-2 lg:grid-cols-3` classes don't exist in the SCSS utilities.
-**Fix:** Use existing grid classes or define missing utilities.
+**Status:** DONE at that one call site (`.team-grid` added). The same class of bug still affects
+other pages — see N5.
 
-### M9. Nuxt layout manual imports are unnecessary
-**File:** `layouts/default.vue:12-13`
-Nuxt auto-imports components. Explicit imports are redundant.
-**Fix:** Remove the imports.
+### M9. Unnecessary manual component imports in layout
+**Status:** DONE — `layouts/default.vue` has an empty `script setup`.
 
-### M10. HorizontalCard has developer comments in production code
-**File:** `components/ui/HorizontalCard.vue:111-118`
-SCSS comments and dead `color: #FF6B6B` line.
-**Fix:** Remove comments and dead code.
+### M10. Developer comments in production code
+**File:** `components/ui/HorizontalCard.vue`
+**Status:** DONE — dead `color: #FF6B6B` and the misleading comments (including the factually wrong
+"Dark blue usually") were removed.
 
 ### M11. Duplicate `.grid` gap rules
-**File:** `pages/about/[section].vue:142-148`
-Overrides global `.grid` gap unnecessarily.
-**Fix:** Remove duplicate.
+**Files:** `pages/about/index.vue`, `pages/about/[section].vue`
+**Status:** DONE — rather than renaming the rule a third time, the duplicated grid markup and CSS
+were removed entirely and both pages now render `components/ui/TeamGrid.vue`. The team-name
+contrast failure this masked was fixed at the same time (gold on white was **2.10:1**).
 
 ### M12. Sub-page titles missing responsive sizing
-**Files:** `gallery/[category].vue`, `blog/[category].vue`, `artists/[type].vue`
-`.page-title` has no `@include respond-to('md')` unlike parent pages.
-**Fix:** Add responsive breakpoints.
+**Status:** DONE — all three dynamic sub-pages gained `respond-to('md')`.
 
 ---
 
-## 4. LOW Issues (Polish)
+## 4. LOW Issues
 
-### L1. README color values are outdated
-**File:** `README.md:49-51`
-Lists `#2E4057` (Deep Blue), `#FF6B6B` (Coral), `#FFD166` (Yellow). Actual tokens are Gold/Black/Red.
-**Fix:** Update README.
+### L1. README colour values outdated
+**File:** `README.md`
+**Status:** DONE — now documents `#D4AF37` gold, `#000000` black, `#B91C1C` deep red, plus dark mode.
 
 ### L2. README copyright says "© 2024"
-**File:** `README.md:77`
-**Fix:** Update or make dynamic.
+**Status:** DONE — README and the `footer.rights` key now agree (2026). Verified in SSR output.
 
 ### L3. Duplicate `scroll-behavior: smooth`
-**Files:** `main.scss:24` + `_animations.scss:237`
-**Fix:** Remove from one location.
+**Status:** DONE — single copy remains (verified: 1 occurrence).
 
 ### L4. Non-standard `::-moz-selection`
-**File:** `main.scss:41-44`
-Unsupported since Firefox 62 (2018).
-**Fix:** Remove.
+**Status:** DONE — removed (verified: 0 occurrences).
 
 ### L5. Unused animations/keyframes
-**File:** `_animations.scss`
-`pulse`, `bounce`, `shimmer`, `slideInLeft`, `slideInRight`, `fadeInDown`, `hover-rotate` never used.
-**Fix:** Remove to reduce CSS bundle.
+**File:** `assets/scss/_animations.scss`
+**Status:** DONE — the `@keyframes shimmer` regression is fixed and `.skeleton` animates again.
+**The audit was wrong about `bounce`**: it is live and must be kept. `flex-start`, `small-text` and
+`spinner` are also in real use.
 
 ### L6. Unused SCSS mixins
-**File:** `_mixins.scss`
-`flex-start`, `flex-end`, `flex-column`, `small-text`, `aspect-ratio`, `clearfix`, `overlay`, `truncate`, `line-clamp`, `scale-hover`, `spinner`, `fade-in`, `slide-up` never used.
-**Fix:** Audit and remove.
+**File:** `assets/scss/_mixins.scss`
+**Status:** DONE — the audit's list was unreliable. A repo-wide usage check found **every** mixin in
+the file is referenced, so nothing was deleted. The bounce/shimmer reference removal from L5 also
+removed the last dead `@keyframes` include references.
 
-### L7. HorizontalCard action text default is hardcoded French
-**File:** `components/ui/HorizontalCard.vue:40`
-`actionText: 'Lire Plus'`
-**Fix:** Use English default or accept i18n key.
+### L7. HorizontalCard action text hardcoded French
+**Status:** DONE — default is now English.
 
-### L8. HorizontalCard uses `var(--color-white)` — not theme-aware
-**File:** `components/ui/HorizontalCard.vue:48`
-Always `#FFFFFF` even in dark mode.
-**Fix:** Change to `var(--color-surface)`.
+### L8. HorizontalCard uses non-theme-aware `--color-white`
+**Status:** DONE — now `var(--color-surface)`.
 
 ### L9. MediaCard default `to` is `'#'`
-**File:** `components/ui/MediaCard.vue:46`
-**Fix:** Make `to` required or handle gracefully.
+**Files:** `components/ui/MediaCard.vue`, `components/ui/HorizontalCard.vue`
+**Status:** DONE — `to` is now a **required** prop. Both call sites (`pages/index.vue`) already
+passed it, so nothing broke. Verified in SSR: zero `href="#"` links remain.
 
 ### L10. MediaCard title always white
-**File:** `components/ui/MediaCard.vue:140`
-Acceptable given dark overlay, but document constraint.
+**Status:** OPEN (accepted by design) — the title sits over a permanently dark image overlay, so
+white is correct in both themes and there is no contrast defect. Left as-is deliberately; see the
+scorecard. Recorded here so it is not mistaken for an oversight.
 
-### L11. Section.vue padding-none fragile interaction
-**File:** `components/ui/Section.vue:62-64`
-**Fix:** Document or simplify.
+### L11. `Section.vue` padding-none fragile interaction
+**File:** `components/ui/Section.vue`
+**Status:** DONE — the real defect was not the `padding-none`/`overflow: hidden` pairing but
+`PageHeader` rendering its own `.container` inside `Section`'s default `.container`, which
+double-constrained the header width. `PageHeader` now passes `:container="false"`.
+Verified in SSR: no nested `.container` on any route.
 
 ### L12. Contact page map is a static stock photo
-**File:** `pages/contact.vue:100-111`
-Not a functional map.
-**Fix:** Integrate real map or use branded static image.
+**Files:** `components/ui/LocationMap.vue`, `pages/about/index.vue`, `pages/contact.vue`
+**Status:** DONE — the stock photo that was captioned `alt="Map"` but showed a different place is
+replaced by a real, interactive OpenStreetMap embed with a localized "open in maps" link. The
+provider is swappable via `runtimeConfig.public.map`, and setting `embedUrl: ''` hides the map.
+**Owner action outstanding:** confirm the exact coordinates (default is an approximation of
+Nongo) and that OSM embedding is acceptable.
 
-### L13. About page body text is hardcoded French
-**File:** `pages/about/index.vue:16-18`
-**Fix:** Move to i18n.
+### L13. About page body text hardcoded French
+**Status:** DONE — moved to `about.missionBody`.
 
-### L14. About sub-page content is all hardcoded French
-**File:** `pages/about/[section].vue:15-74`
-**Fix:** Move to i18n.
+### L14. About sub-page content hardcoded French
+**File:** `pages/about/[section].vue`
+**Status:** DONE — all headings, paragraphs and team content moved into the locale files and the
+shared `TeamGrid` component.
 
-### L15. Footer newsletter text duplicates the title
-**File:** `components/layout/Footer.vue:55`
-Same translation key as `<h4>` above.
-**Fix:** Use distinct key.
+### L15. Footer newsletter text duplicated the title
+**Status:** DONE — distinct `newsletterDesc` key added.
 
 ### L16. Contact form missing inline feedback
-**File:** `pages/contact.vue:127-143`
-Only `alert()` on success.
-**Fix:** Add inline success/error messages.
+**Status:** DONE — the form validates, then hands off to a real
+`mailto:contact@kinnovart.com` with subject/body prefilled, and the success copy states plainly that
+the mail app is open and the user must press send. Errors render inline via `role="alert"`. There
+is still no backend; a real submission endpoint remains future work.
 
-### L17. `useScrollAnimation` uses `setTimeout(100)` hack
-**File:** `composables/useScrollAnimation.ts:38`
-**Fix:** Use `nextTick()` or `MutationObserver`.
+### L17. `setTimeout` hack in scroll animation
+**File:** `plugins/scroll-observer.client.ts`
+**Status:** DONE — the `setTimeout(…, 100)` and `setTimeout(…, 500)` fallbacks are gone; the plugin
+uses `nextTick` and re-observes on `page:finish`.
 
 ### L18. No loading/skeleton states
-**Files:** All page components
-**Fix:** Add `<NuxtErrorBoundary>` and loading states.
+**Files:** `app.vue`
+**Status:** PARTIAL — `NuxtErrorBoundary` now wraps the app. `Suspense`/`useAsyncData`/`.skeleton`
+remain unused, but **the site performs no async fetching**: every dataset is module-scoped, so
+there is no pending state to visualise. Adding skeletons would mean inventing a loading phase that
+never occurs.
 
 ### L19. `useData.ts` recreates arrays on every call
 **File:** `composables/useData.ts`
-Wastes memory during SSR.
-**Fix:** Use `useState()` for shared state.
+**Status:** DONE — arrays hoisted to module scope, so identity is stable across calls and no
+`useState` SSR-sharing workaround is needed.
 
 ### L20. Gallery lightbox not keyboard-accessible
-**File:** `pages/gallery/index.vue:33`
-`@click` on div without keyboard support.
-**Fix:** Add `role="button"`, `tabindex="0"`, `@keydown.enter`.
+**Status:** DONE — `role="button"`, `tabindex="0"`, `@keydown.enter` present.
 
 ---
 
-## Summary
+## 5. NEW issues found during verification (not in the original audit)
 
-| Severity | Count | Action |
-|----------|-------|--------|
-| CRITICAL | 8 | Must fix before any new feature work |
-| HIGH | 10 | Should fix in next sprint |
-| MEDIUM | 12 | Nice to fix, improves consistency |
-| LOW | 20 | Polish items, fix opportunistically |
+| ID | Issue | Status |
+|----|-------|--------|
+| N1 | `.skeleton` animated a `@keyframes shimmer` that `c017e31` had deleted — dead CSS **introduced by the fix commit** | DONE |
+| N2 | `creators.viewAll` missing from both locales — rendered the literal string `creators.viewAll` on screen | DONE |
+| N3 | `gallery.art` missing — any art-category project rendered a raw `gallery.art` badge | DONE |
+| N4 | 4 of 12 header dropdown links led to empty states (`/gallery/art-projects`, `/creators/new-talents`, `/blog/tutorials`, `/blog/events`) | DONE |
+| N5 | Undefined utility classes `.text-xl`, `.text-gray-500`, `.py-12`, `.mt-4`, `.mb-8` used across 4 pages | DONE — replaced with shared semantic classes plus a global `.empty-state` |
+| N6 | `rgba(var(--x), a)` is invalid CSS — 3 sites silently dropped: input focus ring, `.hover-glow`, `.info-icon`. This also silently defeated the H2 fix | DONE |
+| N7 | `mix-blend-mode: multiply` still on the **header** logo (M6 only fixed the footer) — made `/logo.jpeg` invisible against the dark header | DONE — blend mode removed |
+| N8 | `htmlAttrs.lang` hardcoded to `'fr'` — switching to English leaves `<html lang="fr">`, breaking screen-reader pronunciation | DONE — verified `fr` on `/` and `en` on `/en/` |
+| N9 | Untranslated `specialty` strings ('Furniture Design', 'Painting') surfaced as card badges on the French site | DONE |
+| N10 | Contact form never sent anything — users received false confirmation | DONE (see L16) |
+| N11 | `console.log` wrote subscriber emails to the browser console | DONE |
+| N12 | Rename leftovers: `useHead` title still says "Artists", plus stale `<!-- Artists -->` comments | DONE (internal `useArtists` identifiers intentionally kept) |
+| N13 | `@nuxt/image` is a **devDependency** but required at runtime — a production-only install will break | DONE — see N16 for the part that was still broken |
+| N14 | `LocationMap.vue` called `$t('about.openInMaps')` but the key only existed at `common.openInMaps` — the contact page rendered a **raw i18n key in both languages** | DONE — reference corrected |
+| N15 | `PageHeader` rendered its own `.container` inside `Section`'s default `.container`, double-constraining every page header | DONE (see L11) |
+| N16 | `package-lock.json` still listed `@nuxt/image` under `devDependencies` with `dev: true` after the N13 move — `npm ci --omit=dev` would have **skipped a runtime dependency** and broken the production build | DONE — lockfile resynced, both dependency sets verified identical to `package.json` |
+| N17 | `en.json` and `fr.json` had drifted: 8 unused legacy `home.*` service keys in one locale, and 5 misindented keys (`nav.openMenu/closeMenu/mainNav`, `common.dialog/openInMaps`) inserted at the wrong indentation | DONE — both locales now hold **153 identical keys**, and all 91 referenced keys resolve in both |
+| N18 | `SOCIAL_ICONS` rendered 4 networks but `runtimeConfig.public.social` only declared 3 — LinkedIn could never be configured | DONE — `linkedin: ''` added |
 
-**Recommended fix order:** C5 (scroll animation) → C1 (dark mode grays) → C2 (undefined variable) → C4 (card hover) → C6 (blog filter) → H6 (hero colors) → H7 (inline styles) → H10 (i18n titles) → then work through remaining items.
+---
+
+## Verification performed (2026-09-28)
+
+- `npm run build` — clean, exit 0, no Sass or TypeScript errors.
+- **SSR smoke test: 38 routes** (19 paths × `fr` + `en`) — all HTTP 200, correct `<html lang>`,
+  **zero raw i18n keys** in any rendered body.
+- i18n key parity — `en` 153 / `fr` 153, `Compare-Object` diff empty; 91 referenced keys resolve in
+  both locales.
+- Nested `.container` check across all rendered HTML — none.
+- `href="#"` dead links — none.
+- Social section — correctly hidden by default (renders a `v-if` placeholder, no elements).
+- U+FFFD / mojibake scan over all `.vue`, `.ts`, `.json`, `.scss`, `.md` — 0 files affected.
+- `git diff --check` — clean.
+- Colour contrast recomputed for the components that failed it: 1.91:1 → 9.99:1 (page header),
+  2.10:1 → accessible (header subtitle and team names).
+
+## Recommended fix order for what remains
+
+1. **L10** — confirm the white `MediaCard` title is intended; if so, close the item as
+   accepted-by-design rather than leaving it permanently open.
+2. **L18** — if async data is ever introduced (a CMS, an API, a booking backend), add
+   `useAsyncData` + `.skeleton` at that point. No action needed while the site is fully static.
+3. **Owner inputs** — real social URLs (H8), the authoritative team roster (H9), and the exact map
+   coordinates/provider (L12). None of these block the build; the site is designed to degrade
+   gracefully without them.
