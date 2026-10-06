@@ -36,17 +36,26 @@ export default defineNuxtPlugin((nuxtApp) => {
     )
   }
 
+  const revealPage = async () => {
+    await nextTick()
+    observeElements()
+  }
+
   nuxtApp.hook('app:mounted', () => {
     observeElements()
   })
 
-  // `page:finish` fires once the new page component has mounted, so a single
-  // nextTick is enough. The previous `setTimeout(100)` + `setTimeout(500)`
-  // fallback pair existed to paper over racing the DOM update.
-  nuxtApp.hook('page:finish', async () => {
-    await nextTick()
-    observeElements()
-  })
+  // With `pageTransition.mode: 'out-in'` (nuxt.config), `page:finish` fires
+  // while the *old* page is still in the DOM: the outgoing page has not left
+  // yet and the incoming one is not inserted. Observing only here therefore
+  // re-observes the leaving page and the new page never gets an observer —
+  // every `.scroll-reveal` element stays at `opacity: 0` and the page renders
+  // blank. `page:transition:finish` runs from the transition's `onAfterLeave`,
+  // i.e. right when the new page is inserted, so one nextTick lands after the
+  // DOM swap. Keep both hooks: `page:transition:finish` never fires when a
+  // route disables the page transition, where `page:finish` alone is correct.
+  nuxtApp.hook('page:finish', revealPage)
+  nuxtApp.hook('page:transition:finish', revealPage)
 
   if (import.meta.client) {
     // Without this the observer outlives the app and keeps closures alive.
