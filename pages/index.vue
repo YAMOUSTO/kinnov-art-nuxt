@@ -8,7 +8,7 @@
           <h1 class="hero__title">{{ $t('home.heroTitle') }}</h1>
           <p class="hero__subtitle">{{ $t('home.heroSubtitle') }}</p>
           <div class="hero__actions">
-            <Button variant="accent" size="lg" :to="localePath('/gallery')" class="hero__cta">
+            <Button variant="accent" size="lg" :to="localePath('/services')" class="hero__cta">
               {{ $t('home.heroCta') }}
             </Button>
             <Button variant="outline" size="lg" :to="localePath('/contact')" class="hero__cta-secondary">
@@ -36,12 +36,12 @@
             </p>
             <div class="intro__stats">
               <div class="stat-item">
-                <span class="stat-number">50+</span>
-                <span class="stat-label">{{ $t('creators.title') }}</span>
+                <span class="stat-number">5</span>
+                <span class="stat-label">{{ $t('home.statsCrafts') }}</span>
               </div>
               <div class="stat-item">
-                <span class="stat-number">100+</span>
-                <span class="stat-label">{{ $t('gallery.art') }}</span>
+                <span class="stat-number">1</span>
+                <span class="stat-label">{{ $t('home.statsLocation') }}</span>
               </div>
             </div>
           </div>
@@ -66,13 +66,22 @@
         </div>
 
         <div class="services-grid">
-          <div
+          <NuxtLink
             v-for="service in services"
             :key="service.slug"
+            :to="`${localePath('/services')}#${service.slug}`"
             class="service-card scroll-reveal"
           >
-            <div class="service-card__icon">
-              <ServiceIcon :name="service.icon" />
+            <div class="service-card__media">
+              <NuxtImg
+                :src="service.image"
+                :alt="$t(`services.items.${service.slug}.title`)"
+                class="service-card__image"
+                loading="lazy"
+              />
+              <div class="service-card__icon">
+                <ServiceIcon :name="service.icon" />
+              </div>
             </div>
             <h3 class="service-card__title">
               {{ $t(`services.items.${service.slug}.title`) }}
@@ -80,7 +89,19 @@
             <p class="service-card__desc">
               {{ $t(`services.items.${service.slug}.description`) }}
             </p>
-          </div>
+            <ul v-if="examples(service).length" class="service-card__examples">
+              <li v-for="example in examples(service)" :key="example" class="service-card__example">
+                {{ example }}
+              </li>
+            </ul>
+            <span class="service-card__more">
+              {{ $t('common.learnMore') }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </NuxtLink>
         </div>
 
         <div class="services-cta text-center scroll-reveal">
@@ -91,106 +112,8 @@
       </div>
     </Section>
 
-    <!-- Featured Projects -->
-    <Section class="section--projects">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title scroll-reveal">{{ $t('home.featuredProjects') }}</h2>
-          <Button variant="outline" :to="localePath('/gallery')">
-            {{ $t('common.viewAll') }}
-          </Button>
-        </div>
-        <div class="featured-grid">
-          <Card 
-            v-for="project in featuredProjects" 
-            :key="project.id"
-            :image="project.image"
-            :title="project.title[locale]"
-            :description="project.description[locale]"
-            :badge="$t(`gallery.${project.category}`)"
-            :to="localePath(`/gallery`)"
-            class="scroll-reveal"
-          />
-        </div>
-      </div>
-    </Section>
-
-        <!-- Featured Creators -->
-    <Section class="section--creators" bg="gray">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title scroll-reveal">{{ $t('creators.title') }}</h2>
-          <Button variant="outline" :to="localePath('/creators')">
-            {{ $t('common.viewAll') }}
-          </Button>
-        </div>
-        <div class="creators-grid">
-          <Card 
-            v-for="artist in featuredArtists" 
-            :key="artist.id"
-            :image="artist.image"
-            :title="artist.name"
-            :description="artist.bio[locale]"
-            :badge="$t(artist.specialtyKey!)"
-            :to="localePath(`/creators`)"
-            class="scroll-reveal"
-          />
-        </div>
-      </div>
-    </Section>
-
-    <!-- Audiovisual Productions (New Premium Cards) -->
-    <Section class="section--audiovisual">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title scroll-reveal">{{ $t('services.items.production.title') }}</h2>
-          <Button variant="outline" :to="localePath('/services')">
-            {{ $t('common.viewAll') }}
-          </Button>
-        </div>
-        <div class="audiovisual-grid">
-          <MediaCard 
-            v-for="project in audiovisualProjects" 
-            :key="project.id"
-            :image="project.image"
-            :title="project.title[locale]"
-            :description="project.description[locale]"
-            :badge="$t('services.items.production.title')"
-            :actionText="$t('common.learnMore')"
-            :to="localePath('/gallery')"
-            class="scroll-reveal"
-          />
-        </div>
-      </div>
-    </Section>
-
-    <!-- Latest News (Horizontal Cards) -->
-    <Section class="section--news" bg="gray">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title scroll-reveal">{{ $t('blog.title') }}</h2>
-          <Button variant="outline" :to="localePath('/blog')">
-            {{ $t('common.viewAll') }}
-          </Button>
-        </div>
-        <div class="news-grid">
-          <HorizontalCard 
-            v-for="post in latestPosts" 
-            :key="post.id"
-            :image="post.image"
-            :category="$t(`blog.${post.category}`)"
-            :date="post.date"
-            :title="post.title[locale]"
-            :description="post.excerpt[locale]"
-            :actionText="$t('blog.readMore')"
-            :to="localePath('/blog')"
-            class="scroll-reveal"
-          />
-        </div>
-      </div>
-    </Section>
-
     <!-- Location CTA -->
+
     <Section class="section--cta" bg="primary">
       <div class="container text-center scroll-reveal">
         <h2 class="section-title cta-title">{{ $t('about.location') }}</h2>
@@ -206,17 +129,20 @@
 </template>
 
 <script setup lang="ts">
-const { locale, t } = useI18n()
+import type { Service } from '~/types'
+
+const { t, tm } = useI18n()
 const localePath = useLocalePath()
-const { getFeaturedProjects, getProjectsByCategory } = useProjects()
-const { getArtistsByType } = useArtists()
-const { getPosts } = useBlogPosts()
 const { services } = useServices()
 
-const featuredProjects = getFeaturedProjects().slice(0, 3)
-const audiovisualProjects = getProjectsByCategory('audiovisual').slice(0, 3)
-const featuredArtists = getArtistsByType('featured')
-const latestPosts = getPosts().slice(0, 2) // Match screenshot (2 cards)
+/**
+ * Same key-resolution guard as the services page: `tm()` returns the raw message
+ * structure, and a missing key yields a string rather than a list.
+ */
+const examples = (service: Service): string[] => {
+  const value = tm(`services.items.${service.slug}.examples`)
+  return Array.isArray(value) ? value.map(String) : []
+}
 
 const scrollToSection = (id: string) => {
   const element = document.getElementById(id)
@@ -453,36 +379,66 @@ useHead(() => ({
 }
 
 .service-card {
-  flex: 1 1 280px;
+  // The whole card is a NuxtLink to /services#slug, so it must not inherit the
+  // global anchor underline/colour.
+  flex: 1 1 300px;
   max-width: 380px;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-background);
-  padding: $spacing-8 $spacing-6;
   border-radius: $radius-xl;
-  text-align: center;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
   transition: all $transition-base $easing-in-out;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     transform: translateY(-8px);
     background-color: var(--color-surface);
     box-shadow: $shadow-xl;
-    border-color: var(--border-color);
 
     .service-card__icon {
       background-color: var(--color-primary);
       color: var(--color-white);
       transform: rotate(15deg);
     }
-    
+
+    .service-card__image {
+      transform: scale(1.06);
+    }
+
     .service-card__title {
       color: var(--color-secondary);
     }
+
+    .service-card__more {
+      color: var(--color-secondary);
+      gap: $spacing-3;
+    }
+  }
+
+  &__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: var(--color-gray-100);
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-slow $easing-out;
   }
 
   &__icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto $spacing-6;
+    position: absolute;
+    left: $spacing-4;
+    bottom: $spacing-4;
+    width: 56px;
+    height: 56px;
     background-color: var(--color-gray-100);
     color: var(--color-primary);
     border-radius: $radius-full;
@@ -495,7 +451,7 @@ useHead(() => ({
     font-size: $font-size-lg;
     font-weight: $font-weight-bold;
     color: var(--color-text);
-    margin-bottom: $spacing-4;
+    margin: $spacing-6 $spacing-6 $spacing-3;
     transition: color $transition-base $easing-in-out;
   }
 
@@ -503,6 +459,39 @@ useHead(() => ({
     font-size: $font-size-sm;
     color: var(--color-text-muted);
     line-height: $line-height-relaxed;
+    margin: 0 $spacing-6;
+  }
+
+  &__examples {
+    list-style: none;
+    padding: 0;
+    margin: $spacing-4 $spacing-6 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+  }
+
+  &__example {
+    padding: $spacing-1 $spacing-3;
+    border-radius: $radius-full;
+    background-color: var(--color-surface);
+    border: 1px solid var(--border-color);
+    font-size: $font-size-xs;
+    color: var(--color-text-muted);
+  }
+
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin: auto $spacing-6 $spacing-6;
+    padding-top: $spacing-4;
+    font-family: $font-heading;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: var(--color-primary);
+    transition: color $transition-base $easing-in-out,
+      gap $transition-base $easing-in-out;
   }
 }
 
@@ -534,34 +523,6 @@ useHead(() => ({
   font-size: $font-size-lg;
   color: var(--color-text-muted);
   max-width: 600px;
-}
-
-.featured-grid,
-.creators-grid,
-.audiovisual-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $spacing-6;
-  margin-top: $spacing-12;
-
-  @include respond-to('md') {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include respond-to('lg') {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.news-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $spacing-6;
-  margin-top: $spacing-12;
-
-  @include respond-to('md') {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 // The service cards are now rendered by v-for with no per-index delay modifier.

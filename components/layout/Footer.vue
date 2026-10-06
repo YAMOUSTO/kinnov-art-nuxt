@@ -23,9 +23,6 @@
             <ul class="footer__links">
               <li><NuxtLink :to="localePath('/')">{{ $t('nav.home') }}</NuxtLink></li>
               <li><NuxtLink :to="localePath('/services')">{{ $t('nav.services') }}</NuxtLink></li>
-              <li><NuxtLink :to="localePath('/gallery')">{{ $t('nav.gallery') }}</NuxtLink></li>
-              <li><NuxtLink :to="localePath('/creators')">{{ $t('nav.creators') }}</NuxtLink></li>
-              <li><NuxtLink :to="localePath('/blog')">{{ $t('nav.blog') }}</NuxtLink></li>
               <li><NuxtLink :to="localePath('/about')">{{ $t('nav.about') }}</NuxtLink></li>
               <li><NuxtLink :to="localePath('/contact')">{{ $t('nav.contact') }}</NuxtLink></li>
             </ul>

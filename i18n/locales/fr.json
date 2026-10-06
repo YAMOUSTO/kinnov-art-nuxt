@@ -2,41 +2,11 @@
     "nav": {
         "home": "Accueil",
         "services": "Services",
-        "gallery": "Galerie",
-        "creators": "Créateurs",
-        "blog": "Blog",
         "about": "À Propos",
         "contact": "Contact",
         "openMenu": "Ouvrir le menu",
         "closeMenu": "Fermer le menu",
         "mainNav": "Navigation principale"
-    },
-    "gallery": {
-        "title": "Notre Galerie",
-        "subtitle": "Découvrez nos créations en design de mobilier, art et audiovisuel",
-        "all": "Tout",
-        "furniture": "Design de Mobilier",
-        "art": "Projets Artistiques",
-        "audiovisual": "Audio & Vidéo",
-        "viewAll": "Voir toute la galerie"
-    },
-    "creators": {
-        "title": "Nos Créateurs",
-        "subtitle": "Découvrez les créateurs de demain que nous accompagnons chaque jour",
-        "featured": "Créateurs Vedettes",
-        "new": "Nouveaux Talents",
-        "alumni": "Anciens",
-        "viewAll": "Voir tous les créateurs"
-    },
-    "blog": {
-        "title": "Actualités & Ressources",
-        "subtitle": "Suivez nos projets, événements et tutoriels créatifs",
-        "search": "Rechercher...",
-        "readMore": "Lire plus",
-        "news": "Actualités",
-        "tutorial": "Tutoriels",
-        "event": "Événements",
-        "viewAll": "Voir tous les articles"
     },
     "about": {
         "title": "À Propos de Kinnov'art",
@@ -62,7 +32,6 @@
         "errorEmail": "Merci de saisir une adresse email valide.",
         "mailSubject": "Contact de {name}",
         "mailFrom": "Envoyé par",
-        "address": "Adresse",
         "phone": "Téléphone",
         "directEmail": "Email Direct",
         "location": "Atelier Kinnov'art",
@@ -71,11 +40,11 @@
     "home": {
         "heroTitle": "L'Art de l'Innovation Créative",
         "heroSubtitle": "Basé à Nongo, à la Maison des Jeunes, Kinnov'art façonne décors, meubles et productions pour la jeunesse créative guinéenne.",
-        "heroCta": "Explorer l'Univers",
-        "featuredProjects": "Créations à la Une",
+        "heroCta": "Découvrir nos services",
         "brandIntro": "De la scénographie au montage artistique, Kinnov'art réunit cinq savoir-faire au service de la jeunesse créative guinéenne.",
-        "services": "Nos Services",
-        "servicesCta": "Découvrir nos services"
+        "statsCrafts": "Savoir-faire",
+        "statsLocation": "Atelier unique à Nongo",
+        "servicesCta": "Voir nos services en détail"
     },
     "services": {
         "title": "Nos Services",
@@ -134,13 +103,6 @@
     },
     "common": {
         "learnMore": "En savoir plus",
-        "viewAll": "Voir tout",
-        "loading": "Chargement...",
-        "close": "Fermer",
-        "next": "Suivant",
-        "previous": "Précédent",
-        "noResults": "Aucun résultat trouvé",
-        "dialog": "Fenêtre",
         "openInMaps": "Ouvrir dans OpenStreetMap"
     },
     "pageMeta": {
@@ -148,35 +110,11 @@
         "siteDescription": "Kinnov'art - Centre créatif à Nongo : scénographie, meubles en pneus, perruques, aménagement d'espaces et production artistique.",
         "home": {
             "title": "Accueil",
-            "description": "Kinnov'art associe design de mobilier, gestion d'artistes et production audiovisuelle pour révéler les jeunes créatifs guinéens."
-        },
-        "gallery": {
-            "title": "Notre Galerie",
-            "description": "Parcourez les projets mobilier, art et audiovisuel de Kinnov'art."
+            "description": "Kinnov'art à Nongo : scénographie, meubles en pneus, perruques, aménagement d'espaces et production artistique."
         },
         "services": {
             "title": "Nos Services",
             "description": "Scénographie, meubles en pneus, perruques, aménagement d'espaces et production artistique par Kinnov'art à Nongo."
-        },
-        "galleryCategory": {
-            "title": "{category}",
-            "description": "Découvrez nos projets en {category} chez Kinnov'art."
-        },
-        "creators": {
-            "title": "Nos Créateurs",
-            "description": "Découvrez les designers, peintres et vidéastes que Kinnov'art accompagne."
-        },
-        "creatorsType": {
-            "title": "{type}",
-            "description": "Découvrez nos créateurs {type} chez Kinnov'art."
-        },
-        "blog": {
-            "title": "Actualités & Ressources",
-            "description": "Actualités de projets, événements et tutoriels créatifs de Kinnov'art."
-        },
-        "blogCategory": {
-            "title": "{category}",
-            "description": "Lisez nos derniers articles {category} de Kinnov'art."
         },
         "about": {
             "title": "À Propos",
@@ -213,22 +151,9 @@
             "furnitureLead": "Chef Atelier Mobilier"
         }
     },
-    "specialties": {
-        "furnitureDesign": "Design de Mobilier",
-        "painting": "Peinture",
-        "videography": "Vidéographie",
-        "videoEditing": "Montage Vidéo",
-        "sculpture": "Sculpture",
-        "photography": "Photographie",
-        "mixedMedia": "Technique Mixte",
-        "graphicDesign": "Design Graphique"
-    },
     "error": {
         "title": "Une erreur est survenue",
         "body": "Cette page n'a pas pu être affichée. Merci de réessayer ou de revenir à l'accueil.",
-        "retry": "Réessayer",
-        "notFound": "Page introuvable",
-        "notFoundBody": "Nous n'avons pas trouvé la page que vous cherchiez.",
-        "backHome": "Retour à l'accueil"
+        "retry": "Réessayer"
     }
 }

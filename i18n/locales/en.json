@@ -2,41 +2,11 @@
     "nav": {
         "home": "Home",
         "services": "Services",
-        "gallery": "Gallery",
-        "creators": "Creators",
-        "blog": "Blog",
         "about": "About",
         "contact": "Contact",
         "openMenu": "Open menu",
         "closeMenu": "Close menu",
         "mainNav": "Main navigation"
-    },
-    "gallery": {
-        "title": "Our Gallery",
-        "subtitle": "Discover our creations in furniture, art and audiovisual",
-        "all": "All",
-        "furniture": "Furniture Design",
-        "art": "Art Projects",
-        "audiovisual": "Audio & Video",
-        "viewAll": "View Full Gallery"
-    },
-    "creators": {
-        "title": "Our Creators",
-        "subtitle": "Discover the creators of tomorrow we support every day",
-        "featured": "Featured Creators",
-        "new": "New Talents",
-        "alumni": "Alumni",
-        "viewAll": "View All Creators"
-    },
-    "blog": {
-        "title": "News & Resources",
-        "subtitle": "Follow our projects, events and creative tutorials",
-        "search": "Search...",
-        "readMore": "Read more",
-        "news": "News",
-        "tutorial": "Tutorials",
-        "event": "Events",
-        "viewAll": "View All Posts"
     },
     "about": {
         "title": "About Kinnov'art",
@@ -62,7 +32,6 @@
         "errorEmail": "Please enter a valid email address.",
         "mailSubject": "Contact from {name}",
         "mailFrom": "Sent from",
-        "address": "Address",
         "phone": "Phone",
         "directEmail": "Direct Email",
         "location": "Kinnov'art Workshop",
@@ -71,11 +40,11 @@
     "home": {
         "heroTitle": "The Art of Creative Innovation",
         "heroSubtitle": "Based in Nongo at the Maison des Jeunes, Kinnov'art builds sets, furniture and productions for Guinean creative talent.",
-        "heroCta": "Explore Our World",
-        "featuredProjects": "Featured Creations",
+        "heroCta": "Discover our services",
         "brandIntro": "From set design to artistic editing, Kinnov'art brings five crafts together for Guinean creative youth.",
-        "services": "Our Services",
-        "servicesCta": "Discover our services"
+        "statsCrafts": "Crafts under one roof",
+        "statsLocation": "Workshop in Nongo",
+        "servicesCta": "See our services in detail"
     },
     "services": {
         "title": "Our Services",
@@ -134,51 +103,22 @@
     },
     "common": {
         "learnMore": "Learn more",
-        "viewAll": "View all",
-        "loading": "Loading...",
-        "close": "Close",
-        "next": "Next",
-        "previous": "Previous",
-        "noResults": "No results found",
-        "dialog": "Dialog",
         "openInMaps": "Open in OpenStreetMap"
     },
+
     "pageMeta": {
         "siteTitle": "Kinnov'art - The Art of Creative Innovation",
         "siteDescription": "Kinnov'art - Creative centre in Nongo: set design, tyre furniture, wig making, space design and artistic production.",
         "home": {
             "title": "Home",
-            "description": "Kinnov'art merges furniture design, artist management and AV production to empower creative youth in Guinea."
-        },
-        "gallery": {
-            "title": "Our Gallery",
-            "description": "Browse Kinnov'art's furniture, art and audiovisual projects."
+            "description": "Kinnov'art in Nongo: set design, tyre furniture, wig making, space design and artistic production."
         },
         "services": {
             "title": "Our Services",
             "description": "Set design, tyre furniture, wig making, space design and artistic production from Kinnov'art in Nongo."
         },
-        "galleryCategory": {
-            "title": "{category}",
-            "description": "Discover our {category} projects at Kinnov'art."
-        },
-        "creators": {
-            "title": "Our Creators",
-            "description": "Meet the furniture designers, painters and filmmakers Kinnov'art supports."
-        },
-        "creatorsType": {
-            "title": "{type}",
-            "description": "Meet our {type} creators at Kinnov'art."
-        },
-        "blog": {
-            "title": "News & Resources",
-            "description": "Project news, events and creative tutorials from Kinnov'art."
-        },
-        "blogCategory": {
-            "title": "{category}",
-            "description": "Read our latest {category} articles from Kinnov'art."
-        },
         "about": {
+
             "title": "About",
             "description": "The history, mission and team of Kinnov'art in Nongo, Conakry."
         },
@@ -213,22 +153,9 @@
             "furnitureLead": "Furniture Workshop Lead"
         }
     },
-    "specialties": {
-        "furnitureDesign": "Furniture Design",
-        "painting": "Painting",
-        "videography": "Videography",
-        "videoEditing": "Video Editing",
-        "sculpture": "Sculpture",
-        "photography": "Photography",
-        "mixedMedia": "Mixed Media",
-        "graphicDesign": "Graphic Design"
-    },
     "error": {
         "title": "Something went wrong",
         "body": "This page could not be displayed. Please try again, or head back to the home page.",
-        "retry": "Try again",
-        "notFound": "Page not found",
-        "notFoundBody": "We could not find the page you were looking for.",
-        "backHome": "Back to home"
+        "retry": "Try again"
     }
 }
