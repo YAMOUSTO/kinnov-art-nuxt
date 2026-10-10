@@ -1,6 +1,6 @@
 # Kinnov'art - Nuxt.js Website
 
-A professional, bilingual (French/English) website for Kinnov'art creative center in Nongo, Conakry. The site is built around the studio's five real service lines: set design, tyre furniture, wig making, space design and artistic production.
+A professional, bilingual (French/English) website for Kinnov'art creative center in Nongo, Conakry. The site is built around the studio's five real service lines: set design, tyre furniture, kiosk making, space design and artistic production.
 
 ## 🌟 Features
 

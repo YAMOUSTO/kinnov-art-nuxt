@@ -31,6 +31,12 @@
               </NuxtLink>
             </li>
 
+            <li class="header__menu-item">
+              <NuxtLink :to="localePath('/galerie')" class="header__link" @click="closeMobileMenu">
+                {{ $t('nav.gallery') }}
+              </NuxtLink>
+            </li>
+
             <!-- About Dropdown -->
 
             <li class="header__menu-item header__menu-item--dropdown" @mouseenter="openDropdown('about')" @mouseleave="closeDropdown">

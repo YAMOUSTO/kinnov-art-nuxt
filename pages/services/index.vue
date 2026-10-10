@@ -2,6 +2,7 @@
   <div class="services-page">
     <PageHeader
       bg="primary"
+      image="/images/webp/best4-1920.webp"
       :title="$t('services.title')"
       :subtitle="$t('services.subtitle')"
     />
@@ -30,7 +31,7 @@
           <div class="service__media">
             <NuxtImg
               :src="service.image"
-              :alt="$t(`services.items.${service.slug}.title`)"
+              :alt="service.alt"
               class="service__image"
               loading="lazy"
             />
@@ -51,7 +52,7 @@
               {{ $t(`services.items.${service.slug}.description`) }}
             </p>
 
-            <!-- Wig making is the one service the owner listed without an example,
+            <!-- Kiosk making is the one service the owner listed without an example,
                  so this block renders nothing for it rather than inventing one. -->
             <ul v-if="examples(service).length" class="service__examples">
               <li v-for="example in examples(service)" :key="example" class="service__example">
@@ -73,6 +74,17 @@
                 {{ example }}
               </li>
             </ul>
+
+            <!-- Optional second photo for the service (e.g. the TV studio detail
+                 for space design). Data lives in composables/useServices.ts. -->
+            <div v-if="service.imageSecondary" class="service__secondary">
+              <NuxtImg
+                :src="service.imageSecondary"
+                :alt="service.imageSecondaryAlt || ''"
+                class="service__secondary-image"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -98,14 +110,17 @@ const localePath = useLocalePath()
 const { services } = useServices()
 
 /**
- * Examples live under the active locale as an array. `tm()` returns a raw
- * structure that still has to be key-resolved, and a missing key would make
- * `tm` return a string instead of a list — so the result is validated rather than
- * assumed.
+ * Examples live under the active locale as an array. `tm()` returns the raw
+ * message structure — with vue-i18n's compiled messages that is an array of AST
+ * nodes, not strings (stringifying them rendered `[object Object]`), so each
+ * entry is resolved back through `t()` by index. A missing key would make `tm`
+ * return a string instead of a list, hence the Array check.
  */
 const examples = (service: Service): string[] => {
-  const value = tm(`services.items.${service.slug}.examples`)
-  return Array.isArray(value) ? value.map(String) : []
+  const key = `services.items.${service.slug}.examples`
+  const value = tm(key)
+  if (!Array.isArray(value)) return []
+  return value.map((_, i) => t(`${key}.${i}`))
 }
 
 useHead(() => ({
@@ -247,6 +262,21 @@ useHead(() => ({
     border: 1px solid var(--border-color);
     font-size: $font-size-sm;
     color: var(--color-text);
+  }
+
+  &__secondary {
+    margin-top: $spacing-6;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    box-shadow: $shadow-md;
+    aspect-ratio: 16 / 9;
+  }
+
+  &__secondary-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 }
 

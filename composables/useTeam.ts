@@ -13,25 +13,28 @@ import type { TeamMember } from '~/types'
  * Fode Soumah as "Chef Atelier Mobilier"; `about/[section].vue` listed
  * "M. Fodé Moussa Soumah" as "Directeur Général". The richer roles from `about/index.vue`
  * were kept and the "Directeur Général" entry dropped. Confirm the real roster here.
+ *
+ * TODO: the three avatars currently share the same photograph (pdg.jpg, converted to
+ * WebP) pending real individual team photos.
  */
 const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 1,
     name: 'Ismael Camara',
     roleKey: 'team.roles.creativeDirector',
-    image: 'https://i.pravatar.cc/300?u=amadou'
+    image: '/images/webp/pdg-400.webp'
   },
   {
     id: 2,
     name: 'Ibrahima Sory Savané',
     roleKey: 'team.roles.trainingManager',
-    image: 'https://i.pravatar.cc/300?u=mariama2'
+    image: '/images/webp/pdg-400.webp'
   },
   {
     id: 3,
     name: 'Fode Soumah',
     roleKey: 'team.roles.furnitureLead',
-    image: 'https://i.pravatar.cc/300?u=ibrahima'
+    image: '/images/webp/pdg-400.webp'
   }
 ]
 

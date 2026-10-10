@@ -48,6 +48,11 @@ const ICONS: Record<string, Shape[]> = {
   disc: [
     { tag: 'circle', attrs: { cx: 12, cy: 12, r: 9 } }
   ],
+  // Kiosk: a small structure with a roof (service 3).
+  home: [
+    { tag: 'path', attrs: { d: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' } },
+    { tag: 'polyline', attrs: { points: '9 22 9 12 15 12 15 22' } }
+  ],
   feather: [
     { tag: 'path', attrs: { d: 'M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z' } },
     { tag: 'line', attrs: { x1: 16, y1: 8, x2: 2, y2: 22 } },

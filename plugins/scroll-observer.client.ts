@@ -37,6 +37,11 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   const revealPage = async () => {
+    // `page:finish` can fire while the initial tree is still hydrating: the
+    // observer would then mutate `.scroll-reveal` classes (adding
+    // `is-visible`) before Vue compares its vnodes, producing hydration
+    // class mismatches. `app:mounted` observes once hydration is done.
+    if (nuxtApp.isHydrating) return
     await nextTick()
     observeElements()
   }

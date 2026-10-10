@@ -1,11 +1,11 @@
 <template>
   <div class="contact-page">
-    <Section bg="primary" padding="md">
-      <div class="text-center">
-        <h1 class="page-title page-title--accent">{{ $t('contact.title') }}</h1>
-        <p class="page-subtitle page-subtitle--light">{{ $t('contact.subtitle') }}</p>
-      </div>
-    </Section>
+    <PageHeader
+      bg="primary"
+      image="/images/webp/jaunefonce-1600.webp"
+      :title="$t('contact.title')"
+      :subtitle="$t('contact.subtitle')"
+    />
 
     <Section bg="white">
       <div class="contact-grid">
@@ -33,7 +33,7 @@
             <div>
               <h3 class="info-title">{{ $t('contact.directEmail') }}</h3>
               <p class="info-text">
-                <a href="mailto:contact@kinnovart.com">contact@kinnovart.com</a>
+                <a href="mailto:kinnovart@gmail.com">kinnovart@gmail.com</a>
               </p>
             </div>
           </div>
@@ -47,7 +47,7 @@
             <div>
               <h3 class="info-title">{{ $t('contact.phone') }}</h3>
               <p class="info-text">
-                <a href="tel:+224621000000">+224 621 00 00 00</a>
+                <a href="tel:+224611464609">+224 611 46 46 09</a>
               </p>
             </div>
           </div>
@@ -158,34 +158,6 @@ useHead(() => ({
 </script>
 
 <style lang="scss" scoped>
-.page-title {
-  font-size: $font-size-4xl;
-  font-weight: $font-weight-bold;
-  margin-bottom: $spacing-4;
-
-  @include respond-to('md') {
-    font-size: $font-size-5xl;
-  }
-
-  &--accent {
-    color: var(--color-accent);
-  }
-}
-
-.page-subtitle {
-  font-size: $font-size-lg;
-  max-width: 700px;
-  margin: 0 auto;
-
-  @include respond-to('md') {
-    font-size: $font-size-xl;
-  }
-
-  &--light {
-    color: rgba(255, 255, 255, 0.9);
-  }
-}
-
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);

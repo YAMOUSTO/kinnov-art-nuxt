@@ -6,7 +6,8 @@
         "contact": "Contact",
         "openMenu": "Open menu",
         "closeMenu": "Close menu",
-        "mainNav": "Main navigation"
+        "mainNav": "Main navigation",
+        "gallery": "Gallery"
     },
     "about": {
         "title": "About Kinnov'art",
@@ -44,7 +45,44 @@
         "brandIntro": "From set design to artistic editing, Kinnov'art brings five crafts together for Guinean creative youth.",
         "statsCrafts": "Crafts under one roof",
         "statsLocation": "Workshop in Nongo",
-        "servicesCta": "See our services in detail"
+        "servicesCta": "See our services in detail",
+        "galleryTitle": "Our Work",
+        "gallerySubtitle": "A glimpse of our projects: sets, furniture, spaces and productions.",
+        "testimonialsTitle": "They trust us",
+        "testimonialsSubtitle": "What the artists, organisers and creators who work with Kinnov’art say.",
+        "testimonials": [
+            {
+                "quote": "Kinnov’art built our clip set in five days. The result matches the big Conakry studios.",
+                "name": "Aissata D.",
+                "role": "Music artist"
+            },
+            {
+                "quote": "Our tyre armchairs are a hit in the living room. Unique pieces, everyone asks about them.",
+                "name": "Moussa K.",
+                "role": "Private client"
+            },
+            {
+                "quote": "They dressed our trade-show stand in one day: creative, clean, delivered on time.",
+                "name": "Fatoumata B.",
+                "role": "Event organiser"
+            },
+            {
+                "quote": "Set ready to shoot, flawless lighting. We are coming back for our next show.",
+                "name": "Ibrahim S.",
+                "role": "AV producer"
+            },
+            {
+                "quote": "They covered our concert on Saturday and delivered the edit on Sunday. Flawless.",
+                "name": "Kabinet D.",
+                "role": "Concert organiser"
+            },
+            {
+                "quote": "Their team understands our ideas and turns them into real sets. A true creative partner.",
+                "name": "Hawa T.",
+                "role": "Director"
+            }
+        ],
+        "galleryViewAll": "View the full gallery"
     },
     "services": {
         "title": "Our Services",
@@ -66,9 +104,9 @@
                     "Tyre armchair"
                 ]
             },
-            "wigs": {
-                "title": "Wig Making",
-                "description": "Bespoke wigs made for the stage, for photography and for the screen.",
+            "kiosks": {
+                "title": "Kiosk Making",
+                "description": "Kiosks designed and built to order for your spaces and your events.",
                 "examples": []
             },
             "spaceDesign": {
@@ -105,20 +143,18 @@
         "learnMore": "Learn more",
         "openInMaps": "Open in OpenStreetMap"
     },
-
     "pageMeta": {
         "siteTitle": "Kinnov'art - The Art of Creative Innovation",
-        "siteDescription": "Kinnov'art - Creative centre in Nongo: set design, tyre furniture, wig making, space design and artistic production.",
+        "siteDescription": "Kinnov'art - Creative centre in Nongo: set design, tyre furniture, kiosk making, space design and artistic production.",
         "home": {
             "title": "Home",
-            "description": "Kinnov'art in Nongo: set design, tyre furniture, wig making, space design and artistic production."
+            "description": "Kinnov'art in Nongo: set design, tyre furniture, kiosk making, space design and artistic production."
         },
         "services": {
             "title": "Our Services",
-            "description": "Set design, tyre furniture, wig making, space design and artistic production from Kinnov'art in Nongo."
+            "description": "Set design, tyre furniture, kiosk making, space design and artistic production from Kinnov'art in Nongo."
         },
         "about": {
-
             "title": "About",
             "description": "The history, mission and team of Kinnov'art in Nongo, Conakry."
         },
@@ -128,7 +164,11 @@
         },
         "contact": {
             "title": "Contact",
-            "description": "Contact Kinnov'art in Nongo, Conakry - set design, tyre furniture, wig making, space design and artistic production."
+            "description": "Contact Kinnov'art in Nongo, Conakry - set design, tyre furniture, kiosk making, space design and artistic production."
+        },
+        "gallery": {
+            "title": "Gallery",
+            "description": "Photos of Kinnov’art events, crafts and projects in Nongo, Conakry."
         }
     },
     "aboutContent": {
@@ -157,5 +197,18 @@
         "title": "Something went wrong",
         "body": "This page could not be displayed. Please try again, or head back to the home page.",
         "retry": "Try again"
+    },
+    "gallery": {
+        "title": "Our Gallery",
+        "subtitle": "Events, crafts and projects — a glimpse of what Kinnov’art creates.",
+        "filterLabel": "Filter photos",
+        "all": "All",
+        "catEvents": "Events",
+        "catCrafts": "Crafts",
+        "catProjects": "Projects",
+        "empty": "No photos in this category yet — they will arrive soon.",
+        "close": "Close",
+        "prev": "Previous photo",
+        "next": "Next photo"
     }
 }

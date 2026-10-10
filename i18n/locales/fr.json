@@ -6,7 +6,8 @@
         "contact": "Contact",
         "openMenu": "Ouvrir le menu",
         "closeMenu": "Fermer le menu",
-        "mainNav": "Navigation principale"
+        "mainNav": "Navigation principale",
+        "gallery": "Galerie"
     },
     "about": {
         "title": "À Propos de Kinnov'art",
@@ -44,7 +45,44 @@
         "brandIntro": "De la scénographie au montage artistique, Kinnov'art réunit cinq savoir-faire au service de la jeunesse créative guinéenne.",
         "statsCrafts": "Savoir-faire",
         "statsLocation": "Atelier unique à Nongo",
-        "servicesCta": "Voir nos services en détail"
+        "servicesCta": "Voir nos services en détail",
+        "galleryTitle": "Réalisations",
+        "gallerySubtitle": "Un aperçu de nos projets : décors, mobilier, espaces et productions.",
+        "testimonialsTitle": "Ils nous font confiance",
+        "testimonialsSubtitle": "Ce que disent les artistes, organisateurs et créateurs qui travaillent avec Kinnov’art.",
+        "testimonials": [
+            {
+                "quote": "Kinnov’art a monté le décor de notre clip en cinq jours. Le rendu est au niveau des gros studios de Conakry.",
+                "name": "Aïssata D.",
+                "role": "Artiste musicienne"
+            },
+            {
+                "quote": "Nos fauteuils en pneus font sensation dans le salon. Une pièce unique, tout le monde en demande.",
+                "name": "Moussa K.",
+                "role": "Client particulier"
+            },
+            {
+                "quote": "Ils ont aménagé notre stand en une journée : créatif, propre, livré à l’heure.",
+                "name": "Fatoumata B.",
+                "role": "Organisatrice d’événements"
+            },
+            {
+                "quote": "Plateau prêt à tourner, éclairage impeccable. On y retourne pour notre prochaine émission.",
+                "name": "Ibrahim S.",
+                "role": "Producteur audiovisuel"
+            },
+            {
+                "quote": "Couverture de notre concert le samedi, montage livré le dimanche. Sans faute.",
+                "name": "Kabinet D.",
+                "role": "Organisateur de concerts"
+            },
+            {
+                "quote": "Leur équipe comprend nos idées et les transforme en décors concrets. Un vrai partenaire créatif.",
+                "name": "Hawa T.",
+                "role": "Réalisatrice"
+            }
+        ],
+        "galleryViewAll": "Voir toute la galerie"
     },
     "services": {
         "title": "Nos Services",
@@ -66,9 +104,9 @@
                     "Fauteuil en pneus"
                 ]
             },
-            "wigs": {
-                "title": "Confection de perruques",
-                "description": "Des perruques conçues et réalisées sur mesure pour la scène, la photo et l'écran.",
+            "kiosks": {
+                "title": "Confection de kiosques",
+                "description": "Des kiosques conçus et réalisés sur mesure pour vos espaces et vos événements.",
                 "examples": []
             },
             "spaceDesign": {
@@ -107,14 +145,14 @@
     },
     "pageMeta": {
         "siteTitle": "Kinnov'art - L'Art de l'Innovation Créative",
-        "siteDescription": "Kinnov'art - Centre créatif à Nongo : scénographie, meubles en pneus, perruques, aménagement d'espaces et production artistique.",
+        "siteDescription": "Kinnov'art - Centre créatif à Nongo : scénographie, meubles en pneus, kiosques, aménagement d'espaces et production artistique.",
         "home": {
             "title": "Accueil",
-            "description": "Kinnov'art à Nongo : scénographie, meubles en pneus, perruques, aménagement d'espaces et production artistique."
+            "description": "Kinnov'art à Nongo : scénographie, meubles en pneus, kiosques, aménagement d'espaces et production artistique."
         },
         "services": {
             "title": "Nos Services",
-            "description": "Scénographie, meubles en pneus, perruques, aménagement d'espaces et production artistique par Kinnov'art à Nongo."
+            "description": "Scénographie, meubles en pneus, kiosques, aménagement d'espaces et production artistique par Kinnov'art à Nongo."
         },
         "about": {
             "title": "À Propos",
@@ -126,7 +164,11 @@
         },
         "contact": {
             "title": "Contact",
-            "description": "Kinnov'art à Nongo, Conakry : scénographie, meubles en pneus, perruques, aménagement d'espaces et production artistique."
+            "description": "Kinnov'art à Nongo, Conakry : scénographie, meubles en pneus, kiosques, aménagement d'espaces et production artistique."
+        },
+        "gallery": {
+            "title": "Galerie",
+            "description": "Photos des événements, métiers et projets de Kinnov’art à Nongo, Conakry."
         }
     },
     "aboutContent": {
@@ -155,5 +197,18 @@
         "title": "Une erreur est survenue",
         "body": "Cette page n'a pas pu être affichée. Merci de réessayer ou de revenir à l'accueil.",
         "retry": "Réessayer"
+    },
+    "gallery": {
+        "title": "Notre Galerie",
+        "subtitle": "Événements, métiers et projets — un aperçu de ce que crée Kinnov’art.",
+        "filterLabel": "Filtrer les photos",
+        "all": "Tout",
+        "catEvents": "Événements",
+        "catCrafts": "Métiers",
+        "catProjects": "Projets",
+        "empty": "Aucune photo dans cette catégorie pour le moment — elle arrivera bientôt.",
+        "close": "Fermer",
+        "prev": "Photo précédente",
+        "next": "Photo suivente"
     }
 }

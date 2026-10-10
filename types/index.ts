@@ -17,8 +17,14 @@ export interface Service {
     icon: string
     /** i18n key for the concrete realisations, e.g. `services.items.tireFurniture.examples` */
     examplesKey: string
-    /** Optional representative image. Placeholder Unsplash photo until real work is shot. */
+    /** Representative image of the service (WebP in public/images/webp/). */
     image: string
+    /** Descriptive French alt text for `image`. */
+    alt: string
+    /** Optional secondary photo shown next to the service body (e.g. a realisation detail). */
+    imageSecondary?: string
+    /** Descriptive French alt text for `imageSecondary`. */
+    imageSecondaryAlt?: string
 }
 
 export interface NavItem {
