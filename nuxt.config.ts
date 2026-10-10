@@ -60,6 +60,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       contactEmail: 'contact@kinnovart.com',
+      // WhatsApp number in international format, digits only (for wa.me links).
+      // Overridable per deployment with NUXT_PUBLIC_WHATSAPP.
+      whatsapp: '224611464609',
       social: {
         facebook: '',
         instagram: '',

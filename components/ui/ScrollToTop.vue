@@ -42,7 +42,8 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .scroll-to-top {
   position: fixed;
-  bottom: $spacing-8;
+  // Empilé au-dessus du bouton WhatsApp flottant (même coin bas-droite).
+  bottom: calc(#{$spacing-8} + 68px);
   right: $spacing-8;
   width: 50px;
   height: 50px;
@@ -63,7 +64,7 @@ onUnmounted(() => {
   }
 
   @media (max-width: $breakpoint-md) {
-    bottom: $spacing-6;
+    bottom: calc(#{$spacing-6} + 64px);
     right: $spacing-6;
     width: 44px;
     height: 44px;

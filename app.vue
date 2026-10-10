@@ -15,6 +15,7 @@
         </template>
       </NuxtErrorBoundary>
     </NuxtLayout>
+    <WhatsAppButton />
     <ScrollToTop />
   </div>
 </template>

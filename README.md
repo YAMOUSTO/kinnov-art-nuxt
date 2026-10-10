@@ -82,7 +82,8 @@ reorder the services, edit that file and the matching `services.items.*` keys in
 - **Utilities**: @vueuse/nuxt
 
 > **Note:** there is no backend in this repository. The contact form validates input and
-> hands off to the visitor's email client via `mailto:`; it does not send messages on the server.
+> opens WhatsApp with the message pre-filled (phone number in `runtimeConfig.public.whatsapp`);
+> a floating WhatsApp button is available on every page. It does not send messages on the server.
 
 ## 📝 License
 
