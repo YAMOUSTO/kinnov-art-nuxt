@@ -77,8 +77,7 @@
           </button>
         </div>
 
-        <!-- Categories with no photos yet (e.g. « Métiers » before the owner
-             reclassifies the new uploads) stay listed with this hint. -->
+        <!-- Shown when a category has no photos yet. -->
         <p v-else class="gallery-empty">{{ $t('gallery.empty') }}</p>
       </div>
     </Section>
