@@ -49,7 +49,9 @@ onUnmounted(() => {
   height: 50px;
   border-radius: $radius-full;
   background-color: var(--color-primary);
-  color: var(--color-white);
+  // Dark chevron on the gold fill (~9.9:1). The previous white was ~2.1:1 and
+  // also failed the 3:1 minimum for non-text UI graphics.
+  color: $color-black;
   border: none;
   box-shadow: $shadow-lg;
   cursor: pointer;
@@ -57,8 +59,11 @@ onUnmounted(() => {
   z-index: $z-index-fixed + 50;
   transition: all $transition-base $easing-in-out;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-color: var(--color-secondary);
+    // Opposite of --color-secondary so the chevron stays visible in both themes.
+    color: var(--color-background);
     transform: translateY(-4px);
     box-shadow: $shadow-xl;
   }

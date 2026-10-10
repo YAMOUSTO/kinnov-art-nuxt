@@ -7,6 +7,12 @@
     --color-primary: #D4AF37; // Classic Gold
     --color-primary-light: #e4c56e;
     --color-primary-dark: #b8952b;
+    // Accessible gold for text/icons on light surfaces. #D4AF37 on white is only
+    // 2.10:1 and --color-primary-dark #b8952b manages 2.84:1 — both fail WCAG AA.
+    // This deeper gold holds ~5.0:1 on white and ~4.7:1 on --color-gray-100.
+    // Use it for any gold *text* over a light background. Keep --color-primary
+    // for large filled shapes and for text over dark backgrounds.
+    --color-primary-text: #8a6a12;
 
     --color-secondary: #000000; // Pure Black
     --color-secondary-light: #333333;
@@ -40,6 +46,10 @@
 
     // UI Elements
     --border-color: #DEE2E6;
+    // The logo is a transparent PNG derived from a white-background JPEG, so it
+    // needs no box. Its wordmark is dark, which is correct on the light header
+    // surface; see the dark-mode override for the inverted treatment.
+    --logo-filter: none;
     // Shadows are split into three depths so every layer of a multi-layer shadow
     // scales with the theme. A single token cannot do this: the second layer of
     // $shadow-md/lg/xl needs a much lower alpha than the first, and hardcoding it
@@ -61,6 +71,10 @@
     --color-primary: #f0d588;
     --color-primary-light: #f5e4b3;
     --color-primary-dark: #D4AF37;
+    // Dark surfaces are near-black, so the light gold *is* the accessible text
+    // colour here (#f0d588 on #0A0A0A ≈ 13:1). Mirror --color-primary so the
+    // same `.section-title` rule stays readable in both themes.
+    --color-primary-text: #f0d588;
 
     --color-secondary: #FFFFFF; // Pure White for dark mode
     --color-secondary-light: #F3F4F6;
@@ -91,6 +105,11 @@
 
     // UI Elements
     --border-color: #404040;
+    // The transparent logo's dark wordmark would vanish on the dark header, so
+    // invert it and rotate the hue back: neutrals flip light/dark while the gold
+    // ornament stays approximately gold. The footer keeps the unfiltered logo on
+    // its (always light) gold band.
+    --logo-filter: invert(1) hue-rotate(180deg);
     // Dark mode needs deeper, more opaque shadows: a shadow cast by a light
     // surface onto a near-black background is barely visible at light-theme
     // alphas, so the depths are boosted rather than reused.

@@ -56,7 +56,9 @@ useHead(() => ({
   }
 
   &--accent {
-    color: var(--color-accent);
+    // The gold band is light in both themes, so the title must be dark. The
+    // previous --color-accent (red) measured ~3.1:1 on gold, which fails AA.
+    color: $color-black;
   }
 }
 
@@ -70,14 +72,15 @@ useHead(() => ({
   }
 
   &--light {
-    color: rgba(255, 255, 255, 0.9);
+    // White on gold was ~2.1:1; near-black holds ~9.9:1 on the gold band.
+    color: rgba(0, 0, 0, 0.82);
   }
 }
 
 .section-title {
   font-size: $font-size-3xl;
   font-weight: $font-weight-bold;
-  color: $color-primary;
+  color: var(--color-primary-text);
   margin-bottom: $spacing-6;
 
   @include respond-to('md') {
@@ -86,8 +89,10 @@ useHead(() => ({
 }
 
 .content-section {
-  max-width: 800px;
-  margin: 0 auto;
+  // Was capped at 800px, which left the « Notre Engagement » block narrower and
+  // visually indented versus the team cards on the row below. Match the section
+  // container so all blocks share the same left/right edges.
+  width: 100%;
 
   .lead {
     margin-bottom: $spacing-6;

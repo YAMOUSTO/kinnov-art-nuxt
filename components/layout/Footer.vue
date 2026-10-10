@@ -7,7 +7,7 @@
           <!-- Brand Section -->
           <div class="footer__section">
             <NuxtLink :to="localePath('/')" class="footer__logo-link">
-              <img src="/logo.jpeg" alt="Kinnov'art Logo" class="footer__logo-img" />
+              <img src="/logo-transparent.png" alt="Kinnov'art" class="footer__logo-img" />
             </NuxtLink>
             <p class="footer__description">
               {{ $t('home.brandIntro') }}
@@ -160,8 +160,10 @@ const handleNewsletterSubmit = () => {
 
 <style lang="scss" scoped>
 .footer {
+  // Gold band: light in both themes, so all text switches to near-black.
+  // White on #D4AF37 was ~2.1:1 and failed WCAG AA everywhere in the footer.
   background-color: $color-primary;
-  color: $color-white;
+  color: $color-black;
 
   &__main {
     padding: $spacing-16 0 $spacing-12;
@@ -204,14 +206,14 @@ const handleNewsletterSubmit = () => {
   &__location {
     font-size: $font-size-sm;
     line-height: $line-height-relaxed;
-    color: rgba($color-white, 0.8);
+    color: rgba($color-black, 0.8);
   }
 
   &__title {
     font-family: $font-heading;
     font-size: $font-size-lg;
     font-weight: $font-weight-bold;
-    color: $color-accent;
+    color: $color-black;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -223,12 +225,13 @@ const handleNewsletterSubmit = () => {
 
     a {
       font-size: $font-size-sm;
-      color: rgba($color-white, 0.8);
+      color: rgba($color-black, 0.8);
       text-decoration: none;
       transition: color $transition-base $easing-in-out;
 
       &:hover {
-        color: $color-accent;
+        color: $color-black;
+        text-decoration: underline;
       }
     }
   }
@@ -243,16 +246,17 @@ const handleNewsletterSubmit = () => {
       align-items: center;
       gap: $spacing-3;
       font-size: $font-size-sm;
-      color: rgba($color-white, 0.8);
+      color: rgba($color-black, 0.8);
     }
 
     a {
-      color: rgba($color-white, 0.8);
+      color: rgba($color-black, 0.8);
       text-decoration: none;
       transition: color $transition-base $easing-in-out;
 
       &:hover {
-        color: $color-accent;
+        color: $color-black;
+        text-decoration: underline;
       }
     }
   }
@@ -264,7 +268,7 @@ const handleNewsletterSubmit = () => {
 
   &__newsletter-text {
     font-size: $font-size-sm;
-    color: rgba($color-white, 0.8);
+    color: rgba($color-black, 0.8);
   }
 
   &__newsletter-form {
@@ -281,19 +285,20 @@ const handleNewsletterSubmit = () => {
     flex: 1;
     padding: $spacing-3 $spacing-4;
     font-size: $font-size-sm;
-    border: 1px solid rgba($color-white, 0.2);
+    border: 1px solid rgba($color-black, 0.25);
     border-radius: $radius-md;
-    background-color: rgba($color-white, 0.1);
-    color: $color-white;
+    background-color: rgba($color-white, 0.45);
+    color: $color-black;
     transition: border-color $transition-base $easing-in-out;
 
     &::placeholder {
-      color: rgba($color-white, 0.5);
+      color: rgba($color-black, 0.65);
     }
 
     &:focus {
       outline: none;
-      border-color: $color-accent;
+      border-color: $color-black;
+      box-shadow: 0 0 0 3px rgba($color-black, 0.2);
     }
   }
 
@@ -303,7 +308,7 @@ const handleNewsletterSubmit = () => {
   }
 
   &__bottom {
-    border-top: 1px solid rgba($color-white, 0.1);
+    border-top: 1px solid rgba($color-black, 0.15);
     padding: $spacing-6 0;
   }
 
@@ -319,7 +324,7 @@ const handleNewsletterSubmit = () => {
 
   &__copyright {
     font-size: $font-size-sm;
-    color: rgba($color-white, 0.6);
+    color: rgba($color-black, 0.7);
   }
 
   &__social {
@@ -330,7 +335,7 @@ const handleNewsletterSubmit = () => {
 
   &__social-label {
     font-size: $font-size-sm;
-    color: rgba($color-white, 0.8);
+    color: rgba($color-black, 0.8);
   }
 
   &__social-link {
@@ -340,13 +345,13 @@ const handleNewsletterSubmit = () => {
     width: 36px;
     height: 36px;
     border-radius: $radius-full;
-    background-color: rgba($color-white, 0.1);
-    color: $color-white;
+    background-color: rgba($color-black, 0.1);
+    color: $color-black;
     transition: all $transition-base $easing-in-out;
 
     &:hover {
       background-color: $color-accent;
-      color: $color-primary;
+      color: $color-white;
       transform: translateY(-2px);
     }
   }

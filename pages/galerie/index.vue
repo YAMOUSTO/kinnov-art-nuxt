@@ -51,7 +51,7 @@
           >
             <NuxtImg
               :src="photo.src"
-              :alt="photo.alt"
+              :alt="altFor(photo)"
               class="gallery-item__image"
               loading="lazy"
             />
@@ -142,11 +142,11 @@
           <figure class="lightbox__figure">
             <img
               :src="currentPhoto.src"
-              :alt="currentPhoto.alt"
+              :alt="altFor(currentPhoto)"
               class="lightbox__image"
             />
             <figcaption class="lightbox__caption">
-              {{ currentPhoto.alt }} ({{ lightboxIndex + 1 }}/{{ visiblePhotos.length }})
+              {{ altFor(currentPhoto) }} ({{ lightboxIndex + 1 }}/{{ visiblePhotos.length }})
             </figcaption>
           </figure>
 
@@ -180,6 +180,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import type { GalleryPhoto } from '~/composables/useGallery'
 
 const { t } = useI18n()
 const { photos, categories } = useGallery()
@@ -187,6 +188,18 @@ const { photos, categories } = useGallery()
 const activeFilter = ref<string>('all')
 
 const countOf = (slug: string) => photos.filter((photo) => photo.category === slug).length
+
+/**
+ * Localised alt text. Photos carry only a category; the description is a
+ * localised generic key (`gallery.alt.<category>`) numbered within its own
+ * category, so the placeholder is at least readable in the visitor's language.
+ * TODO propriétaire : remplacer par une description réelle de chaque photo.
+ */
+const altFor = (photo: GalleryPhoto) => {
+  const group = photos.filter((p) => p.category === photo.category)
+  const n = group.indexOf(photo) + 1
+  return t(`gallery.alt.${photo.category}`, { n, total: group.length })
+}
 
 const visiblePhotos = computed(() =>
   activeFilter.value === 'all'

@@ -48,6 +48,16 @@ const ICONS: Record<string, Shape[]> = {
   disc: [
     { tag: 'circle', attrs: { cx: 12, cy: 12, r: 9 } }
   ],
+  // Tyre furniture (service 2): a wheel seen face-on — outer rim, inner hub and
+  // four tread ticks at the cardinal points.
+  tyre: [
+    { tag: 'circle', attrs: { cx: 12, cy: 12, r: 9 } },
+    { tag: 'circle', attrs: { cx: 12, cy: 12, r: 3.5 } },
+    { tag: 'line', attrs: { x1: 12, y1: 3, x2: 12, y2: 6 } },
+    { tag: 'line', attrs: { x1: 21, y1: 12, x2: 18, y2: 12 } },
+    { tag: 'line', attrs: { x1: 12, y1: 21, x2: 12, y2: 18 } },
+    { tag: 'line', attrs: { x1: 3, y1: 12, x2: 6, y2: 12 } }
+  ],
   // Kiosk: a small structure with a roof (service 3).
   home: [
     { tag: 'path', attrs: { d: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' } },

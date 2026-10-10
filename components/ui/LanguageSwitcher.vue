@@ -51,6 +51,11 @@ const switchLanguage = (code: string) => {
       color: var(--color-text);
     }
 
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-text);
+      outline-offset: 1px;
+    }
+
     // The active pill is white in BOTH themes (--color-white stays #FFFFFF in
     // dark mode), so its label must be a static dark colour. Using
     // var(--color-secondary) here made the label white-on-white in dark mode,

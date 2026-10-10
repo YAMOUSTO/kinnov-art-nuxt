@@ -6,12 +6,12 @@
       class="team-member scroll-reveal"
     >
       <div class="team-member__image-wrapper">
-        <NuxtImg
-          :src="member.image"
-          :alt="member.name"
-          class="team-member__image"
-          loading="lazy"
-        />
+          <NuxtImg
+            :src="member.image"
+            :alt="$t('team.photoAlt', { name: member.name })"
+            class="team-member__image"
+            loading="lazy"
+          />
       </div>
       <div class="team-member__content">
         <h3 class="team-member__name">

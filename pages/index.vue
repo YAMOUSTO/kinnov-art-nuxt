@@ -48,7 +48,7 @@
           <div class="intro__image-wrapper">
              <NuxtImg
               src="/images/webp/pdg-900.webp"
-              alt="Portrait du PDG de Kinnov’art"
+              :alt="$t('home.introImageAlt')"
               class="intro__image"
               loading="lazy"
             />
@@ -75,7 +75,7 @@
             <div class="service-card__media">
               <NuxtImg
                 :src="service.image"
-                :alt="service.alt"
+                :alt="$t(`services.items.${service.slug}.imageAlt`)"
                 class="service-card__image"
                 loading="lazy"
               />
@@ -122,13 +122,13 @@
 
         <div class="gallery-grid">
           <figure
-            v-for="photo in gallery"
+            v-for="(photo, i) in gallery"
             :key="photo.src"
             class="gallery-item scroll-reveal"
           >
             <NuxtImg
               :src="photo.src"
-              :alt="photo.alt"
+              :alt="$t('home.galleryPhotoAlt', { n: i + 1 })"
               class="gallery-item__image"
               loading="lazy"
             />
@@ -223,16 +223,18 @@ const examples = (service: Service): string[] => {
  *   4 = bestjaune.jpg      5 = best5.jpg          6 = best2.jpg
  *   7 = peau de fleur.jpg  8 = fleurs.jpg
  * Ne pas ajouter rouge-couteau.jpg (exclusion demandée par le propriétaire).
+ * TODO propriétaire : remplacer les alt génériques (clé `home.galleryPhotoAlt`)
+ * par une description réelle de chaque photo.
  */
 const gallery = [
-  { src: '/images/webp/gallery-1-800.webp', alt: 'Réalisation Kinnov’art (1/8)' },
-  { src: '/images/webp/gallery-2-800.webp', alt: 'Réalisation Kinnov’art (2/8)' },
-  { src: '/images/webp/gallery-3-800.webp', alt: 'Réalisation Kinnov’art (3/8)' },
-  { src: '/images/webp/gallery-4-800.webp', alt: 'Réalisation Kinnov’art (4/8)' },
-  { src: '/images/webp/gallery-5-800.webp', alt: 'Réalisation Kinnov’art (5/8)' },
-  { src: '/images/webp/gallery-6-800.webp', alt: 'Réalisation Kinnov’art (6/8)' },
-  { src: '/images/webp/gallery-7-800.webp', alt: 'Réalisation Kinnov’art (7/8)' },
-  { src: '/images/webp/gallery-8-800.webp', alt: 'Réalisation Kinnov’art (8/8)' }
+  { src: '/images/webp/gallery-1-800.webp' },
+  { src: '/images/webp/gallery-2-800.webp' },
+  { src: '/images/webp/gallery-3-800.webp' },
+  { src: '/images/webp/gallery-4-800.webp' },
+  { src: '/images/webp/gallery-5-800.webp' },
+  { src: '/images/webp/gallery-6-800.webp' },
+  { src: '/images/webp/gallery-7-800.webp' },
+  { src: '/images/webp/gallery-8-800.webp' }
 ]
 
 // Témoignages: length comes from `tm()` (compiled AST structure, so only the
@@ -365,7 +367,7 @@ useHead(() => ({
     
     &:hover {
       background-color: #FFFFFF;
-      color: var(--color-primary);
+      color: $color-black;
     }
   }
 
@@ -516,7 +518,7 @@ useHead(() => ({
 
     .service-card__icon {
       background-color: var(--color-primary);
-      color: var(--color-white);
+      color: $color-black;
       transform: rotate(15deg);
     }
 
@@ -555,7 +557,7 @@ useHead(() => ({
     width: 56px;
     height: 56px;
     background-color: var(--color-gray-100);
-    color: var(--color-primary);
+    color: var(--color-primary-text);
     border-radius: $radius-full;
     @include flex-center;
     transition: all $transition-base $easing-in-out;
@@ -604,7 +606,7 @@ useHead(() => ({
     font-family: $font-heading;
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
-    color: var(--color-primary);
+    color: var(--color-primary-text);
     transition: color $transition-base $easing-in-out,
       gap $transition-base $easing-in-out;
   }
@@ -626,7 +628,7 @@ useHead(() => ({
 .section-title {
   font-size: $font-size-3xl;
   font-weight: $font-weight-bold;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   margin-bottom: $spacing-2;
 
   @include respond-to('md') {
@@ -828,7 +830,9 @@ useHead(() => ({
 }
 
 .cta-title {
-  color: var(--color-accent);
+  // Sits over a dark photo scrim (both themes), so use the light brand gold
+  // rather than the dark-surface --color-accent/#D4AF37 pair that fails here.
+  color: var(--color-primary);
   margin-bottom: $spacing-4;
 }
 

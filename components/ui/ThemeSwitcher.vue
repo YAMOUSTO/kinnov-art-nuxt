@@ -48,5 +48,10 @@ const { isDark, toggleTheme } = useTheme()
     color: var(--color-primary);
     transform: rotate(15deg);
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-text);
+    outline-offset: 2px;
+  }
 }
 </style>

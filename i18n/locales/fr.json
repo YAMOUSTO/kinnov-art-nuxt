@@ -53,6 +53,8 @@
         "servicesCta": "Voir nos services en détail",
         "galleryTitle": "Réalisations",
         "gallerySubtitle": "Un aperçu de nos projets : décors, mobilier, espaces et productions.",
+        "galleryPhotoAlt": "Réalisation Kinnov’art ({n}/8)",
+        "introImageAlt": "Portrait du PDG de Kinnov’art",
         "testimonialsTitle": "Ils nous font confiance",
         "testimonialsSubtitle": "Ce que disent les artistes, organisateurs et créateurs qui travaillent avec Kinnov’art.",
         "testimonials": [
@@ -93,11 +95,13 @@
         "title": "Nos Services",
         "subtitle": "Cinq savoir-faire réunis dans un même atelier, de la scénographie au montage artistique.",
         "intro": "Chaque projet commence par une conversation. Racontez-nous votre idée, nous nous chargeons de la réaliser.",
-        "examplesLabel": "Réalisations",
+        "examplesLabel": "Service",
+        "ctaTitle": "Un projet en tête ?",
         "items": {
             "scenography": {
                 "title": "Scénographie",
                 "description": "Conception et tirage de décors pour clips, concerts et plateaux de télévision.",
+                "imageAlt": "Décor blanc conçu par Kinnov’art pour un clip, avec fauteuil et mannequin",
                 "examples": [
                     "Tirage des décors de clip"
                 ]
@@ -105,6 +109,7 @@
             "tireFurniture": {
                 "title": "Confection de meubles à base de pneus",
                 "description": "Des meubles façonnés dans des pneus recyclés, à la forme et à l'image de Kinnov'art.",
+                "imageAlt": "Table basse fabriquée à partir d’un pneu recyclé peint en blanc",
                 "examples": [
                     "Fauteuil en pneus"
                 ]
@@ -112,11 +117,19 @@
             "kiosks": {
                 "title": "Confection de kiosques",
                 "description": "Des kiosques conçus et réalisés sur mesure pour vos espaces et vos événements.",
-                "examples": []
+                "imageAlt": "Kiosque conçu et réalisé par Kinnov’art",
+                "imageSecondaryAlt": "Autre kiosque réalisé par Kinnov’art",
+                "examples": [
+                    "Kiosque de vente",
+                    "Stand événementiel",
+                    "Kiosque sur mesure"
+                ]
             },
             "spaceDesign": {
                 "title": "Aménagement des espaces publics et privés",
                 "description": "Aménagement et décoration d'espaces pour vos événements et vos productions.",
+                "imageAlt": "Espace événementiel entièrement aménagé et habillé par Kinnov’art",
+                "imageSecondaryAlt": "Espace aménagé et décoré par Kinnov’art",
                 "examples": [
                     "Photo",
                     "Foire",
@@ -127,6 +140,8 @@
             "production": {
                 "title": "Production et montage artistique",
                 "description": "Production, couverture photo et montage pour vos concerts et vos tournées.",
+                "imageAlt": "Artiste en shooting photo pendant une production Kinnov’art",
+                "imageSecondaryAlt": "Prise de vue photo lors d’une production Kinnov’art",
                 "examples": [
                     "Photo de cours",
                     "Mélodie-concert",
@@ -192,6 +207,7 @@
         "teamIntro": "Une équipe passionnée et diversifiée, unie par la volonté de créer et d'innover."
     },
     "team": {
+        "photoAlt": "Portrait de {name}",
         "roles": {
             "creativeDirector": "Directeur Créatif",
             "trainingManager": "Responsable Formation",
@@ -214,6 +230,11 @@
         "empty": "Aucune photo dans cette catégorie pour le moment — elle arrivera bientôt.",
         "close": "Fermer",
         "prev": "Photo précédente",
-        "next": "Photo suivente"
+        "next": "Photo suivente",
+        "alt": {
+            "events": "Photo Kinnov’art — événement ({n}/{total})",
+            "crafts": "Savoir-faire Kinnov’art — métier ({n}/{total})",
+            "projects": "Réalisation Kinnov’art ({n}/{total})"
+        }
     }
 }

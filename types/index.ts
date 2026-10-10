@@ -13,18 +13,17 @@ export interface TeamMember {
 export interface Service {
     /** URL-safe identifier, also the i18n key suffix: `services.items.${slug}` */
     slug: string
-    /** Feather icon name, rendered by ServiceIcon */
+    /** Icon name, rendered by ServiceIcon */
     icon: string
     /** i18n key for the concrete realisations, e.g. `services.items.tireFurniture.examples` */
     examplesKey: string
     /** Representative image of the service (WebP in public/images/webp/). */
     image: string
-    /** Descriptive French alt text for `image`. */
-    alt: string
     /** Optional secondary photo shown next to the service body (e.g. a realisation detail). */
     imageSecondary?: string
-    /** Descriptive French alt text for `imageSecondary`. */
-    imageSecondaryAlt?: string
+    // Alt text is not stored here: it lives in the locale files under
+    // `services.items.${slug}.imageAlt` / `.imageSecondaryAlt` so it can be
+    // translated (FR + EN) alongside the rest of the copy.
 }
 
 export interface NavItem {

@@ -53,6 +53,8 @@
         "servicesCta": "See our services in detail",
         "galleryTitle": "Our Work",
         "gallerySubtitle": "A glimpse of our projects: sets, furniture, spaces and productions.",
+        "galleryPhotoAlt": "Kinnov’art work ({n}/8)",
+        "introImageAlt": "Portrait of the Kinnov’art director",
         "testimonialsTitle": "They trust us",
         "testimonialsSubtitle": "What the artists, organisers and creators who work with Kinnov’art say.",
         "testimonials": [
@@ -93,11 +95,13 @@
         "title": "Our Services",
         "subtitle": "Five crafts under one roof, from set design to artistic editing.",
         "intro": "Every project starts with a conversation. Tell us your idea and we will take it from there.",
-        "examplesLabel": "Work",
+        "examplesLabel": "Service",
+        "ctaTitle": "Got a project in mind?",
         "items": {
             "scenography": {
                 "title": "Set Design",
                 "description": "Designing and producing sets for music videos, concerts and television studios.",
+                "imageAlt": "White set designed by Kinnov’art for a music video, with an armchair and a mannequin",
                 "examples": [
                     "Music video set builds"
                 ]
@@ -105,6 +109,7 @@
             "tireFurniture": {
                 "title": "Furniture Made From Tyres",
                 "description": "Furniture crafted from recycled tyres, in Kinnov'art's own signature style.",
+                "imageAlt": "Coffee table made from a recycled tyre painted white",
                 "examples": [
                     "Tyre armchair"
                 ]
@@ -112,11 +117,19 @@
             "kiosks": {
                 "title": "Kiosk Making",
                 "description": "Kiosks designed and built to order for your spaces and your events.",
-                "examples": []
+                "imageAlt": "Kiosk designed and built by Kinnov’art",
+                "imageSecondaryAlt": "Another kiosk built by Kinnov’art",
+                "examples": [
+                    "Sales kiosk",
+                    "Event stand",
+                    "Custom-built kiosk"
+                ]
             },
             "spaceDesign": {
                 "title": "Public and Private Space Design",
                 "description": "Setting up and dressing spaces for your events and your productions.",
+                "imageAlt": "Event space fully fitted out and dressed by Kinnov’art",
+                "imageSecondaryAlt": "Space fitted out and decorated by Kinnov’art",
                 "examples": [
                     "Photo shoots",
                     "Fairs",
@@ -127,6 +140,8 @@
             "production": {
                 "title": "Production and Artistic Editing",
                 "description": "Production, photo coverage and editing for your concerts and your tours.",
+                "imageAlt": "Artist in a photo shoot during a Kinnov’art production",
+                "imageSecondaryAlt": "Photo shoot during a Kinnov’art production",
                 "examples": [
                     "Course photo coverage",
                     "Melody concerts",
@@ -192,6 +207,7 @@
         "teamIntro": "A passionate, diverse team united by a shared will to create and innovate."
     },
     "team": {
+        "photoAlt": "Portrait of {name}",
         "roles": {
             "creativeDirector": "Creative Director",
             "trainingManager": "Training Manager",
@@ -214,6 +230,11 @@
         "empty": "No photos in this category yet — they will arrive soon.",
         "close": "Close",
         "prev": "Previous photo",
-        "next": "Next photo"
+        "next": "Next photo",
+        "alt": {
+            "events": "Kinnov’art photo — event ({n}/{total})",
+            "crafts": "Kinnov’art craft ({n}/{total})",
+            "projects": "Kinnov’art work ({n}/{total})"
+        }
     }
 }

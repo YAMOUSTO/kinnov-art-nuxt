@@ -31,7 +31,7 @@
           <div class="service__media">
             <NuxtImg
               :src="service.image"
-              :alt="service.alt"
+              :alt="$t(`services.items.${service.slug}.imageAlt`)"
               class="service__image"
               loading="lazy"
             />
@@ -80,7 +80,7 @@
             <div v-if="service.imageSecondary" class="service__secondary">
               <NuxtImg
                 :src="service.imageSecondary"
-                :alt="service.imageSecondaryAlt || ''"
+                :alt="$t(`services.items.${service.slug}.imageSecondaryAlt`)"
                 class="service__secondary-image"
                 loading="lazy"
               />
@@ -90,9 +90,12 @@
       </div>
     </Section>
 
-    <Section bg="primary">
+    <!-- Closing CTA. Deliberately dark (not gold): the footer directly below is
+         gold, and two adjacent gold bands merged into one undifferentiated slab.
+         The dark band separates the page from the footer. -->
+    <Section bg="secondary">
       <div class="container text-center scroll-reveal services-cta">
-        <h2 class="services-cta__title">{{ $t('services.title') }}</h2>
+        <h2 class="services-cta__title">{{ $t('services.ctaTitle') }}</h2>
         <p class="services-cta__text">{{ $t('services.intro') }}</p>
         <Button variant="accent" size="lg" :to="localePath('/contact')">
           {{ $t('nav.contact') }}
@@ -131,12 +134,27 @@ useHead(() => ({
 
 <style lang="scss" scoped>
 .services-index {
+  // Mobile: the five chips wrap onto ragged lines and leave an unbalanced gap.
+  // A single row that scrolls horizontally keeps them on one reading line.
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   gap: $spacing-3 $spacing-4;
+  overflow-x: auto;
+  padding-bottom: $spacing-2;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+
+  // Desktop: enough room to wrap, balanced and centred.
+  @include respond-to('md') {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
 
   &__link {
+    flex-shrink: 0;
     display: inline-flex;
     align-items: baseline;
     gap: $spacing-2;
@@ -158,7 +176,7 @@ useHead(() => ({
     font-family: $font-heading;
     font-size: $font-size-xs;
     font-weight: $font-weight-bold;
-    color: var(--color-primary);
+    color: var(--color-primary-text);
   }
 
   &__label {
@@ -210,7 +228,7 @@ useHead(() => ({
     margin-bottom: $spacing-4;
     border-radius: $radius-full;
     background-color: color-mix(in srgb, var(--color-primary) 14%, transparent);
-    color: var(--color-primary-dark);
+    color: var(--color-primary-text);
   }
 
   &__eyebrow {
@@ -284,14 +302,14 @@ useHead(() => ({
   &__title {
     font-family: $font-heading;
     font-size: $font-size-3xl;
-    color: $color-black;
+    color: var(--color-primary);
     margin-bottom: $spacing-4;
   }
 
   &__text {
     max-width: 52ch;
     margin: 0 auto $spacing-8;
-    color: rgba(0, 0, 0, 0.82);
+    color: rgba(255, 255, 255, 0.82);
   }
 }
 </style>

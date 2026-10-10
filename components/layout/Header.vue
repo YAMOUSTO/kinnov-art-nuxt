@@ -2,10 +2,12 @@
   <header class="header" :class="{ 'header--scrolled': isScrolled }">
     <div class="container">
       <div class="header__content">
-        <!-- Logo -->
+        <!-- Logo. TODO propriétaire : remplacer par le logo officiel détouré si
+             disponible ; /logo-transparent.png est dérivé de logo.jpeg (fond
+             blanc rendu transparent) faute d'asset sans fond. -->
         <NuxtLink :to="localePath('/')" class="header__logo" aria-label="Kinnov'art">
           <div class="header__logo-container">
-            <img src="/logo.jpeg" alt="Kinnov'art Logo" class="header__logo-img" />
+            <img src="/logo-transparent.png" alt="Kinnov'art" class="header__logo-img" />
           </div>
         </NuxtLink>
 
@@ -209,11 +211,9 @@ onUnmounted(() => {
     height: auto;
     max-height: 64px;
     object-fit: contain;
-    // `mix-blend-mode: multiply` was removed: the header background is
-    // --color-surface (#121212 in dark mode), so a multiply-blended logo
-    // rendered near-black on near-black and disappeared. /logo.jpeg has no
-    // alpha channel, so the blend bought nothing either. Replacing the asset
-    // with a transparent PNG/SVG is the correct long-term fix.
+    // No background box: the transparent PNG sits directly on the surface. In
+    // dark mode `--logo-filter` inverts the dark wordmark so it stays legible.
+    filter: var(--logo-filter);
   }
 
   &__logo-slogan {

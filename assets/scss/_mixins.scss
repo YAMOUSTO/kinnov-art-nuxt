@@ -150,7 +150,8 @@
 @mixin button-primary {
     @include button-base;
     background-color: $color-primary;
-    color: $color-white;
+    // Near-black on gold (~9.9:1). White on gold was ~2.1:1 and failed AA.
+    color: $color-black;
 
     &:hover:not(:disabled) {
         background-color: $color-primary-dark;
@@ -182,7 +183,9 @@
 @mixin button-accent {
     @include button-base;
     background-color: $color-accent;
-    color: $color-primary;
+    // White on #B91C1C ≈ 6.5:1. The previous gold text measured ~3.1:1 and
+    // failed AA (the two brand colours are close in luminance).
+    color: $color-white;
 
     &:hover:not(:disabled) {
         background-color: $color-accent-dark;
@@ -198,12 +201,14 @@
 @mixin button-outline {
     @include button-base;
     background-color: transparent;
-    color: $color-primary;
-    border: 2px solid $color-primary;
+    // Outline buttons sit on light surfaces, so the brand gold must be the
+    // accessible deeper gold or it fails contrast on white.
+    color: $color-primary-text;
+    border: 2px solid $color-primary-text;
 
     &:hover:not(:disabled) {
         background-color: $color-primary;
-        color: $color-white;
+        color: $color-black;
         transform: translateY(-2px);
         box-shadow: $shadow-md;
     }
