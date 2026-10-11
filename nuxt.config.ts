@@ -64,8 +64,9 @@ export default defineNuxtConfig({
       // Overridable per deployment with NUXT_PUBLIC_WHATSAPP.
       whatsapp: '224611464609',
       social: {
-        facebook: 'https://www.facebook.com/share/18hXeipABL/',
+        facebook: 'https://www.facebook.com/KAALAPROD',
         instagram: '',
+        tiktok: '',
         youtube: '',
         linkedin: ''
       },
