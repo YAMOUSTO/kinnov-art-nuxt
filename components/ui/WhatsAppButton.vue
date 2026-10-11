@@ -1,6 +1,6 @@
 <template>
   <a
-    v-if="href"
+    v-if="show"
     :href="href"
     class="whatsapp-fab"
     target="_blank"
@@ -29,6 +29,29 @@ const { t } = useI18n()
 const { link } = useWhatsapp()
 
 const href = computed(() => link(t('contact.whatsappMessage')))
+
+// The button is fixed in the bottom-right corner, which is exactly where the
+// footer's social icons sit. Hide it while the footer is on screen so it never
+// covers them (it reappears as soon as the footer leaves the viewport).
+const footerVisible = ref(false)
+let observer: IntersectionObserver | null = null
+
+onMounted(() => {
+  const footer = document.querySelector('footer.footer')
+  if (!footer || typeof IntersectionObserver === 'undefined') return
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      footerVisible.value = entries[0]?.isIntersecting ?? false
+    },
+    { threshold: 0 }
+  )
+  observer.observe(footer)
+})
+
+onUnmounted(() => observer?.disconnect())
+
+const show = computed(() => Boolean(href.value) && !footerVisible.value)
 </script>
 
 <style lang="scss" scoped>
