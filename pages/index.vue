@@ -165,13 +165,13 @@
           >
             <span class="testimonial__mark" aria-hidden="true">♪</span>
             <blockquote class="testimonial__quote">
-              {{ $t(`home.testimonials.${i % testimonialCount}.song`) }}
+              {{ $t(`home.testimonials.${i % testimonialCount}.quote`) }}
             </blockquote>
             <figcaption class="testimonial__author">
               <span class="testimonial__avatar" aria-hidden="true">{{ testimonialInitials(i % testimonialCount) }}</span>
               <span class="testimonial__meta">
                 <cite class="testimonial__name">{{ $t(`home.testimonials.${i % testimonialCount}.artist`) }}</cite>
-                <span class="testimonial__role">{{ $t('home.clipLabel') }}</span>
+                <span class="testimonial__role">{{ $t('home.clipLabel') }} · {{ $t(`home.testimonials.${i % testimonialCount}.song`) }}</span>
               </span>
             </figcaption>
           </figure>
@@ -717,7 +717,7 @@ useHead(() => ({
   &__track {
     display: flex;
     width: max-content;
-    animation: testimonials-scroll 55s linear infinite;
+    animation: testimonials-scroll 110s linear infinite;
   }
 
   // Reading a moving card is uncomfortable: pause on intent.
