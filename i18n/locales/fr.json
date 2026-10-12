@@ -56,38 +56,27 @@
         "galleryPhotoAlt": "Réalisation Kinnov’art ({n}/8)",
         "introImageAlt": "Portrait du PDG de Kinnov’art",
         "testimonialsTitle": "Ils nous font confiance",
-        "testimonialsSubtitle": "Ce que disent les artistes, organisateurs et créateurs qui travaillent avec Kinnov’art.",
+        "testimonialsSubtitle": "Une sélection de clips produits, tournés et montés par Kinnov’art pour des artistes guinéens.",
+        "clipLabel": "Clip produit",
         "testimonials": [
-            {
-                "quote": "Kinnov’art a monté le décor de notre clip en cinq jours. Le rendu est au niveau des gros studios de Conakry.",
-                "name": "Aïssata D.",
-                "role": "Artiste musicienne"
-            },
-            {
-                "quote": "Nos fauteuils en pneus font sensation dans le salon. Une pièce unique, tout le monde en demande.",
-                "name": "Moussa K.",
-                "role": "Client particulier"
-            },
-            {
-                "quote": "Ils ont aménagé notre stand en une journée : créatif, propre, livré à l’heure.",
-                "name": "Fatoumata B.",
-                "role": "Organisatrice d’événements"
-            },
-            {
-                "quote": "Plateau prêt à tourner, éclairage impeccable. On y retourne pour notre prochaine émission.",
-                "name": "Ibrahim S.",
-                "role": "Producteur audiovisuel"
-            },
-            {
-                "quote": "Couverture de notre concert le samedi, montage livré le dimanche. Sans faute.",
-                "name": "Kabinet D.",
-                "role": "Organisateur de concerts"
-            },
-            {
-                "quote": "Leur équipe comprend nos idées et les transforme en décors concrets. Un vrai partenaire créatif.",
-                "name": "Hawa T.",
-                "role": "Réalisatrice"
-            }
+            { "artist": "Azaya feat Binta Diakité", "song": "Mon Nutella" },
+            { "artist": "Mousto Camara", "song": "Woulé" },
+            { "artist": "Cams Melodie", "song": "Awama N’tanan khonma" },
+            { "artist": "Tenin Diawara", "song": "C’est pas possible" },
+            { "artist": "Soul Bangs feat Manamba", "song": "T’es mon choix" },
+            { "artist": "Ab Sylla", "song": "Ekha Idole" },
+            { "artist": "Issa Diabaté", "song": "Dounia" },
+            { "artist": "Saifon Baldé", "song": "Moudhe Allah" },
+            { "artist": "DG Lonagui", "song": "Kiosques Lonagui" },
+            { "artist": "Djinxi B", "song": "O ma fin kai n’na" },
+            { "artist": "Grand P feat NumberJ et Talon Pilon", "song": "Si a nati" },
+            { "artist": "Ibro Gnamet", "song": "Femme Capable" },
+            { "artist": "Habib Fatako", "song": "Hersinalan" },
+            { "artist": "Djilikaba Bintou", "song": "Mansaya" },
+            { "artist": "Levi Bobo feat Zena Choco", "song": "Yiguitèguè" },
+            { "artist": "Ibro Diabaté", "song": "Nidari" },
+            { "artist": "Fode Kouyaté", "song": "Abèta" },
+            { "artist": "Viviane N’Dour", "song": "KPC" }
         ],
         "galleryViewAll": "Voir toute la galerie"
     },

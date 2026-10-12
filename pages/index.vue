@@ -143,8 +143,8 @@
       </div>
     </Section>
 
-    <!-- Témoignages — TODO: contenus fictifs à remplacer par de vrais
-         témoignages avant la mise en ligne. -->
+    <!-- Clips produits par Kinnov'art pour des artistes guinéens (liste réelle
+         fournie par le propriétaire). -->
     <Section class="section--testimonials" padding="lg">
       <div class="container">
         <div class="section-header text-center">
@@ -163,15 +163,15 @@
             class="testimonial"
             :aria-hidden="i >= testimonialCount ? 'true' : undefined"
           >
-            <span class="testimonial__mark" aria-hidden="true">&rdquo;</span>
+            <span class="testimonial__mark" aria-hidden="true">♪</span>
             <blockquote class="testimonial__quote">
-              {{ $t(`home.testimonials.${i % testimonialCount}.quote`) }}
+              {{ $t(`home.testimonials.${i % testimonialCount}.song`) }}
             </blockquote>
             <figcaption class="testimonial__author">
               <span class="testimonial__avatar" aria-hidden="true">{{ testimonialInitials(i % testimonialCount) }}</span>
               <span class="testimonial__meta">
-                <cite class="testimonial__name">{{ $t(`home.testimonials.${i % testimonialCount}.name`) }}</cite>
-                <span class="testimonial__role">{{ $t(`home.testimonials.${i % testimonialCount}.role`) }}</span>
+                <cite class="testimonial__name">{{ $t(`home.testimonials.${i % testimonialCount}.artist`) }}</cite>
+                <span class="testimonial__role">{{ $t('home.clipLabel') }}</span>
               </span>
             </figcaption>
           </figure>
@@ -237,7 +237,7 @@ const gallery = [
   { src: '/images/webp/gallery-8-800.webp' }
 ]
 
-// Témoignages: length comes from `tm()` (compiled AST structure, so only the
+// Clips: length comes from `tm()` (compiled AST structure, so only the
 // count is usable); every visible string is resolved through `t()` per index.
 const testimonialCount = computed(() => {
   const raw = tm('home.testimonials')
@@ -250,7 +250,7 @@ const marqueeItems = computed(() =>
 )
 
 const testimonialInitials = (i: number) =>
-  t(`home.testimonials.${i}.name`)
+  t(`home.testimonials.${i}.artist`)
     .split(' ')
     .map((word) => word[0] || '')
     .slice(0, 2)
