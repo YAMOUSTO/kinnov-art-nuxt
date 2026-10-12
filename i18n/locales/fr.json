@@ -109,7 +109,7 @@
             "tireFurniture": {
                 "title": "Confection de meubles à base de pneus",
                 "description": "Des meubles façonnés dans des pneus recyclés, à la forme et à l'image de Kinnov'art.",
-                "imageAlt": "Table basse fabriquée à partir d’un pneu recyclé peint en blanc",
+                "imageAlt": "Meuble réalisé par Kinnov’art à partir de pneus recyclés",
                 "examples": [
                     "Fauteuil en pneus"
                 ]
@@ -140,7 +140,7 @@
             "production": {
                 "title": "Production et montage artistique",
                 "description": "Production, couverture photo et montage pour vos concerts et vos tournées.",
-                "imageAlt": "Artiste en shooting photo pendant une production Kinnov’art",
+                "imageAlt": "Cams, artiste produit par Kinnov’art, en concert",
                 "imageSecondaryAlt": "Prise de vue photo lors d’une production Kinnov’art",
                 "examples": [
                     "Photo de cours",

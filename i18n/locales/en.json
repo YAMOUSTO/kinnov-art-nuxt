@@ -109,7 +109,7 @@
             "tireFurniture": {
                 "title": "Furniture Made From Tyres",
                 "description": "Furniture crafted from recycled tyres, in Kinnov'art's own signature style.",
-                "imageAlt": "Coffee table made from a recycled tyre painted white",
+                "imageAlt": "Furniture crafted by Kinnov’art from recycled tyres",
                 "examples": [
                     "Tyre armchair"
                 ]
@@ -140,7 +140,7 @@
             "production": {
                 "title": "Production and Artistic Editing",
                 "description": "Production, photo coverage and editing for your concerts and your tours.",
-                "imageAlt": "Artist in a photo shoot during a Kinnov’art production",
+                "imageAlt": "Cams, an artist produced by Kinnov’art, in concert",
                 "imageSecondaryAlt": "Photo shoot during a Kinnov’art production",
                 "examples": [
                     "Course photo coverage",

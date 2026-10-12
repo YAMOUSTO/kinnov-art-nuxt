@@ -70,7 +70,10 @@ const CRAFTS: GalleryPhoto[] = [
   { src: '/images/webp/g-481776672-800.webp', category: 'crafts' },
   { src: '/images/webp/g-481477524-800.webp', category: 'crafts' },
   { src: '/images/webp/pdg1-800.webp', category: 'crafts' },
-  { src: '/images/webp/kisque-800.webp', category: 'crafts' }
+  { src: '/images/webp/kisque-800.webp', category: 'crafts' },
+  { src: '/images/webp/pneus-1-800.webp', category: 'crafts' },
+  { src: '/images/webp/pneus-2-800.webp', category: 'crafts' },
+  { src: '/images/webp/pneus-3-800.webp', category: 'crafts' }
 ]
 
 export const GALLERY_CATEGORIES: { slug: GalleryCategory; labelKey: string }[] = [
