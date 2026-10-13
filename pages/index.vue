@@ -217,11 +217,11 @@ const examples = (service: Service): string[] => {
 }
 
 /**
- * Galerie « Réalisations » — photos du propriétaire converties en WebP (800px).
- * Sources dans public/images/ :
- *   1 = 482114766_…n.jpg   2 = 482072088_…n.jpg   3 = 481214109_…n.jpg
- *   4 = bestjaune.jpg      5 = best5.jpg          6 = best2.jpg
- *   7 = peau de fleur.jpg  8 = fleurs.jpg
+ * Galerie « Réalisations » — aménagement des espaces (photos du propriétaire
+ * converties en WebP 800px). Sources dans public/images/newimages/ :
+ *   1 = espacelonagui0.jpeg   2 = espacelonagui2.jpeg  3 = espaceLonagui.jpeg
+ *   4 = EspaceRuoture.jpeg    5 = EspaceRupture0.jpeg  6 = Espacee0.jpeg
+ *   7 = Espace00.jpeg         8 = Espace0WithPneux.jpeg
  * Ne pas ajouter rouge-couteau.jpg (exclusion demandée par le propriétaire).
  * TODO propriétaire : remplacer les alt génériques (clé `home.galleryPhotoAlt`)
  * par une description réelle de chaque photo.

@@ -38,6 +38,18 @@ const PROJECTS: GalleryPhoto[] = [
 
 // TODO: répartir entre events / crafts / projects (temporairement `events`).
 const EVENTS: GalleryPhoto[] = [
+  // Photos récentes (artistes, live, médias).
+  { src: '/images/webp/event-live-1-800.webp', category: 'events' },
+  { src: '/images/webp/event-live-2-800.webp', category: 'events' },
+  { src: '/images/webp/event-artist-1-800.webp', category: 'events' },
+  { src: '/images/webp/event-artist-2-800.webp', category: 'events' },
+  { src: '/images/webp/event-artist-3-800.webp', category: 'events' },
+  { src: '/images/webp/event-artist-4-800.webp', category: 'events' },
+  { src: '/images/webp/event-artist-5-800.webp', category: 'events' },
+  { src: '/images/webp/event-media-1-800.webp', category: 'events' },
+  { src: '/images/webp/event-media-2-800.webp', category: 'events' },
+  { src: '/images/webp/event-people-1-800.webp', category: 'events' },
+  { src: '/images/webp/event-misc-1-800.webp', category: 'events' },
   { src: '/images/webp/g-480611085-800.webp', category: 'events' },
   { src: '/images/webp/g-481044415-800.webp', category: 'events' },
   { src: '/images/webp/g-481083738-800.webp', category: 'events' },
@@ -67,6 +79,13 @@ const EVENTS: GalleryPhoto[] = [
 
 // Savoir-faire / métiers de la maison (photo du PDG au travail incluse).
 const CRAFTS: GalleryPhoto[] = [
+  // Photos récentes (métiers, atelier, pneus, PDG au travail).
+  { src: '/images/webp/craft-metier-1-800.webp', category: 'crafts' },
+  { src: '/images/webp/craft-metier-2-800.webp', category: 'crafts' },
+  { src: '/images/webp/craft-action-1-800.webp', category: 'crafts' },
+  { src: '/images/webp/craft-pneus-tv-800.webp', category: 'crafts' },
+  { src: '/images/webp/craft-pdg-1-800.webp', category: 'crafts' },
+  { src: '/images/webp/craft-pdg-2-800.webp', category: 'crafts' },
   { src: '/images/webp/g-481776672-800.webp', category: 'crafts' },
   { src: '/images/webp/g-481477524-800.webp', category: 'crafts' },
   { src: '/images/webp/pdg1-800.webp', category: 'crafts' },
