@@ -1,19 +1,23 @@
 <template>
-  <div class="gallery-page">
+  <div ref="pageEl" class="gallery-page">
     <PageHeader
       bg="gray"
+      scrim="light"
       image="/images/webp/gallery-header-1920.webp"
       :title="$t('gallery.title')"
       :subtitle="$t('gallery.subtitle')"
     />
 
-    <Section padding="lg" bg="white">
+    <!-- Filter bar. It lives OUTSIDE the <Section> below on purpose: Section sets
+         `overflow: hidden`, which turns it into a non-scrolling clip container and
+         would defeat `position: sticky`. It sticks right under the sticky site
+         header (offset measured at runtime) and stays one z-index below it, so the
+         header always wins the overlap — the bug where a band covered the filters
+         is gone. -->
+    <div class="gallery-filterbar">
       <div class="container">
-        <!-- Category filters. The grid items are re-created on every filter
-             change, so they deliberately carry no `scroll-reveal` class: the
-             reveal observer only picks up nodes present at page entry. -->
         <div
-          class="gallery-filters scroll-reveal"
+          class="gallery-filters"
           role="group"
           :aria-label="$t('gallery.filterLabel')"
         >
@@ -22,7 +26,7 @@
             class="gallery-filter"
             :class="{ 'gallery-filter--active': activeFilter === 'all' }"
             :aria-pressed="activeFilter === 'all'"
-            @click="activeFilter = 'all'"
+            @click="setFilter('all')"
           >
             {{ $t('gallery.all') }}
             <span class="gallery-filter__count">{{ photos.length }}</span>
@@ -34,26 +38,50 @@
             class="gallery-filter"
             :class="{ 'gallery-filter--active': activeFilter === category.slug }"
             :aria-pressed="activeFilter === category.slug"
-            @click="activeFilter = category.slug"
+            @click="setFilter(category.slug)"
           >
             {{ $t(category.labelKey) }}
             <span class="gallery-filter__count">{{ countOf(category.slug) }}</span>
           </button>
         </div>
+      </div>
+    </div>
 
-        <div v-if="visiblePhotos.length" class="gallery-grid">
+    <Section padding="lg" bg="white">
+      <div class="container gallery-body">
+        <!-- Masonry via CSS multi-column: photos flow at their real aspect ratio
+             (each item reserves space from its intrinsic width/height) and the
+             last row can never leave an empty cell. -->
+        <div v-if="displayedPhotos.length" class="gallery-masonry">
           <button
-            v-for="(photo, i) in visiblePhotos"
+            v-for="(photo, i) in displayedPhotos"
             :key="photo.src"
             type="button"
             class="gallery-item"
-            @click="openLightbox(i)"
+            :style="{
+              aspectRatio: `${photo.width} / ${photo.height}`,
+              backgroundColor: photo.color
+            }"
+            @click="openLightbox(i, $event)"
           >
+            <!-- `sizes` uses @nuxt/image's `screen:size` syntax, NOT a CSS media
+                 query: the module resolves each key against `image.screens`
+                 (sm:640 md:768 lg:1024) and emits
+                 `(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw`,
+                 one candidate per density. A raw `(max-width: …)` string is
+                 parsed as garbage and yields a single `0w` srcset entry. -->
             <NuxtImg
               :src="photo.src"
               :alt="altFor(photo)"
+              :width="photo.width"
+              :height="photo.height"
+              sizes="sm:50vw md:33vw lg:25vw"
+              format="webp"
+              :quality="75"
               class="gallery-item__image"
-              loading="lazy"
+              :loading="i < 4 ? 'eager' : 'lazy'"
+              :fetchpriority="i === 0 ? 'high' : 'auto'"
+              :decoding="i < 4 ? 'auto' : 'async'"
             />
             <span class="gallery-item__zoom" aria-hidden="true">
               <svg
@@ -79,6 +107,16 @@
 
         <!-- Shown when a category has no photos yet. -->
         <p v-else class="gallery-empty">{{ $t('gallery.empty') }}</p>
+
+        <!-- Infinite-scroll sentinel + explicit fallback button. The button is the
+             only path when IntersectionObserver is unavailable, so it is always in
+             the DOM while more photos remain. -->
+        <div v-if="hasMore" ref="sentinelEl" class="gallery-sentinel" aria-hidden="true"></div>
+        <div v-if="hasMore" class="gallery-more">
+          <Button variant="outline" size="md" @click="loadMore">
+            {{ $t('gallery.loadMore') }}
+          </Button>
+        </div>
       </div>
     </Section>
 
@@ -86,11 +124,17 @@
       <Transition name="lightbox">
         <div
           v-if="lightboxOpen"
+          ref="dialogEl"
           class="lightbox"
           role="dialog"
           aria-modal="true"
           :aria-label="$t('gallery.title')"
-          @click.self="closeLightbox"
+          tabindex="-1"
+          @click.self="onBackdropClick"
+          @keydown.tab="trapFocus"
+          @pointerdown="onPointerDown"
+          @pointerup="onPointerUp"
+          @pointercancel="onPointerCancel"
         >
           <button
             type="button"
@@ -144,9 +188,10 @@
               :src="currentPhoto.src"
               :alt="altFor(currentPhoto)"
               class="lightbox__image"
+              decoding="async"
             />
             <figcaption class="lightbox__caption">
-              {{ altFor(currentPhoto) }} ({{ lightboxIndex + 1 }}/{{ visiblePhotos.length }})
+              {{ altFor(currentPhoto) }} ({{ lightboxIndex + 1 }}/{{ lightboxList.length }})
             </figcaption>
           </figure>
 
@@ -179,43 +224,108 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import type { GalleryPhoto } from '~/composables/useGallery'
 
 const { t } = useI18n()
 const { photos, categories } = useGallery()
 
-const activeFilter = ref<string>('all')
+/** How many photos are shown per batch before the sentinel / button reveals more. */
+const BATCH_SIZE = 16
 
-const countOf = (slug: string) => photos.filter((photo) => photo.category === slug).length
+const pageEl = ref<HTMLElement | null>(null)
+const activeFilter = ref<string>('all')
+const displayedCount = ref(BATCH_SIZE)
+
+const countOf = (slug: string) => photos.filter((photo) => photo.categorie === slug).length
 
 /**
  * Localised alt text. Photos carry only a category; the description is a
- * localised generic key (`gallery.alt.<category>`) numbered within its own
- * category, so the placeholder is at least readable in the visitor's language.
+ * localised generic key (`gallery.alt.<category>`, `gallery.alt.generic` when
+ * unclassified) numbered within its own category, so the placeholder is at
+ * least readable in the visitor's language.
  * TODO propriétaire : remplacer par une description réelle de chaque photo.
  */
 const altFor = (photo: GalleryPhoto) => {
-  const group = photos.filter((p) => p.category === photo.category)
+  const group = photos.filter((p) => p.categorie === photo.categorie)
   const n = group.indexOf(photo) + 1
-  return t(`gallery.alt.${photo.category}`, { n, total: group.length })
+  const key = photo.categorie ? `gallery.alt.${photo.categorie}` : 'gallery.alt.generic'
+  return t(key, { n, total: group.length })
 }
 
-const visiblePhotos = computed(() =>
+// Filters always apply to the ENTIRE list; `displayedPhotos` is only the first
+// `displayedCount` of it. Counts therefore reflect the full category, not the
+// visible batch.
+const filteredPhotos = computed(() =>
   activeFilter.value === 'all'
     ? photos
-    : photos.filter((photo) => photo.category === activeFilter.value)
+    : photos.filter((photo) => photo.categorie === activeFilter.value)
 )
 
-// Lightbox — index is always clamped against the *filtered* list, so switching
-// categories while it is open cannot point at a stale position.
+const displayedPhotos = computed(() => filteredPhotos.value.slice(0, displayedCount.value))
+
+const hasMore = computed(() => displayedCount.value < filteredPhotos.value.length)
+
+const setFilter = (slug: string) => {
+  activeFilter.value = slug
+}
+
+// Switching category restarts the batch and dismisses the lightbox (its index
+// would otherwise point at a stale position in the new list).
+watch(activeFilter, () => {
+  displayedCount.value = BATCH_SIZE
+  closeLightbox()
+})
+
+const loadMore = () => {
+  if (displayedCount.value < filteredPhotos.value.length) {
+    displayedCount.value = Math.min(
+      displayedCount.value + BATCH_SIZE,
+      filteredPhotos.value.length
+    )
+  }
+}
+
+// --- Batching via IntersectionObserver (sentinel) -----------------------------
+const sentinelEl = ref<HTMLElement | null>(null)
+let observer: IntersectionObserver | null = null
+
+onMounted(() => {
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) loadMore()
+      },
+      { rootMargin: '300px 0px' }
+    )
+    if (sentinelEl.value) observer.observe(sentinelEl.value)
+  }
+})
+
+// The sentinel is mounted/unmounted as `hasMore` flips; (re)observe it whenever
+// the ref changes.
+watch(sentinelEl, (el, oldEl) => {
+  if (!observer) return
+  if (oldEl) observer.unobserve(oldEl)
+  if (el) observer.observe(el)
+})
+
+onUnmounted(() => observer?.disconnect())
+
+// --- Lightbox -----------------------------------------------------------------
+const dialogEl = ref<HTMLElement | null>(null)
 const lightboxOpen = ref(false)
 const lightboxIndex = ref(0)
+let openerEl: HTMLElement | null = null
+
+/** The lightbox walks the full filtered list, not just the displayed batch. */
+const lightboxList = computed(() => filteredPhotos.value)
 const currentPhoto = computed(
-  () => visiblePhotos.value[lightboxIndex.value] ?? visiblePhotos.value[0]
+  () => lightboxList.value[lightboxIndex.value] ?? lightboxList.value[0]
 )
 
-const openLightbox = (index: number) => {
+const openLightbox = (index: number, event?: MouseEvent) => {
+  openerEl = (event?.currentTarget as HTMLElement | null) ?? null
   lightboxIndex.value = index
   lightboxOpen.value = true
 }
@@ -225,12 +335,77 @@ const closeLightbox = () => {
 }
 
 const nextPhoto = () => {
-  lightboxIndex.value = (lightboxIndex.value + 1) % visiblePhotos.value.length
+  lightboxIndex.value = (lightboxIndex.value + 1) % lightboxList.value.length
 }
 
 const prevPhoto = () => {
   lightboxIndex.value =
-    (lightboxIndex.value - 1 + visiblePhotos.value.length) % visiblePhotos.value.length
+    (lightboxIndex.value - 1 + lightboxList.value.length) % lightboxList.value.length
+}
+
+/**
+ * Preload the neighbour full-resolution images so paging feels instant. The
+ * grid only ever loads sized derivatives; the raw `src` is the full image.
+ */
+const preloadNeighbours = () => {
+  const list = lightboxList.value
+  if (!lightboxOpen.value || list.length < 2) return
+  const around = [
+    (lightboxIndex.value + 1) % list.length,
+    (lightboxIndex.value - 1 + list.length) % list.length
+  ]
+  for (const index of around) {
+    if (index === lightboxIndex.value) continue
+    const img = new Image()
+    img.src = list[index].src
+  }
+}
+
+watch([lightboxOpen, lightboxIndex], () => preloadNeighbours())
+
+// Body scroll lock + focus management: focus moves into the dialog on open and
+// returns to the thumbnail that opened it on close.
+watch(lightboxOpen, async (open) => {
+  document.body.style.overflow = open ? 'hidden' : ''
+  if (open) {
+    await nextTick()
+    dialogEl.value?.focus()
+  } else {
+    if (openerEl?.isConnected) openerEl.focus()
+    openerEl = null
+  }
+})
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+
+/** Cycle Tab / Shift+Tab within the dialog (focus trap). */
+const trapFocus = (event: KeyboardEvent) => {
+  const root = dialogEl.value
+  if (!root) return
+  const nodes = Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR))
+  if (!nodes.length) {
+    event.preventDefault()
+    root.focus()
+    return
+  }
+  const first = nodes[0]
+  const last = nodes[nodes.length - 1]
+  const active = document.activeElement
+  // Focus is either inside the dialog (on a control) or on the dialog itself.
+  const inside = !!active && active !== root && root.contains(active)
+  if (!inside) {
+    event.preventDefault()
+    ;(event.shiftKey ? last : first).focus()
+    return
+  }
+  if (event.shiftKey && active === first) {
+    event.preventDefault()
+    last.focus()
+  } else if (!event.shiftKey && active === last) {
+    event.preventDefault()
+    first.focus()
+  }
 }
 
 const onKeydown = (event: KeyboardEvent) => {
@@ -240,14 +415,65 @@ const onKeydown = (event: KeyboardEvent) => {
   else if (event.key === 'ArrowLeft') prevPhoto()
 }
 
-watch(lightboxOpen, (open) => {
-  document.body.style.overflow = open ? 'hidden' : ''
-})
+// --- Swipe (touch / pointer) --------------------------------------------------
+// Horizontal intent only: a gesture must clear the threshold AND be dominated
+// by horizontal travel, so vertical scrolling is never hijacked.
+const SWIPE_THRESHOLD = 50
+let swipeStartX = 0
+let swipeStartY = 0
+let swipeActive = false
+let swipeNavigated = false
 
-onMounted(() => window.addEventListener('keydown', onKeydown))
+const onPointerDown = (event: PointerEvent) => {
+  if ((event.target as HTMLElement).closest('button')) return
+  swipeActive = true
+  swipeNavigated = false
+  swipeStartX = event.clientX
+  swipeStartY = event.clientY
+}
+
+const onPointerUp = (event: PointerEvent) => {
+  if (!swipeActive) return
+  swipeActive = false
+  const dx = event.clientX - swipeStartX
+  const dy = event.clientY - swipeStartY
+  if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+    swipeNavigated = true
+    if (dx < 0) nextPhoto()
+    else prevPhoto()
+  }
+}
+
+const onPointerCancel = () => {
+  swipeActive = false
+}
+
+// A swipe-then-click on the backdrop must not also dismiss the dialog.
+const onBackdropClick = () => {
+  if (swipeNavigated) {
+    swipeNavigated = false
+    return
+  }
+  closeLightbox()
+}
+
+// --- Header offset (sticky filter bar) ----------------------------------------
+const syncHeaderOffset = () => {
+  const header = document.querySelector<HTMLElement>('.header')
+  if (header?.offsetHeight) {
+    pageEl.value?.style.setProperty('--gal-header-h', `${header.offsetHeight}px`)
+  }
+}
+
+onMounted(() => {
+  syncHeaderOffset()
+  window.addEventListener('keydown', onKeydown)
+  window.addEventListener('resize', syncHeaderOffset)
+})
 
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeydown)
+  window.removeEventListener('resize', syncHeaderOffset)
   document.body.style.overflow = ''
 })
 
@@ -259,18 +485,48 @@ usePageSeo({
 </script>
 
 <style lang="scss" scoped>
+.gallery-page {
+  // Measured at runtime (see syncHeaderOffset); this is the fallback.
+  --gal-header-h: 97px;
+}
+
+.gallery-filterbar {
+  // Sticks under the sticky site header; one z-index lower so the header always
+  // wins the overlap.
+  position: sticky;
+  top: var(--gal-header-h);
+  z-index: $z-index-sticky - 1;
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--border-color);
+}
+
 .gallery-filters {
+  // Mobile: a single row that scrolls horizontally, so every filter stays on one
+  // reading line with a >= 44px touch target.
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: $spacing-3;
-  margin-bottom: $spacing-10;
+  flex-wrap: nowrap;
+  gap: $spacing-2;
+  overflow-x: auto;
+  padding: $spacing-2 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+
+  // Desktop: a centred wrapping row.
+  @include respond-to('lg') {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $spacing-3;
+    overflow-x: visible;
+    padding: $spacing-3 0;
+  }
 }
 
 .gallery-filter {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: $spacing-2;
+  min-height: 44px;
   padding: $spacing-2 $spacing-5;
   border: 1px solid var(--border-color);
   border-radius: $radius-full;
@@ -279,6 +535,7 @@ usePageSeo({
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   color: var(--color-text);
+  white-space: nowrap;
   cursor: pointer;
   transition: border-color $transition-base $easing-in-out,
     background-color $transition-base $easing-in-out,
@@ -286,6 +543,11 @@ usePageSeo({
 
   &:hover {
     border-color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 
   // Gold fill with near-black text (9.99:1) — white on gold fails WCAG.
@@ -301,33 +563,46 @@ usePageSeo({
   opacity: 0.75;
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: $spacing-4;
+.gallery-body {
+  // Keeps the last row / "Voir plus" button clear of the floating WhatsApp button.
+  padding-bottom: $spacing-16;
+}
+
+.gallery-masonry {
+  // CSS multi-column masonry: items flow at their natural ratio and the last row
+  // can never leave a hole.
+  columns: 2;
+  column-gap: $spacing-4;
 
   @include respond-to('md') {
-    grid-template-columns: repeat(3, 1fr);
+    columns: 3;
   }
 
   @include respond-to('lg') {
-    grid-template-columns: repeat(4, 1fr);
-    gap: $spacing-6;
+    columns: 4;
+    column-gap: $spacing-6;
   }
 }
 
 .gallery-item {
   position: relative;
+  display: block;
+  width: 100%;
+  // Never split a tile across two columns.
+  break-inside: avoid;
+  margin: 0 0 $spacing-4;
   padding: 0;
   border: 0;
-  background: none;
-  aspect-ratio: 1;
   border-radius: $radius-xl;
   overflow: hidden;
   cursor: zoom-in;
   box-shadow: $shadow-md;
   transition: transform $transition-base $easing-in-out,
     box-shadow $transition-base $easing-in-out;
+
+  @include respond-to('lg') {
+    margin-bottom: $spacing-6;
+  }
 
   &:hover,
   &:focus-visible {
@@ -342,9 +617,15 @@ usePageSeo({
       opacity: 1;
     }
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .gallery-item__image {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -371,6 +652,16 @@ usePageSeo({
   margin: 0;
 }
 
+.gallery-sentinel {
+  height: 1px;
+}
+
+.gallery-more {
+  display: flex;
+  justify-content: center;
+  margin-top: $spacing-8;
+}
+
 // Lightbox
 .lightbox {
   position: fixed;
@@ -381,6 +672,11 @@ usePageSeo({
   justify-content: center;
   background: rgba(0, 0, 0, 0.92);
   padding: $spacing-6;
+
+  // Focused programmatically on open; the visible controls carry the affordance.
+  &:focus {
+    outline: none;
+  }
 }
 
 .lightbox__figure {
@@ -391,6 +687,8 @@ usePageSeo({
   flex-direction: column;
   align-items: center;
   gap: $spacing-3;
+  // Let horizontal swipes reach JS, keep vertical pan and pinch-zoom.
+  touch-action: pan-y pinch-zoom;
 }
 
 .lightbox__image {
@@ -425,6 +723,11 @@ usePageSeo({
   &:focus-visible {
     background: rgba(0, 0, 0, 0.7);
     border-color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 
