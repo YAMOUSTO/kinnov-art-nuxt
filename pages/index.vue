@@ -20,8 +20,8 @@
 
       <!-- Scroll Down Indicator -->
       <a href="#intro" class="hero__scroll-down" @click.prevent="scrollToSection('intro')">
-        <span class="sr-only">Scroll Down</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <span class="sr-only">{{ $t('a11y.scrollDown') }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </a>
     </section>
 
@@ -218,7 +218,8 @@ const examples = (service: Service): string[] => {
 
 /**
  * Galerie « Réalisations » — aménagement des espaces (photos du propriétaire
- * converties en WebP 800px). Sources dans public/images/newimages/ :
+ * converties en WebP 800px). Sources hors déploiement, dans
+ * source-images/images/newimages/ :
  *   1 = espacelonagui0.jpeg   2 = espacelonagui2.jpeg  3 = espaceLonagui.jpeg
  *   4 = EspaceRuoture.jpeg    5 = EspaceRupture0.jpeg  6 = Espacee0.jpeg
  *   7 = meilleur img.jpg     8 = Espace0WithPneux.jpeg
@@ -264,13 +265,18 @@ const scrollToSection = (id: string) => {
   }
 }
 
-// SEO + hero image preload (LCP: the hero is a CSS background, so the browser
-// would otherwise discover it only after the stylesheet parses).
-useHead(() => ({
-  title: t('pageMeta.home.title'),
-  meta: [{ name: 'description', content: t('pageMeta.home.description') }],
+// SEO. The hero is a CSS background, so its image is preloaded explicitly —
+// the browser would otherwise discover it only after the stylesheet parses
+// (LCP regression).
+usePageSeo({
+  titleKey: 'pageMeta.home.title',
+  descriptionKey: 'pageMeta.home.description',
+  image: '/og/og-home.jpg'
+})
+
+useHead({
   link: [{ rel: 'preload', as: 'image', href: '/images/webp/image_acceuil-1920.webp' }]
-}))
+})
 </script>
 
 <style lang="scss" scoped>

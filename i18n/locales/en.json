@@ -225,7 +225,10 @@
     "error": {
         "title": "Something went wrong",
         "body": "This page could not be displayed. Please try again, or head back to the home page.",
-        "retry": "Try again"
+        "retry": "Try again",
+        "notFoundTitle": "Page not found",
+        "notFoundBody": "This page doesn't exist or has moved. Head back to the home page to keep browsing.",
+        "backHome": "Back to home"
     },
     "gallery": {
         "title": "Our Gallery",

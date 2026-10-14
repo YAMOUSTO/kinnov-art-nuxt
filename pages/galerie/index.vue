@@ -251,10 +251,11 @@ onUnmounted(() => {
   document.body.style.overflow = ''
 })
 
-useHead(() => ({
-  title: t('pageMeta.gallery.title'),
-  meta: [{ name: 'description', content: t('pageMeta.gallery.description') }]
-}))
+usePageSeo({
+  titleKey: 'pageMeta.gallery.title',
+  descriptionKey: 'pageMeta.gallery.description',
+  image: '/og/og-galerie.jpg'
+})
 </script>
 
 <style lang="scss" scoped>

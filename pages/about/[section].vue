@@ -50,12 +50,12 @@ const sectionTitle = computed(() => {
   return t(key) !== key ? t(key) : section.value.charAt(0).toUpperCase() + section.value.slice(1)
 })
 
-useHead(() => ({
-  title: t('pageMeta.aboutSection.title', { section: sectionTitle.value }),
-  meta: [
-    { name: 'description', content: t('pageMeta.aboutSection.description', { section: sectionTitle.value }) }
-  ]
-}))
+usePageSeo({
+  titleKey: 'pageMeta.aboutSection.title',
+  descriptionKey: 'pageMeta.aboutSection.description',
+  params: () => ({ section: sectionTitle.value }),
+  image: '/og/og-about.jpg'
+})
 </script>
 
 <style lang="scss" scoped>

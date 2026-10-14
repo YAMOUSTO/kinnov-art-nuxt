@@ -9,6 +9,9 @@ dist
 # Node dependencies
 node_modules
 
+# Owner source images kept out of the deploy (public/ ships only webp derivatives)
+source-images
+
 # Logs
 logs
 *.log

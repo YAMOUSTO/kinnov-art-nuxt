@@ -225,7 +225,10 @@
     "error": {
         "title": "Une erreur est survenue",
         "body": "Cette page n'a pas pu être affichée. Merci de réessayer ou de revenir à l'accueil.",
-        "retry": "Réessayer"
+        "retry": "Réessayer",
+        "notFoundTitle": "Page introuvable",
+        "notFoundBody": "Cette page n'existe pas ou a été déplacée. Retournez à l'accueil pour poursuivre votre visite.",
+        "backHome": "Retour à l'accueil"
     },
     "gallery": {
         "title": "Notre Galerie",

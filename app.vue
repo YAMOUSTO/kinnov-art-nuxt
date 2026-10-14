@@ -40,6 +40,62 @@ useHead(() => ({
   ]
 }))
 
+// Structured data: a single @graph describing the local business and the site,
+// rebuilt per locale. Dependency-free (hand-rolled schema.org JSON-LD); the
+// `sameAs` list only includes social profiles that are actually configured, so
+// no dead reference can ship (audit H8).
+const config = useRuntimeConfig()
+
+useHead(() => {
+  const origin = String(config.public.siteUrl || '').replace(/\/+$/, '')
+  const social = (config.public.social ?? {}) as Record<string, string>
+  const sameAs = Object.values(social).filter(Boolean)
+  const organizationId = origin ? `${origin}/#organization` : undefined
+
+  return {
+    script: [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': ['Organization', 'LocalBusiness'],
+              '@id': organizationId,
+              name: "Kinnov'art",
+              url: origin || undefined,
+              logo: `${origin || ''}/logo-transparent.png`,
+              image: `${origin || ''}/og/og-default.jpg`,
+              description: t('pageMeta.siteDescription'),
+              email: config.public.contactEmail,
+              // Only advertise a phone number when one is actually configured,
+              // otherwise JSON-LD ships a bare "+".
+              ...(config.public.whatsapp ? { telephone: `+${config.public.whatsapp}` } : {}),
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Maison des Jeunes, Nongo',
+                addressLocality: 'Conakry',
+                addressCountry: 'GN'
+              },
+              areaServed: 'GN',
+              knowsLanguage: ['fr', 'en'],
+              ...(sameAs.length ? { sameAs } : {})
+            },
+            {
+              '@type': 'WebSite',
+              '@id': origin ? `${origin}/#website` : undefined,
+              url: origin || undefined,
+              name: "Kinnov'art",
+              inLanguage: locale.value,
+              publisher: organizationId ? { '@id': organizationId } : undefined
+            }
+          ]
+        })
+      }
+    ]
+  }
+})
+
 // `.scroll-reveal` is handled by plugins/scroll-observer.client.ts, which owns
 // the single app-wide IntersectionObserver.
 

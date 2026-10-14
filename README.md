@@ -10,7 +10,11 @@ A professional, bilingual (French/English) website for Kinnov'art creative cente
 - ✅ **5 Main Pages**: Homepage, Services, About (+ history/mission/team), Contact
 - ✅ **In-page service index**: numbered jump nav on `/services`, each card links to its anchor
 - ✅ **Responsive Design**: Mobile-first approach with tablet and desktop optimization
-- ✅ **SEO Optimized**: Localized meta tags, `hreflang` alternates, semantic HTML, and accessibility features
+- ✅ **SEO Optimized**: Localized meta tags, `hreflang` alternates, canonical URLs, semantic HTML, and accessibility features
+- ✅ **Structured Data**: schema.org `@graph` (Organization + LocalBusiness + WebSite), locale-reactive, driven by the real runtime config
+- ✅ **Sitemap & robots**: `/sitemap.xml` and `/robots.txt` are server routes, prerendered at build time from one route list
+- ✅ **Social cards**: per-page Open Graph / Twitter images (1200×630) plus a PWA manifest and generated app icons
+- ✅ **Graceful degradation**: unconfigured social links, map and site origin are omitted rather than guessed — no dead links, no wrong domains
 
 ## 🚀 Quick Start
 
@@ -36,10 +40,15 @@ kinnov-art-nuxt/
 ├── components/           # Vue components
 │   ├── layout/          # Header, Footer
 │   └── ui/              # Button, Section, PageHeader, ServiceIcon, etc.
-├── composables/          # Reusable logic (useServices, useTeam, useTheme)
+├── composables/          # Reusable logic (useServices, useTeam, useTheme, usePageSeo)
 ├── i18n/locales/         # i18n translations (FR/EN)
 ├── pages/                # Route pages
+├── public/               # Deployed static assets (icons, og cards, webp images)
+├── scripts/              # Build-time helpers (brand assets, 404 finalize)
+├── server/routes/        # Prerendered /robots.txt and /sitemap.xml
+├── source-images/        # Owner's original photos — NOT deployed (gitignored)
 ├── types/                # TypeScript definitions
+├── error.vue             # Localized 404/500 page
 └── nuxt.config.ts        # Nuxt configuration
 ```
 
@@ -84,6 +93,52 @@ reorder the services, edit that file and the matching `services.items.*` keys in
 > **Note:** there is no backend in this repository. The contact form validates input and
 > opens WhatsApp with the message pre-filled (phone number in `runtimeConfig.public.whatsapp`);
 > a floating WhatsApp button is available on every page. It does not send messages on the server.
+
+## 🚀 Deployment
+
+The site is **fully static**: `nuxt generate` prerenders every route into `.output/public`,
+including `/sitemap.xml` and `/robots.txt` (see `nitro.prerender` in `nuxt.config.ts`).
+
+Netlify is configured in `netlify.toml`:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run generate` |
+| Publish directory | `.output/public` |
+| Node version | `22` (also in `.nvmrc`; must satisfy `^20.19.0 \|\| >=22.12.0`) |
+
+### Environment
+
+Every variable is optional — with none set the site still builds, it just omits absolute
+SEO URLs and hides unconfigured social links / the map rather than guessing.
+See [`.env.example`](.env.example) for the full list. The important one:
+
+- `NUXT_PUBLIC_SITE_URL` — the deployed origin, no trailing slash. Drives canonical URLs,
+  `hreflang`, `og:url`/`og:image`, the sitemap and the `Sitemap:` line in `robots.txt`.
+  **Netlify fills this automatically** from its injected `URL` variable; set it explicitly
+  on any other host.
+
+Deploy previews and branch deploys get `X-Robots-Tag: noindex` from `netlify.toml`, so they
+can never compete with production in search results.
+
+### Regenerating brand assets
+
+App icons (`public/icons/`) and social cards (`public/og/`) are committed. To rebuild them
+after changing the wordmark or source photos:
+
+```bash
+node scripts/generate-brand-assets.mjs
+```
+
+It reads the wordmark from `public/logo-transparent.png` and the tracked webp derivatives in
+`public/images/webp/`. The owner's original uploads live in `source-images/`, which is
+**gitignored and never deployed** — `public/` ships only the webp images the site references.
+
+### Notes
+
+- `.planning/DESIGN-AUDIT.md` carries the verified per-item status of the earlier design audit.
+- A few items are intentionally waiting on owner input (real social profile URLs, the
+  authoritative team roster, exact map coordinates); the site degrades gracefully without them.
 
 ## 📝 License
 

@@ -126,10 +126,11 @@ const examples = (service: Service): string[] => {
   return value.map((_, i) => t(`${key}.${i}`))
 }
 
-useHead(() => ({
-  title: t('pageMeta.services.title'),
-  meta: [{ name: 'description', content: t('pageMeta.services.description') }]
-}))
+usePageSeo({
+  titleKey: 'pageMeta.services.title',
+  descriptionKey: 'pageMeta.services.description',
+  image: '/og/og-services.jpg'
+})
 </script>
 
 <style lang="scss" scoped>

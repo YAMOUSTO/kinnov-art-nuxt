@@ -1,0 +1,92 @@
+# Netlify deployment configuration.
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+#
+# The site is fully static: `nuxt generate` prerenders every route (including
+# /sitemap.xml and /robots.txt via nitro.prerender in nuxt.config.ts) into
+# .output/public, which is what gets published.
+
+[build]
+  command = "npm run generate"
+  publish = ".output/public"
+
+[build.environment]
+  # Must satisfy nuxt's engines: ^20.19.0 || >=22.12.0
+  NODE_VERSION = "22"
+  # The build needs devDependencies (nuxt, @nuxtjs/i18n, sass, sharp). Netlify
+  # installs them by default; this only matters if NODE_ENV is ever forced to
+  # production at build time.
+  NPM_CONFIG_PRODUCTION = "false"
+
+# --- Security headers ---------------------------------------------------------
+# No Content-Security-Policy here on purpose: the site legitimately loads Google
+# Fonts, embeds an OpenStreetMap iframe and opens wa.me links, so a CSP needs
+# per-source tuning rather than a guess. Add one deliberately if you want it.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# --- Caching -------------------------------------------------------------------
+# Hashed build output never changes under a given filename.
+[[headers]]
+  for = "/_nuxt/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Brand art and image derivatives are versioned by filename, not by hash, so use
+# a long-but-not-immutable window: a replaced photo reuses its name.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Image derivatives generated at build time by @nuxt/image.
+[[headers]]
+  for = "/_ipx/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Per-locale payload files for client-side navigation.
+[[headers]]
+  for = "/_i18n/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/og/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# SEO endpoints should be picked up promptly after a deploy.
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# --- Deploy previews / branch deploys -----------------------------------------
+# Never let a preview URL be indexed, and keep it out of the sitemap's reach.
+[context.deploy-preview]
+  [[context.deploy-preview.headers]]
+    for = "/*"
+    [context.deploy-preview.headers.values]
+      X-Robots-Tag = "noindex, nofollow"
+
+[context.branch-deploy]
+  [[context.branch-deploy.headers]]
+    for = "/*"
+    [context.branch-deploy.headers.values]
+      X-Robots-Tag = "noindex, nofollow"

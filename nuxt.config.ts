@@ -1,4 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+// Absolute origin used for canonical URLs, hreflang alternates, og:url/og:image,
+// the sitemap and robots.txt. Netlify injects `URL` at build time (the primary
+// site URL — deploy previews therefore point their canonical at production,
+// which is deliberate: netlify.toml sends `X-Robots-Tag: noindex` on previews so
+// they can never compete with the real site). A self-hosted build must set
+// NUXT_PUBLIC_SITE_URL explicitly (e.g. https://www.kinnovart.com). When it is
+// empty the SEO URLs stay relative instead of pointing at a guessed domain.
+const siteUrl = (
+  process.env.NUXT_PUBLIC_SITE_URL ||
+  process.env.NUXT_PUBLIC_I18N_BASE_URL ||
+  process.env.URL ||
+  ''
+).replace(/\/+$/, '')
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
@@ -38,11 +53,10 @@ export default defineNuxtConfig({
     ],
     langDir: './locales',
     defaultLocale: 'fr',
-    // Canonical/hreflang URLs are absolute, so they need the deployed origin.
-    // Set NUXT_PUBLIC_I18N_BASE_URL (e.g. https://www.kinnovart.com) per
-    // deployment; leave empty locally and i18n omits the SEO links rather than
-    // emitting wrong ones.
-    baseUrl: process.env.NUXT_PUBLIC_I18N_BASE_URL || '',
+    // Canonical/hreflang URLs are absolute, so they need the deployed origin
+    // (see `siteUrl` above). When it is empty i18n emits relative URLs rather
+    // than pointing at a guessed domain.
+    baseUrl: siteUrl,
     strategy: 'prefix_except_default',
     detectBrowserLanguage: {
       useCookie: true,
@@ -59,6 +73,10 @@ export default defineNuxtConfig({
   // (audit L12).
   runtimeConfig: {
     public: {
+      // Deployed origin (no trailing slash). Used to build absolute canonical,
+      // og:image, sitemap and robots URLs. Overridable at runtime with
+      // NUXT_PUBLIC_SITE_URL.
+      siteUrl,
       contactEmail: 'contact@kinnovart.com',
       // WhatsApp number in international format, digits only (for wa.me links).
       // Overridable per deployment with NUXT_PUBLIC_WHATSAPP.
@@ -113,12 +131,28 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'format-detection', content: 'telephone=no' },
+        // PWA / mobile-web-app chrome (see public/manifest.webmanifest).
+        { name: 'theme-color', content: '#FFFFFF', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#0A0A0A', media: '(prefers-color-scheme: dark)' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
+        { name: 'apple-mobile-web-app-title', content: "Kinnov'art" },
+        { name: 'application-name', content: "Kinnov'art" },
+        { name: 'msapplication-TileColor', content: '#D4AF37' },
+        {
+          name: 'keywords',
+          content:
+            "Kinnov'art, scénographie Conakry, meubles en pneus recyclés, kiosques sur mesure, aménagement d'espaces, décoration événementielle, production artistique, Guinée, set design Guinea, recycled tyre furniture, kiosk making, event decoration"
+        },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: "Kinnov'art" },
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icons/favicon-32x32.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/icons/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' },
         {
           rel: 'preconnect',
           href: 'https://fonts.googleapis.com'
@@ -135,6 +169,16 @@ export default defineNuxtConfig({
       ]
     },
     pageTransition: { name: 'page', mode: 'out-in' }
+  },
+
+  // Prerender the SEO endpoints alongside the crawled pages so the static
+  // deploy ships a real /sitemap.xml and /robots.txt (public/robots.txt is
+  // removed — the server route is the single source of truth).
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/sitemap.xml', '/robots.txt']
+    }
   },
 
   // TypeScript Configuration

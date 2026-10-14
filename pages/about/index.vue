@@ -36,13 +36,13 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n()
 const { teamMembers } = useTeam()
 
-useHead(() => ({
-  title: t('pageMeta.about.title'),
-  meta: [{ name: 'description', content: t('pageMeta.about.description') }]
-}))
+usePageSeo({
+  titleKey: 'pageMeta.about.title',
+  descriptionKey: 'pageMeta.about.description',
+  image: '/og/og-about.jpg'
+})
 </script>
 
 <style lang="scss" scoped>
