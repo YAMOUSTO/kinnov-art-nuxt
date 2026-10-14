@@ -163,6 +163,14 @@
         "learnMore": "Learn more",
         "openInMaps": "Open in OpenStreetMap"
     },
+    "a11y": {
+        "skipToContent": "Skip to main content",
+        "scrollToTop": "Scroll back to top",
+        "scrollDown": "Scroll down",
+        "switchToLight": "Switch to light theme",
+        "switchToDark": "Switch to dark theme",
+        "switchLanguage": "Switch to {language}"
+    },
     "pageMeta": {
         "siteTitle": "Kinnov'art - The Art of Creative Innovation",
         "siteDescription": "Kinnov'art - Creative centre in Nongo: set design, tyre furniture, kiosk making, space design, artistic production and event decoration training.",

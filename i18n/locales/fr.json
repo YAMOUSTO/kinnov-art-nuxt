@@ -163,6 +163,14 @@
         "learnMore": "En savoir plus",
         "openInMaps": "Ouvrir dans OpenStreetMap"
     },
+    "a11y": {
+        "skipToContent": "Aller au contenu principal",
+        "scrollToTop": "Remonter en haut de page",
+        "scrollDown": "Défiler vers le bas",
+        "switchToLight": "Passer au thème clair",
+        "switchToDark": "Passer au thème sombre",
+        "switchLanguage": "Passer en {language}"
+    },
     "pageMeta": {
         "siteTitle": "Kinnov'art - L'Art de l'Innovation Créative",
         "siteDescription": "Kinnov'art - Centre créatif à Nongo : scénographie, meubles en pneus, kiosques, aménagement d'espaces, production artistique et formation en décoration événementielle.",

@@ -4,9 +4,9 @@
       v-if="isVisible" 
       class="scroll-to-top" 
       @click="scrollToTop"
-      aria-label="Scroll to top"
+      :aria-label="$t('a11y.scrollToTop')"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
         <polyline points="18 15 12 9 6 15"></polyline>
       </svg>
     </button>
