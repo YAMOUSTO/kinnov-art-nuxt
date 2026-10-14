@@ -16,7 +16,10 @@ const siteUrl = (
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
-  devtools: { enabled: true },
+  // The Nuxt DevTools + Vue Inspector overlay is a development parasite: it
+  // floats above the page and intercepts clicks/scroll without being part of
+  // the site. Disabled so it can never reach a build.
+  devtools: { enabled: false },
 
   modules: [
     '@nuxtjs/i18n',
