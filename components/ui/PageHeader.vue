@@ -3,7 +3,11 @@
     :bg="bg"
     padding="md"
     :container="false"
-    :class="['page-header', `page-header--${bg}`, { 'page-header--image': image }]"
+    :class="[
+      'page-header',
+      `page-header--${bg}`,
+      { 'page-header--image': image, 'page-header--scrim-light': image && scrim === 'light' }
+    ]"
   >
     <!-- Optional photo band: decorative, so it is hidden from assistive tech and
          the dark scrim guarantees the title below keeps WCAG contrast. -->
@@ -35,12 +39,20 @@ interface Props {
   bg?: 'white' | 'gray' | 'primary'
   /** Optional photo background (e.g. `/images/webp/best4-1920.webp`). */
   image?: string
+  /**
+   * Scrim drawn over the photo. `dark` (default) keeps white text over a dark
+   * veil — good for busy/dark photos. `light` draws a soft light band behind the
+   * heading with near-black text (WCAG AA on bright photos) and leaves the rest
+   * of the photo uncluttered; opt in per page so the other headers are unchanged.
+   */
+  scrim?: 'dark' | 'light'
 }
 
 withDefaults(defineProps<Props>(), {
   subtitle: '',
   bg: 'gray',
-  image: ''
+  image: '',
+  scrim: 'dark'
 })
 </script>
 
@@ -123,6 +135,32 @@ withDefaults(defineProps<Props>(), {
 
     .page-header__subtitle {
       color: rgba(255, 255, 255, 0.92);
+    }
+  }
+
+  // Bright photo with a light band behind the heading (opt-in via `scrim="light"`).
+  // The photo stays visible top and bottom, while a soft near-white band covers
+  // the heading area so near-black text keeps a comfortable margin over AA
+  // (≈ 18:1 at the band centre). Must come after `&--image` to win the override.
+  &--scrim-light {
+    .page-header__scrim {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.92) 20%,
+        rgba(255, 255, 255, 0.92) 80%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
+
+    .page-header__title {
+      color: $color-black;
+      text-shadow: none;
+    }
+
+    .page-header__subtitle {
+      // 82% black on the near-white band ≈ 12:1, comfortably above AA.
+      color: rgba(0, 0, 0, 0.82);
     }
   }
 }
