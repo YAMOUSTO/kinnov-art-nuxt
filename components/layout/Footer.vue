@@ -33,17 +33,17 @@
           <div class="footer__section">
             <h4 class="footer__title">{{ $t('nav.contact') }}</h4>
             <ul class="footer__contact">
-              <li>
+              <li v-if="config.public.contactEmail">
                 <svg class="footer__icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <a href="mailto:kinnovart@gmail.com">kinnovart@gmail.com</a>
+                <a :href="`mailto:${config.public.contactEmail}`">{{ config.public.contactEmail }}</a>
               </li>
-              <li>
+              <li v-if="whatsappDisplay">
                 <svg class="footer__icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <a href="tel:+224611464609">+224 611 46 46 09</a>
+                <a :href="whatsappTel">{{ whatsappDisplay }}</a>
               </li>
               <li v-if="whatsappHref">
                 <svg class="footer__icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -104,7 +104,7 @@ const newsletterEmail = ref('')
 
 const config = useRuntimeConfig()
 const { t } = useI18n()
-const { link: whatsappLink } = useWhatsapp()
+const { link: whatsappLink, display: whatsappDisplay, tel: whatsappTel } = useWhatsapp()
 
 const whatsappHref = computed(() => whatsappLink(t('contact.whatsappMessage')))
 

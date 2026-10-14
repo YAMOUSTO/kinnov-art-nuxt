@@ -15,5 +15,19 @@ export const useWhatsapp = () => {
   const link = (text = '') =>
     number ? `https://wa.me/${number}${text ? `?text=${encodeURIComponent(text)}` : ''}` : ''
 
-  return { number, link }
+  /**
+   * Numéro lisible pour l'affichage (3 chiffres d'indicatif pays + numéro
+   * national regroupé) ; '' si non configuré. Dérivé du même `number` que les
+   * liens, donc l'affichage ne peut pas diverger du numéro réellement composé.
+   */
+  const display = !number
+    ? ''
+    : number.length === 12
+      ? `+${number.slice(0, 3)} ${number.slice(3, 6)} ${number.slice(6, 8)} ${number.slice(8, 10)} ${number.slice(10, 12)}`
+      : `+${number}`
+
+  /** Lien `tel:` ; '' si aucun numéro n'est configuré. */
+  const tel = number ? `tel:+${number}` : ''
+
+  return { number, link, display, tel }
 }
