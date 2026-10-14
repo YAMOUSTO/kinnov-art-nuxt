@@ -20,13 +20,13 @@ import type { TeamMember } from '~/types'
 const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 1,
-    name: 'Ismael Camara',
+    name: 'Fode Moussa Soumah',
     roleKey: 'team.roles.creativeDirector',
     image: '/images/webp/pdg-400.webp'
   },
   {
     id: 2,
-    name: 'Ibrahima Sory Savané',
+    name: 'Alya Savané',
     roleKey: 'team.roles.trainingManager',
     image: '/images/webp/pdg-400.webp'
   },
