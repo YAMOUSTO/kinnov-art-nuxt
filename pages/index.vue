@@ -35,13 +35,9 @@
               {{ $t('home.brandIntro') }}
             </p>
             <div class="intro__stats">
-              <div class="stat-item">
-                <span class="stat-number">6</span>
-                <span class="stat-label">{{ $t('home.statsCrafts') }}</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-number">1</span>
-                <span class="stat-label">{{ $t('home.statsLocation') }}</span>
+              <div v-for="stat in stats" :key="stat.labelKey" class="stat-item">
+                <span class="stat-number">{{ stat.value }}</span>
+                <span class="stat-label">{{ $t(stat.labelKey) }}</span>
               </div>
             </div>
           </div>
@@ -50,6 +46,8 @@
               src="/images/webp/pdg-900.webp"
               :alt="$t('home.introImageAlt')"
               class="intro__image"
+              width="900"
+              height="1171"
               loading="lazy"
             />
           </div>
@@ -77,6 +75,9 @@
                 :src="service.image"
                 :alt="$t(`services.items.${service.slug}.imageAlt`)"
                 class="service-card__image"
+                :style="serviceCardPosition(service)"
+                width="800"
+                height="500"
                 loading="lazy"
               />
               <div class="service-card__icon">
@@ -112,6 +113,31 @@
       </div>
     </Section>
 
+    <!-- Notre démarche — trois principes (recyclage, formation, création locale).
+         Contenu strictement descriptif : aucun chiffre ni promesse inventés. -->
+    <Section class="section--approach" bg="gray" id="approche">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 class="section-title scroll-reveal">{{ $t('home.approachTitle') }}</h2>
+          <p class="section-subtitle">{{ $t('home.approachSubtitle') }}</p>
+        </div>
+
+        <ul class="approach-grid">
+          <li
+            v-for="pillar in approach"
+            :key="pillar.key"
+            class="approach-card scroll-reveal"
+          >
+            <span class="approach-card__icon">
+              <ServiceIcon :name="pillar.icon" :size="28" />
+            </span>
+            <h3 class="approach-card__title">{{ $t(`home.approach.${pillar.key}.title`) }}</h3>
+            <p class="approach-card__text">{{ $t(`home.approach.${pillar.key}.text`) }}</p>
+          </li>
+        </ul>
+      </div>
+    </Section>
+
     <!-- Réalisations -->
     <Section class="section--gallery" padding="lg">
       <div class="container">
@@ -120,20 +146,51 @@
           <p class="section-subtitle">{{ $t('home.gallerySubtitle') }}</p>
         </div>
 
-        <div class="gallery-grid">
+        <!-- Filtres par service. Le HTML des tuiles est recréé à chaque filtre,
+             donc elles ne portent volontairement pas `scroll-reveal` (l'observer
+             n'agit que sur les nœuds présents à l'entrée de la page). -->
+        <div
+          class="gallery-filters scroll-reveal"
+          role="group"
+          :aria-label="$t('home.galleryTitle')"
+        >
+          <button
+            v-for="filter in galleryFilters"
+            :key="filter.slug"
+            type="button"
+            class="gallery-filter"
+            :class="{ 'gallery-filter--active': activeGalleryFilter === filter.slug }"
+            :aria-pressed="activeGalleryFilter === filter.slug"
+            @click="activeGalleryFilter = filter.slug"
+          >
+            {{ $t(filter.labelKey) }}
+          </button>
+        </div>
+
+        <div v-if="visibleGallery.length" class="gallery-grid">
           <figure
-            v-for="(photo, i) in gallery"
+            v-for="(photo, i) in visibleGallery"
             :key="photo.src"
-            class="gallery-item scroll-reveal"
+            class="gallery-item"
           >
             <NuxtImg
               :src="photo.src"
-              :alt="$t('home.galleryPhotoAlt', { n: i + 1 })"
+              :alt="galleryAlt(photo)"
               class="gallery-item__image"
+              :style="photo.position ? { objectPosition: photo.position } : undefined"
+              width="800"
+              height="800"
               loading="lazy"
             />
+            <figcaption class="gallery-item__caption">
+              {{ galleryCaption(photo) }}
+            </figcaption>
           </figure>
         </div>
+
+        <!-- Affiché quand un filtre n'a aucune tuile (ex. catégorie non encore
+             documentée). -->
+        <p v-else class="gallery-empty">{{ $t('home.galleryEmpty') }}</p>
 
         <div class="gallery-more text-center">
           <Button variant="outline" size="md" :to="localePath('/galerie')">
@@ -153,10 +210,17 @@
         </div>
       </div>
 
-      <!-- Auto-scrolling marquee: the list is rendered twice for a seamless
-           loop; the duplicate copy is hidden from assistive tech. -->
-      <div class="testimonials">
-        <div class="testimonials__track">
+      <!-- Marquee en défilement continu : la liste est rendue deux fois pour une
+           boucle sans couture, la copie dupliquée étant masquée aux technologies
+           d'assistance. Les commandes précédent/suivant basculent la piste en
+           positionnement manuel (l'animation CSS est alors coupée), ce qui rend
+           le bloc utilisable au clavier et au toucher. -->
+      <div class="testimonials" :class="{ 'testimonials--manual': testimonialsManual }">
+        <div
+          ref="testimonialsTrackRef"
+          class="testimonials__track"
+          :style="testimonialsManual ? testimonialsTrackStyle : undefined"
+        >
           <figure
             v-for="i in marqueeItems"
             :key="i"
@@ -177,15 +241,64 @@
           </figure>
         </div>
       </div>
+
+      <!-- Commandes de la liste de clips (le clavier atteint les boutons
+           nativement). -->
+      <div class="testimonials__controls">
+        <button
+          type="button"
+          class="testimonials__control"
+          :aria-label="$t('home.testimonialsPrev')"
+          @click="prevTestimonial"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="testimonials__control"
+          :aria-label="$t('home.testimonialsNext')"
+          @click="nextTestimonial"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
     </Section>
 
     <!-- Location CTA -->
 
     <Section class="section--cta" bg="primary">
       <div class="container text-center scroll-reveal">
-        <h2 class="section-title cta-title">{{ $t('about.location') }}</h2>
+        <h2 class="section-title cta-title">{{ $t('home.locationTitle') }}</h2>
         <p class="lead cta-text">
-          {{ $t('contact.locationDetails') }}
+          {{ $t('about.location') }}
         </p>
         <Button variant="accent" size="lg" :to="localePath('/contact')">
           {{ $t('nav.contact') }}
@@ -196,12 +309,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import type { Service } from '~/types'
 
 const { t, tm } = useI18n()
 const localePath = useLocalePath()
 const { services } = useServices()
+const { stats } = useStats()
 
 /**
  * Same key-resolution guard as the services page: `tm()` returns the raw message
@@ -217,26 +331,104 @@ const examples = (service: Service): string[] => {
 }
 
 /**
- * Galerie « Réalisations » — aménagement des espaces (photos du propriétaire
- * converties en WebP 800px). Sources hors déploiement, dans
- * source-images/images/newimages/ :
- *   1 = espacelonagui0.jpeg   2 = espacelonagui2.jpeg  3 = espaceLonagui.jpeg
- *   4 = EspaceRuoture.jpeg    5 = EspaceRupture0.jpeg  6 = Espacee0.jpeg
- *   7 = meilleur img.jpg     8 = Espace0WithPneux.jpeg
- * Ne pas ajouter rouge-couteau.jpg (exclusion demandée par le propriétaire).
- * TODO propriétaire : remplacer les alt génériques (clé `home.galleryPhotoAlt`)
- * par une description réelle de chaque photo.
+ * « Notre démarche » — trois piliers. Les icônes réutilisent ServiceIcon ; le
+ * texte vit dans les fichiers de locale (`home.approach.<key>.title|text`, FR + EN).
  */
-const gallery = [
-  { src: '/images/webp/gallery-1-800.webp' },
-  { src: '/images/webp/gallery-2-800.webp' },
-  { src: '/images/webp/gallery-3-800.webp' },
-  { src: '/images/webp/gallery-4-800.webp' },
-  { src: '/images/webp/gallery-5-800.webp' },
-  { src: '/images/webp/gallery-6-800.webp' },
-  { src: '/images/webp/gallery-7-800.webp' },
-  { src: '/images/webp/gallery-8-800.webp' }
+const approach = [
+  { key: 'recycling', icon: 'recycle' },
+  { key: 'training', icon: 'cap' },
+  { key: 'local', icon: 'feather' }
+] as const
+
+/**
+ * Cadrage des photos de cartes services sur l'accueil. La photo « kiosque »
+ * affiche une enseigne tierce et la photo « production » une liste de titres
+ * d'artistes : on décale le point de recadrage pour sortir ce texte du cadre
+ * 16/10 de la carte.
+ *
+ * TODO propriétaire : vérifier ce recadrage (texte tiers « Loterie Nationale
+ *   Guinée » sur la photo kiosque). Fournir une nouvelle photo si le texte
+ *   reste visible.
+ * TODO propriétaire : vérifier le recadrage de la photo « production » (liste
+ *   de titres d'artistes) ; fournir une nouvelle photo si besoin.
+ * TODO propriétaire : vérifier l'autorisation d'utiliser les marques visibles
+ *   (« Loterie Nationale Guinée »).
+ */
+const SERVICE_IMAGE_POSITION: Record<string, string> = {
+  kiosks: 'center 30%',
+  production: 'center 70%'
+}
+
+const serviceCardPosition = (service: Service) => {
+  const position = SERVICE_IMAGE_POSITION[service.slug]
+  return position ? { objectPosition: position } : undefined
+}
+
+type HomeGalleryService =
+  | 'scenography'
+  | 'furniture'
+  | 'kiosks'
+  | 'spaceDesign'
+  | 'production'
+  | 'training'
+
+interface HomeGalleryPhoto {
+  src: string
+  /** Service implied by the photo; `null` = indéterminé (visible sous « Tous »). */
+  service: HomeGalleryService | null
+}
+
+/**
+ * Galerie « Réalisations » de l'accueil — huit tuiles, avec AU PLUS un kiosque
+ * et un mobilier/pouf. Dérivés WebP 800px dans public/images/webp/ ; originaux
+ * hors déploiement (source-images/, gitignoré).
+ * Ne jamais utiliser rouge-couteau.jpg (exclusion demandée par le propriétaire).
+ *
+ * Les `service` ci-dessous sont provisoires : la photo ne permet pas toujours de
+ * trancher, et elle n'est pas visible depuis le code.
+ * TODO propriétaire : confirmer le type de chaque réalisation (donc son filtre)
+ *   et corriger `service` (ou mettre `null`) selon le contenu réel.
+ * TODO propriétaire : décrire chaque photo (alt) pour l'accessibilité et le SEO.
+ */
+const gallery: HomeGalleryPhoto[] = [
+  { src: '/images/webp/image_acceuil-800.webp', service: 'spaceDesign' },
+  { src: '/images/webp/best1-800.webp', service: 'scenography' },
+  { src: '/images/webp/meilleur-img-800.webp', service: 'spaceDesign' },
+  { src: '/images/webp/best0-800.webp', service: 'production' },
+  { src: '/images/webp/fb-470202327-800.webp', service: 'kiosks' },
+  { src: '/images/webp/best4-800.webp', service: 'spaceDesign' },
+  { src: '/images/webp/fauteuil-800.webp', service: 'furniture' },
+  { src: '/images/webp/best2-800.webp', service: 'training' }
 ]
+
+const galleryFilters = [
+  { slug: 'all', labelKey: 'home.galleryFilters.all' },
+  { slug: 'scenography', labelKey: 'home.galleryFilters.scenography' },
+  { slug: 'furniture', labelKey: 'home.galleryFilters.furniture' },
+  { slug: 'kiosks', labelKey: 'home.galleryFilters.kiosks' },
+  { slug: 'spaceDesign', labelKey: 'home.galleryFilters.spaceDesign' },
+  { slug: 'production', labelKey: 'home.galleryFilters.production' },
+  { slug: 'training', labelKey: 'home.galleryFilters.training' }
+] as const
+
+const activeGalleryFilter = ref<string>('all')
+
+const visibleGallery = computed(() =>
+  activeGalleryFilter.value === 'all'
+    ? gallery
+    : gallery.filter((photo) => photo.service === activeGalleryFilter.value)
+)
+
+// Légende = type de réalisation localisé ; repli générique si le type est inconnu.
+const galleryCaption = (photo: HomeGalleryPhoto) =>
+  photo.service
+    ? t(`home.galleryFilters.${photo.service}`)
+    : t('home.galleryCaption')
+
+const galleryAlt = (photo: HomeGalleryPhoto) => {
+  const n = gallery.indexOf(photo) + 1
+  return t('home.galleryAlt', { type: galleryCaption(photo), n })
+}
 
 // Clips: length comes from `tm()` (compiled AST structure, so only the
 // count is usable); every visible string is resolved through `t()` per index.
@@ -257,6 +449,40 @@ const testimonialInitials = (i: number) =>
     .slice(0, 2)
     .join('')
     .toUpperCase()
+
+// Contrôles du marquee de clips. Tant que l'utilisateur n'intervient pas, la
+// piste défile en CSS ; au premier clic, on coupe l'animation et on repositionne
+// la piste en `translateX`, ce qui la rend pilotable au clavier et au toucher.
+const testimonialsManual = ref(false)
+const testimonialIndex = ref(0)
+const testimonialStep = ref(0)
+const testimonialsTrackRef = ref<HTMLElement | null>(null)
+
+const measureTestimonialStep = () => {
+  const first = testimonialsTrackRef.value?.firstElementChild as HTMLElement | null
+  if (!first) return
+  const marginRight = parseFloat(window.getComputedStyle(first).marginRight) || 0
+  testimonialStep.value = first.offsetWidth + marginRight
+}
+
+const testimonialsTrackStyle = computed(() => ({
+  animation: 'none',
+  transform: `translateX(-${testimonialIndex.value * testimonialStep.value}px)`
+}))
+
+const goToTestimonial = (i: number) => {
+  const count = testimonialCount.value
+  if (!count) return
+  testimonialsManual.value = true
+  measureTestimonialStep()
+  testimonialIndex.value = ((i % count) + count) % count
+}
+
+const nextTestimonial = () => goToTestimonial(testimonialIndex.value + 1)
+const prevTestimonial = () => goToTestimonial(testimonialIndex.value - 1)
+
+onMounted(() => window.addEventListener('resize', measureTestimonialStep))
+onUnmounted(() => window.removeEventListener('resize', measureTestimonialStep))
 
 const scrollToSection = (id: string) => {
   const element = document.getElementById(id)
@@ -294,16 +520,16 @@ useHead({
 
   &__overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    // The gold stop mixes against the *active* --color-primary, so the scrim
-    // follows the theme instead of being pinned to the light-theme #D4AF37.
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--color-primary) 85%, var(--hero-scrim-base)) 0%,
-      var(--hero-scrim-base) 100%
+    inset: 0;
+    // Dark veil centred behind the headline so the white text stays readable
+    // while the photo reads through at the edges. Built from the neutral
+    // --hero-scrim-base (black) only — never a palette colour — so the themes
+    // differ solely by strength (--hero-scrim-strength, see _theme.scss).
+    background: radial-gradient(
+      ellipse 80% 70% at center,
+      var(--hero-scrim-base) 0%,
+      color-mix(in srgb, var(--hero-scrim-base) 70%, transparent) 45%,
+      transparent 78%
     );
     opacity: var(--hero-scrim-strength);
     z-index: 1;
@@ -406,6 +632,18 @@ useHead({
       transform: translateX(-50%) translateY(-5px);
     }
   }
+
+  // The hero sits on a dark photo scrim in both themes, but the global
+  // `:focus-visible` outline uses --color-secondary — black in the light theme,
+  // which is invisible here. Force white so keyboard focus is always visible.
+  &__cta,
+  &__cta-secondary,
+  &__scroll-down {
+    &:focus-visible {
+      outline: 2px solid #FFFFFF;
+      outline-offset: 2px;
+    }
+  }
 }
 
 // Intro Section
@@ -434,7 +672,9 @@ useHead({
     border-radius: $radius-2xl;
     overflow: hidden;
     box-shadow: $shadow-2xl;
-    aspect-ratio: 4/3;
+    // Portrait source (pdg-900.webp is 900×1171), so the frame mirrors that ratio
+    // instead of the old 4/3 landscape crop that letterboxed the subject.
+    aspect-ratio: 3 / 4;
     
     &::after {
       content: '';
@@ -451,6 +691,9 @@ useHead({
     width: 100%;
     height: 100%;
     object-fit: cover;
+    // Bias the crop upwards so the face stays centred when the frame narrows on
+    // mobile.
+    object-position: center 25%;
     transition: transform $transition-slow $easing-out;
 
     &:hover {
@@ -460,7 +703,8 @@ useHead({
 
   &__stats {
     display: flex;
-    gap: $spacing-12;
+    flex-wrap: wrap;
+    gap: $spacing-6 $spacing-10;
     margin-top: $spacing-8;
     border-top: 1px solid var(--border-color);
     padding-top: $spacing-8;
@@ -474,8 +718,12 @@ useHead({
 
 .stat-number {
   font-family: $font-heading;
-  font-size: $font-size-3xl;
+  // The three values are long placeholders ("À confirmer") until the owner
+  // supplies the real figures, so the size is tuned to fit three wrapping
+  // columns without breaking mid-word (see composables/useStats.ts).
+  font-size: $font-size-2xl;
   font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
   color: var(--color-secondary);
 }
 
@@ -655,6 +903,53 @@ useHead({
   margin-top: $spacing-12;
 }
 
+// « Notre démarche » — trois piliers (recyclage, formation, création locale).
+// The section background comes from the Section component (`bg="gray"`), which
+// also gives the correct theme-aware means; only the inner layout lives here.
+.approach-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  margin-top: $spacing-12;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.approach-card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  padding: $spacing-8;
+  background-color: var(--color-background);
+  border: 1px solid var(--border-color);
+  border-radius: $radius-xl;
+  box-shadow: $shadow-sm;
+
+  &__icon {
+    @include flex-center;
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: $radius-full;
+    background-color: var(--color-primary);
+    color: $color-black;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: var(--color-text);
+  }
+
+  &__text {
+    font-size: $font-size-sm;
+    color: var(--color-text-muted);
+    line-height: $line-height-relaxed;
+  }
+}
+
 // Réalisations — simple responsive grid of the owner's photos (square crop,
 // centred subject so nothing important is cut on mobile).
 .section--gallery {
@@ -670,6 +965,50 @@ useHead({
     grid-template-columns: repeat(4, 1fr);
     gap: $spacing-6;
   }
+}
+
+// Filtres « Réalisations » : boutons pastille, l'actif en or plein.
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-bottom: $spacing-8;
+}
+
+.gallery-filter {
+  padding: $spacing-2 $spacing-4;
+  border-radius: $radius-full;
+  border: 1px solid var(--border-color);
+  background-color: var(--color-background);
+  color: var(--color-text-muted);
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-base $easing-in-out;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-text);
+    outline-offset: 2px;
+  }
+
+  &--active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: $color-black;
+  }
+}
+
+.gallery-empty {
+  margin: $spacing-12 0;
+  text-align: center;
+  font-size: $font-size-lg;
+  color: var(--color-text-muted);
 }
 
 .gallery-more {
@@ -702,6 +1041,20 @@ useHead({
     object-position: center;
     transition: transform $transition-slow $easing-out;
   }
+
+  // Type de réalisation, posé sur un dégradé bas pour rester lisible quelle que
+  // soit la photo (le texte est blanc sur un scrim noir, dans les deux thèmes).
+  &__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: $spacing-6 $spacing-4 $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-white;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+  }
 }
 
 // Témoignages — cartes en défilement continu (marquee). La piste contient deux
@@ -730,6 +1083,46 @@ useHead({
   &:hover &__track,
   &:focus-within &__track {
     animation-play-state: paused;
+  }
+
+  // Manual mode: the CSS marquee is replaced by an inline transform on the
+  // track (see pages/index.vue script), so the pause rule no longer applies and
+  // the edge fade would otherwise clip a card the user explicitly asked for.
+  &--manual {
+    mask-image: none;
+    -webkit-mask-image: none;
+
+    .testimonials__track {
+      animation: none;
+    }
+  }
+}
+
+// Commandes précédent/suivant du bloc de clips, sous la piste.
+.testimonials__controls {
+  @include flex-center;
+  gap: $spacing-4;
+  margin-top: $spacing-8;
+}
+
+.testimonials__control {
+  @include flex-center;
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-full;
+  border: 1px solid var(--border-color);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transition: all $transition-base $easing-in-out;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-text);
+    outline-offset: 2px;
   }
 }
 

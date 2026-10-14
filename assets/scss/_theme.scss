@@ -59,10 +59,12 @@
     --shadow-color-lg: rgba(0, 0, 0, 0.16);
 
     // Hero scrim. The hero always renders white text over a photo, so the scrim
-    // has to stay dark in both themes; what changes is the brand tint mixed
-    // into it and the overall strength (audit H6).
+    // stays dark in both themes — but it is now only a light veil (~40%
+    // effective opacity at the centre, fading out to nothing at the edges) so
+    // the gold/olive cast is gone and the photo reads through. What changes
+    // between themes is only how much of it is needed (audit H6).
     --hero-scrim-base: #000000;
-    --hero-scrim-strength: 0.9;
+    --hero-scrim-strength: 0.45;
 }
 
 // Dark Mode Overrides
@@ -117,9 +119,9 @@
     --shadow-color: rgba(0, 0, 0, 0.50);
     --shadow-color-lg: rgba(0, 0, 0, 0.65);
 
-    // Dark mode lightens the brand, so the gold tint mixed into the hero scrim
-    // would wash out; a deeper base and a stronger scrim keep the white hero
-    // text at the same effective contrast as in light mode.
+    // Dark mode lightens the brand, so a scrim that was adequate in light mode
+    // can wash out against the near-black page; a slightly stronger veil keeps
+    // the white hero text at the same effective contrast in both themes.
     --hero-scrim-base: #000000;
-    --hero-scrim-strength: 0.94;
+    --hero-scrim-strength: 0.5;
 }
