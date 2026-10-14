@@ -274,6 +274,15 @@ const handleNewsletterSubmit = () => {
   &__newsletter-button {
     @include button-accent;
     white-space: nowrap;
+    // The footer band is always the light gold, but in the dark theme
+    // button-accent resolves --color-accent to #ef4444, where its white label is
+    // only ~3.76:1 (fails WCAG AA). Pin the darker red instead: white on
+    // $color-accent-dark holds >=6.4:1 in both themes.
+    background-color: $color-accent-dark;
+
+    &:hover:not(:disabled) {
+      background-color: color-mix(in srgb, #{$color-accent-dark} 85%, #000);
+    }
   }
 
   &__bottom {
