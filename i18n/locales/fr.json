@@ -118,12 +118,24 @@
         "subtitle": "Six savoir-faire réunis dans un même atelier, de la scénographie au management artistique.",
         "intro": "Chaque projet commence par une conversation. Racontez-nous votre idée, nous nous chargeons de la réaliser.",
         "examplesLabel": "Service",
+        "indexLabel": "Accès rapide aux services",
+        "includesTitle": "Ce qui est inclus",
+        "quoteCta": "Demander un devis",
+        "quoteMessage": "Bonjour Kinnov'art, je souhaite un devis pour : {service}.",
         "ctaTitle": "Un projet en tête ?",
+        "ctaWhatsapp": "Écrire sur WhatsApp",
         "items": {
             "scenography": {
                 "title": "Scénographie",
                 "description": "Conception et tirage de décors pour clips, concerts et plateaux de télévision.",
                 "imageAlt": "Décor blanc conçu par Kinnov’art pour un clip, avec fauteuil et mannequin",
+                "imageSecondaryAlt": "Décor de scène habillé par Kinnov’art pour un artiste",
+                "imageTertiaryAlt": "Scène installée par Kinnov’art lors d’un concert",
+                "includes": [
+                    "Conception des décors",
+                    "Tirage des décors",
+                    "Pour clips, concerts et plateaux de télévision"
+                ],
                 "examples": [
                     "Tirage des décors de clip"
                 ]
@@ -132,6 +144,13 @@
                 "title": "Confection de meubles à base de pneus",
                 "description": "Des meubles façonnés dans des pneus recyclés, à la forme et à l'image de Kinnov'art.",
                 "imageAlt": "Meuble réalisé par Kinnov’art à partir de pneus recyclés",
+                "imageSecondaryAlt": "Pneus recyclés utilisés par Kinnov’art pour la confection de meubles",
+                "imageTertiaryAlt": "Fauteuil en pneus recyclés réalisé par Kinnov’art",
+                "includes": [
+                    "Façonnage de meubles",
+                    "À partir de pneus recyclés",
+                    "À la forme et à l’image de Kinnov’art"
+                ],
                 "examples": [
                     "Fauteuil en pneus"
                 ]
@@ -141,6 +160,12 @@
                 "description": "Des kiosques conçus et réalisés sur mesure pour vos espaces et vos événements.",
                 "imageAlt": "Kiosque conçu et réalisé par Kinnov’art",
                 "imageSecondaryAlt": "Autre kiosque réalisé par Kinnov’art",
+                "imageTertiaryAlt": "Kiosque de vente réalisé sur mesure par Kinnov’art",
+                "includes": [
+                    "Conception sur mesure",
+                    "Réalisation sur mesure",
+                    "Pour vos espaces et vos événements"
+                ],
                 "examples": [
                     "Kiosque de vente",
                     "Stand événementiel",
@@ -152,6 +177,12 @@
                 "description": "Aménagement et décoration d'espaces pour vos événements et vos productions.",
                 "imageAlt": "Espace événementiel entièrement aménagé et habillé par Kinnov’art",
                 "imageSecondaryAlt": "Espace aménagé et décoré par Kinnov’art",
+                "imageTertiaryAlt": "Salon aménagé et décoré par Kinnov’art",
+                "includes": [
+                    "Aménagement des espaces",
+                    "Décoration des espaces",
+                    "Pour vos événements et vos productions"
+                ],
                 "examples": [
                     "Photo",
                     "Foire",
@@ -164,6 +195,12 @@
                 "description": "Production, couverture photo et montage pour vos concerts et vos tournées.",
                 "imageAlt": "Cams, artiste produit par Kinnov’art, en concert",
                 "imageSecondaryAlt": "Prise de vue photo lors d’une production Kinnov’art",
+                "imageTertiaryAlt": "Couverture média d’un événement par Kinnov’art",
+                "includes": [
+                    "Production",
+                    "Couverture photo et montage",
+                    "Pour vos concerts et vos tournées"
+                ],
                 "examples": [
                     "Photo de cours",
                     "Mélodie-concert",
@@ -175,6 +212,12 @@
                 "description": "Formation pratique à la décoration et à l'habillage d'espaces pour vos événements.",
                 "imageAlt": "Formation à la décoration événementielle chez Kinnov’art",
                 "imageSecondaryAlt": "Atelier de décoration événementielle Kinnov’art",
+                "imageTertiaryAlt": "Apprentissage de la décoration événementielle à l’atelier Kinnov’art",
+                "includes": [
+                    "Formation pratique",
+                    "Décoration et habillage d’espaces",
+                    "Pour vos événements"
+                ],
                 "examples": [
                     "Décoration de salles",
                     "Habillage de scènes"

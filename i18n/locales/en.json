@@ -118,12 +118,24 @@
         "subtitle": "Six crafts under one roof, from set design to artistic management.",
         "intro": "Every project starts with a conversation. Tell us your idea and we will take it from there.",
         "examplesLabel": "Service",
+        "indexLabel": "Quick access to services",
+        "includesTitle": "What's included",
+        "quoteCta": "Request a quote",
+        "quoteMessage": "Hello Kinnov'art, I'd like a quote for: {service}.",
         "ctaTitle": "Got a project in mind?",
+        "ctaWhatsapp": "Message on WhatsApp",
         "items": {
             "scenography": {
                 "title": "Set Design",
                 "description": "Designing and producing sets for music videos, concerts and television studios.",
                 "imageAlt": "White set designed by Kinnov’art for a music video, with an armchair and a mannequin",
+                "imageSecondaryAlt": "Stage set dressed by Kinnov’art for an artist",
+                "imageTertiaryAlt": "Stage set up by Kinnov’art at a concert",
+                "includes": [
+                    "Set design",
+                    "Set production",
+                    "For music videos, concerts and television studios"
+                ],
                 "examples": [
                     "Music video set builds"
                 ]
@@ -132,6 +144,13 @@
                 "title": "Furniture Made From Tyres",
                 "description": "Furniture crafted from recycled tyres, in Kinnov'art's own signature style.",
                 "imageAlt": "Furniture crafted by Kinnov’art from recycled tyres",
+                "imageSecondaryAlt": "Recycled tyres used by Kinnov’art to craft furniture",
+                "imageTertiaryAlt": "Armchair made from recycled tyres by Kinnov’art",
+                "includes": [
+                    "Furniture crafting",
+                    "From recycled tyres",
+                    "In Kinnov’art's own signature style"
+                ],
                 "examples": [
                     "Tyre armchair"
                 ]
@@ -141,6 +160,12 @@
                 "description": "Kiosks designed and built to order for your spaces and your events.",
                 "imageAlt": "Kiosk designed and built by Kinnov’art",
                 "imageSecondaryAlt": "Another kiosk built by Kinnov’art",
+                "imageTertiaryAlt": "Sales kiosk built to order by Kinnov’art",
+                "includes": [
+                    "Custom design",
+                    "Built to order",
+                    "For your spaces and your events"
+                ],
                 "examples": [
                     "Sales kiosk",
                     "Event stand",
@@ -152,6 +177,12 @@
                 "description": "Setting up and dressing spaces for your events and your productions.",
                 "imageAlt": "Event space fully fitted out and dressed by Kinnov’art",
                 "imageSecondaryAlt": "Space fitted out and decorated by Kinnov’art",
+                "imageTertiaryAlt": "Lounge space fitted out and decorated by Kinnov’art",
+                "includes": [
+                    "Space fitting",
+                    "Space decoration",
+                    "For your events and your productions"
+                ],
                 "examples": [
                     "Photo shoots",
                     "Fairs",
@@ -164,6 +195,12 @@
                 "description": "Production, photo coverage and editing for your concerts and your tours.",
                 "imageAlt": "Cams, an artist produced by Kinnov’art, in concert",
                 "imageSecondaryAlt": "Photo shoot during a Kinnov’art production",
+                "imageTertiaryAlt": "Media coverage of an event by Kinnov’art",
+                "includes": [
+                    "Production",
+                    "Photo coverage and editing",
+                    "For your concerts and your tours"
+                ],
                 "examples": [
                     "Course photo coverage",
                     "Melody concerts",
@@ -175,6 +212,12 @@
                 "description": "Hands-on training in decorating and dressing spaces for your events.",
                 "imageAlt": "Event decoration training at Kinnov’art",
                 "imageSecondaryAlt": "Kinnov’art event decoration workshop",
+                "imageTertiaryAlt": "Learning event decoration at the Kinnov’art workshop",
+                "includes": [
+                    "Hands-on training",
+                    "Decorating and dressing spaces",
+                    "For your events"
+                ],
                 "examples": [
                     "Venue decoration",
                     "Stage dressing"
