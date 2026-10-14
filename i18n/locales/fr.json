@@ -272,7 +272,7 @@
         },
         "gallery": {
             "title": "Galerie",
-            "description": "Photos des événements, métiers et projets de Kinnov’art à Nongo, Conakry."
+            "description": "Photos des réalisations de Kinnov’art à Nongo, Conakry : scénographie, mobilier, kiosques, aménagement, production et formation."
         }
     },
     "aboutContent": {
@@ -308,20 +308,30 @@
     },
     "gallery": {
         "title": "Notre Galerie",
-        "subtitle": "Événements, métiers et projets — un aperçu de ce que crée Kinnov’art.",
+        "subtitle": "Scénographie, mobilier, kiosques, aménagement, production et formation — un aperçu du travail de Kinnov’art.",
         "filterLabel": "Filtrer les photos",
         "all": "Tout",
-        "catEvents": "Événements",
-        "catCrafts": "Métiers",
-        "catProjects": "Projets",
+        "loadMore": "Voir plus",
+        "categories": {
+            "scenography": "Scénographie",
+            "furniture": "Mobilier",
+            "kiosks": "Kiosques",
+            "spaceDesign": "Aménagement",
+            "production": "Production",
+            "training": "Formation"
+        },
         "empty": "Aucune photo dans cette catégorie pour le moment — elle arrivera bientôt.",
         "close": "Fermer",
         "prev": "Photo précédente",
-        "next": "Photo suivente",
+        "next": "Photo suivante",
         "alt": {
-            "events": "Photo Kinnov’art — événement ({n}/{total})",
-            "crafts": "Savoir-faire Kinnov’art — métier ({n}/{total})",
-            "projects": "Réalisation Kinnov’art ({n}/{total})"
+            "generic": "Photo Kinnov’art ({n}/{total})",
+            "scenography": "Décor de scénographie Kinnov’art ({n}/{total})",
+            "furniture": "Mobilier en pneus recyclés Kinnov’art ({n}/{total})",
+            "kiosks": "Kiosque réalisé par Kinnov’art ({n}/{total})",
+            "spaceDesign": "Aménagement d’espace Kinnov’art ({n}/{total})",
+            "production": "Production Kinnov’art ({n}/{total})",
+            "training": "Formation Kinnov’art ({n}/{total})"
         }
     }
 }

@@ -272,7 +272,7 @@
         },
         "gallery": {
             "title": "Gallery",
-            "description": "Photos of Kinnov’art events, crafts and projects in Nongo, Conakry."
+            "description": "Photos of Kinnov’art's work in Nongo, Conakry: set design, furniture, kiosks, space design, production and training."
         }
     },
     "aboutContent": {
@@ -308,20 +308,30 @@
     },
     "gallery": {
         "title": "Our Gallery",
-        "subtitle": "Events, crafts and projects — a glimpse of what Kinnov’art creates.",
+        "subtitle": "Set design, furniture, kiosks, space design, production and training — a glimpse of Kinnov’art’s work.",
         "filterLabel": "Filter photos",
         "all": "All",
-        "catEvents": "Events",
-        "catCrafts": "Crafts",
-        "catProjects": "Projects",
+        "loadMore": "Load more",
+        "categories": {
+            "scenography": "Set design",
+            "furniture": "Furniture",
+            "kiosks": "Kiosks",
+            "spaceDesign": "Space design",
+            "production": "Production",
+            "training": "Training"
+        },
         "empty": "No photos in this category yet — they will arrive soon.",
         "close": "Close",
         "prev": "Previous photo",
         "next": "Next photo",
         "alt": {
-            "events": "Kinnov’art photo — event ({n}/{total})",
-            "crafts": "Kinnov’art craft ({n}/{total})",
-            "projects": "Kinnov’art work ({n}/{total})"
+            "generic": "Kinnov’art photo ({n}/{total})",
+            "scenography": "Kinnov’art set design ({n}/{total})",
+            "furniture": "Kinnov’art recycled-tyre furniture ({n}/{total})",
+            "kiosks": "Kiosk made by Kinnov’art ({n}/{total})",
+            "spaceDesign": "Kinnov’art space design ({n}/{total})",
+            "production": "Kinnov’art production ({n}/{total})",
+            "training": "Kinnov’art training ({n}/{total})"
         }
     }
 }
