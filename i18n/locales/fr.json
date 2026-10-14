@@ -19,7 +19,7 @@
         "missionText": "De la scénographie au montage artistique, Kinnov'art met ses cinq savoir-faire au service de la jeunesse créative de Guinée.",
         "missionBody": "Depuis notre création, nous nous engageons à fournir un espace où la créativité peut s'épanouir. Notre atelier situé à Nongo, face à la Mosquée Bilal Mansour Fadiga, est devenu un hub pour les artistes, designers et créateurs de toute la Guinée.",
         "teamTitle": "Le Cœur de Kinnov'art",
-        "location": "Retrouvez-nous à Nongo, à la Maison des Jeunes, en face à la Mosquée Bilal Fadiga."
+        "location": "À la Maison des Jeunes, en face de la Mosquée Bilal Fadiga, Conakry, Guinée."
     },
     "contact": {
         "title": "Une idée ? Un projet ?",
@@ -48,16 +48,48 @@
         "heroSubtitle": "Basé à Nongo, à la Maison des Jeunes, Kinnov'art façonne décors, meubles et productions pour la jeunesse créative guinéenne.",
         "heroCta": "Découvrir nos services",
         "brandIntro": "Kinnov'art est une entreprise spécialisée notamment dans la scénographie, la fabrication de meubles à partir de pneus usés, l'aménagement d'espaces privés et publics, la décoration événementielle, la production et le management artistique ainsi que diverses prestations de services. Notre expérience dans la valorisation des matériaux recyclés nous permet de développer des solutions créatives à la fois économiques, esthétiques et respectueuses de l'environnement.",
-        "statsCrafts": "Savoir-faire",
-        "statsLocation": "Atelier unique à Nongo",
+        "stats": {
+            "clips": "Clips réalisés",
+            "years": "Années d'activité",
+            "trained": "Jeunes formés"
+        },
         "servicesCta": "Voir nos services en détail",
+        "approachTitle": "Notre démarche",
+        "approachSubtitle": "Trois principes guident chacun de nos projets.",
+        "approach": {
+            "recycling": {
+                "title": "Recyclage",
+                "text": "Nous redonnons vie aux pneus et aux matériaux récupérés."
+            },
+            "training": {
+                "title": "Formation",
+                "text": "Nous transmettons nos savoir-faire à la jeunesse guinéenne."
+            },
+            "local": {
+                "title": "Création locale",
+                "text": "Nous concevons et fabriquons tout dans notre atelier de Nongo."
+            }
+        },
         "galleryTitle": "Réalisations",
         "gallerySubtitle": "Un aperçu de nos projets : décors, mobilier, espaces et productions.",
-        "galleryPhotoAlt": "Réalisation Kinnov’art ({n}/8)",
+        "galleryAlt": "Réalisation Kinnov’art — {type} ({n}/8)",
+        "galleryCaption": "Type de réalisation",
+        "galleryEmpty": "Aucune réalisation dans cette catégorie pour le moment.",
+        "galleryFilters": {
+            "all": "Tous",
+            "scenography": "Scénographie",
+            "furniture": "Mobilier",
+            "kiosks": "Kiosques",
+            "spaceDesign": "Aménagement",
+            "production": "Production",
+            "training": "Formation"
+        },
         "introImageAlt": "Portrait du PDG de Kinnov’art",
         "testimonialsTitle": "Ils nous font confiance",
         "testimonialsSubtitle": "Une sélection de clips produits, tournés et montés par Kinnov’art pour des artistes guinéens.",
         "clipLabel": "Clip produit",
+        "testimonialsPrev": "Clip précédent",
+        "testimonialsNext": "Clip suivant",
         "testimonials": [
             { "quote": "Kinnov’art a habillé mon clip avec un décor qui colle parfaitement à la chanson.", "artist": "Azaya feat Binta Diakité", "song": "Mon Nutella" },
             { "quote": "Décors, lumière et montage : tout était prêt. Le clip de « Woulé » a dépassé mes espérances.", "artist": "Mousto Camara", "song": "Woulé" },
@@ -78,7 +110,8 @@
             { "quote": "Du premier repérage au montage final, tout a été fait avec sérieux.", "artist": "Fode Kouyaté", "song": "Abèta" },
             { "quote": "Un clip soigné et une équipe disponible : je referai appel à Kinnov’art.", "artist": "Viviane N’Dour", "song": "KPC" }
         ],
-        "galleryViewAll": "Voir toute la galerie"
+        "galleryViewAll": "Voir toute la galerie",
+        "locationTitle": "Retrouvez-nous à Nongo"
     },
     "services": {
         "title": "Nos Services",

@@ -19,7 +19,7 @@
         "missionText": "From set design to artistic editing, Kinnov'art puts its five crafts to work for creative youth across Guinea.",
         "missionBody": "Since our creation, we have been committed to providing a space where creativity can flourish. Our workshop located in Nongo, opposite the Bilal Mansour Fadiga Mosque, has become a hub for artists, designers, and creators from across Guinea.",
         "teamTitle": "The Heart of Kinnov'art",
-        "location": "Find us in Nongo, Maison des Jeunes, opposite Bilal Mansour Fadiga Mosque."
+        "location": "At the Maison des Jeunes, opposite the Bilal Fadiga Mosque, Conakry, Guinea."
     },
     "contact": {
         "title": "Got an idea? A project?",
@@ -48,16 +48,48 @@
         "heroSubtitle": "Based in Nongo at the Maison des Jeunes, Kinnov'art builds sets, furniture and productions for Guinean creative talent.",
         "heroCta": "Discover our services",
         "brandIntro": "Kinnov'art is a company specialised in set design, furniture made from used tyres, the layout of private and public spaces, event decoration, artistic production and management, as well as a range of related services. Our experience in adding value to recycled materials lets us develop creative solutions that are at once economical, aesthetic and environmentally friendly.",
-        "statsCrafts": "Crafts under one roof",
-        "statsLocation": "Workshop in Nongo",
+        "stats": {
+            "clips": "Music videos produced",
+            "years": "Years of activity",
+            "trained": "Young people trained"
+        },
         "servicesCta": "See our services in detail",
+        "approachTitle": "Our approach",
+        "approachSubtitle": "Three principles guide every project we take on.",
+        "approach": {
+            "recycling": {
+                "title": "Recycling",
+                "text": "We give tyres and reclaimed materials a second life."
+            },
+            "training": {
+                "title": "Training",
+                "text": "We pass our skills on to Guinean youth."
+            },
+            "local": {
+                "title": "Local creation",
+                "text": "We design and build everything in our Nongo workshop."
+            }
+        },
         "galleryTitle": "Our Work",
         "gallerySubtitle": "A glimpse of our projects: sets, furniture, spaces and productions.",
-        "galleryPhotoAlt": "Kinnov’art work ({n}/8)",
+        "galleryAlt": "Kinnov’art work — {type} ({n}/8)",
+        "galleryCaption": "Type of work",
+        "galleryEmpty": "No work in this category yet.",
+        "galleryFilters": {
+            "all": "All",
+            "scenography": "Set design",
+            "furniture": "Furniture",
+            "kiosks": "Kiosks",
+            "spaceDesign": "Space design",
+            "production": "Production",
+            "training": "Training"
+        },
         "introImageAlt": "Portrait of the Kinnov’art director",
         "testimonialsTitle": "They trust us",
         "testimonialsSubtitle": "A selection of music videos produced, filmed and edited by Kinnov’art for Guinean artists.",
         "clipLabel": "Music video produced",
+        "testimonialsPrev": "Previous music video",
+        "testimonialsNext": "Next music video",
         "testimonials": [
             { "quote": "Kinnov’art dressed my video with a set that fits the song perfectly.", "artist": "Azaya feat Binta Diakité", "song": "Mon Nutella" },
             { "quote": "Sets, lighting and editing: everything was ready. The video went beyond my expectations.", "artist": "Mousto Camara", "song": "Woulé" },
@@ -78,7 +110,8 @@
             { "quote": "From the first location scout to the final edit, everything was done seriously.", "artist": "Fode Kouyaté", "song": "Abèta" },
             { "quote": "A polished video and an available team: I will call on Kinnov’art again.", "artist": "Viviane N’Dour", "song": "KPC" }
         ],
-        "galleryViewAll": "View the full gallery"
+        "galleryViewAll": "View the full gallery",
+        "locationTitle": "Find us in Nongo"
     },
     "services": {
         "title": "Our Services",
