@@ -82,7 +82,7 @@
     },
     "services": {
         "title": "Our Services",
-        "subtitle": "Five crafts under one roof, from set design to artistic editing.",
+        "subtitle": "Six crafts under one roof, from set design to artistic management.",
         "intro": "Every project starts with a conversation. Tell us your idea and we will take it from there.",
         "examplesLabel": "Service",
         "ctaTitle": "Got a project in mind?",
@@ -127,7 +127,7 @@
                 ]
             },
             "production": {
-                "title": "Production and Artistic Editing",
+                "title": "Production and Artistic Management",
                 "description": "Production, photo coverage and editing for your concerts and your tours.",
                 "imageAlt": "Cams, an artist produced by Kinnov’art, in concert",
                 "imageSecondaryAlt": "Photo shoot during a Kinnov’art production",
@@ -135,6 +135,16 @@
                     "Course photo coverage",
                     "Melody concerts",
                     "National tour"
+                ]
+            },
+            "training": {
+                "title": "Event Decoration Training",
+                "description": "Hands-on training in decorating and dressing spaces for your events.",
+                "imageAlt": "Event decoration training at Kinnov’art",
+                "imageSecondaryAlt": "Kinnov’art event decoration workshop",
+                "examples": [
+                    "Venue decoration",
+                    "Stage dressing"
                 ]
             }
         }
@@ -154,14 +164,14 @@
     },
     "pageMeta": {
         "siteTitle": "Kinnov'art - The Art of Creative Innovation",
-        "siteDescription": "Kinnov'art - Creative centre in Nongo: set design, tyre furniture, kiosk making, space design and artistic production.",
+        "siteDescription": "Kinnov'art - Creative centre in Nongo: set design, tyre furniture, kiosk making, space design, artistic production and event decoration training.",
         "home": {
             "title": "Home",
-            "description": "Kinnov'art in Nongo: set design, tyre furniture, kiosk making, space design and artistic production."
+            "description": "Kinnov'art in Nongo: set design, tyre furniture, kiosk making, space design, artistic production and event decoration training."
         },
         "services": {
             "title": "Our Services",
-            "description": "Set design, tyre furniture, kiosk making, space design and artistic production from Kinnov'art in Nongo."
+            "description": "Set design, tyre furniture, kiosk making, space design, artistic production and event decoration training from Kinnov'art in Nongo."
         },
         "about": {
             "title": "About",
@@ -173,7 +183,7 @@
         },
         "contact": {
             "title": "Contact",
-            "description": "Contact Kinnov'art in Nongo, Conakry - set design, tyre furniture, kiosk making, space design and artistic production."
+            "description": "Contact Kinnov'art in Nongo, Conakry - set design, tyre furniture, kiosk making, space design, artistic production and event decoration training."
         },
         "gallery": {
             "title": "Gallery",

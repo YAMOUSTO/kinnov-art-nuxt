@@ -36,7 +36,7 @@
             </p>
             <div class="intro__stats">
               <div class="stat-item">
-                <span class="stat-number">5</span>
+                <span class="stat-number">6</span>
                 <span class="stat-label">{{ $t('home.statsCrafts') }}</span>
               </div>
               <div class="stat-item">
@@ -221,7 +221,7 @@ const examples = (service: Service): string[] => {
  * converties en WebP 800px). Sources dans public/images/newimages/ :
  *   1 = espacelonagui0.jpeg   2 = espacelonagui2.jpeg  3 = espaceLonagui.jpeg
  *   4 = EspaceRuoture.jpeg    5 = EspaceRupture0.jpeg  6 = Espacee0.jpeg
- *   7 = Espace00.jpeg         8 = Espace0WithPneux.jpeg
+ *   7 = meilleur img.jpg     8 = Espace0WithPneux.jpeg
  * Ne pas ajouter rouge-couteau.jpg (exclusion demandée par le propriétaire).
  * TODO propriétaire : remplacer les alt génériques (clé `home.galleryPhotoAlt`)
  * par une description réelle de chaque photo.

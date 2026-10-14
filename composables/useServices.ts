@@ -1,7 +1,7 @@
 import type { Service } from '~/types'
 
 /**
- * The five crafts the studio offers. Each entry carries the slug (which is also
+ * The six crafts the studio offers. Each entry carries the slug (which is also
  * the i18n key suffix), the icon, the representative image and the example list
  * key. The human-readable copy — titles, descriptions, examples AND the image
  * alt texts — lives in the locale files under `services.items.${slug}` so it
@@ -48,6 +48,15 @@ const SERVICES: Service[] = [
     examplesKey: 'services.items.production.examples',
     image: '/images/webp/svc-production-800.webp',
     imageSecondary: '/images/webp/svc-production-2-800.webp'
+  },
+  {
+    slug: 'training',
+    icon: 'cap',
+    examplesKey: 'services.items.training.examples',
+    // TODO propriétaire : remplacer par une vraie photo de formation en
+    // décoration événementielle (convertir en WebP 800px, puis mettre à jour ici).
+    image: '/images/webp/craft-action-1-800.webp',
+    imageSecondary: '/images/webp/craft-metier-2-800.webp'
   }
 ]
 

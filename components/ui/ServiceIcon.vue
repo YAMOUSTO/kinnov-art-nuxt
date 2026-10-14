@@ -26,7 +26,7 @@
 /**
  * Renders the Feather icon named on a Service.
  *
- * The five service icons used to be copy-pasted inline across the homepage. Keeping
+ * The six service icons used to be copy-pasted inline across the homepage. Keeping
  * them here means the homepage and /services page cannot drift apart, and the icon
  * set is validated in one place: an unknown name throws in development rather than
  * rendering an empty box in production.
@@ -83,6 +83,12 @@ const ICONS: Record<string, Shape[]> = {
     { tag: 'line', attrs: { x1: 2, y1: 17, x2: 7, y2: 17 } },
     { tag: 'line', attrs: { x1: 17, y1: 17, x2: 22, y2: 17 } },
     { tag: 'line', attrs: { x1: 17, y1: 7, x2: 22, y2: 7 } }
+  ],
+  // Graduation cap: training service (service 6) — mortarboard plus the body.
+  cap: [
+    { tag: 'path', attrs: { d: 'M22 10 12 5 2 10l10 5 10-5z' } },
+    { tag: 'path', attrs: { d: 'M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5' } },
+    { tag: 'line', attrs: { x1: 22, y1: 10, x2: 22, y2: 16 } }
   ]
 }
 

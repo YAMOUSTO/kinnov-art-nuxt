@@ -82,7 +82,7 @@
     },
     "services": {
         "title": "Nos Services",
-        "subtitle": "Cinq savoir-faire réunis dans un même atelier, de la scénographie au montage artistique.",
+        "subtitle": "Six savoir-faire réunis dans un même atelier, de la scénographie au management artistique.",
         "intro": "Chaque projet commence par une conversation. Racontez-nous votre idée, nous nous chargeons de la réaliser.",
         "examplesLabel": "Service",
         "ctaTitle": "Un projet en tête ?",
@@ -127,7 +127,7 @@
                 ]
             },
             "production": {
-                "title": "Production et montage artistique",
+                "title": "Production et management artistique",
                 "description": "Production, couverture photo et montage pour vos concerts et vos tournées.",
                 "imageAlt": "Cams, artiste produit par Kinnov’art, en concert",
                 "imageSecondaryAlt": "Prise de vue photo lors d’une production Kinnov’art",
@@ -135,6 +135,16 @@
                     "Photo de cours",
                     "Mélodie-concert",
                     "Tournée nationale"
+                ]
+            },
+            "training": {
+                "title": "Formation en décoration événementielle",
+                "description": "Formation pratique à la décoration et à l'habillage d'espaces pour vos événements.",
+                "imageAlt": "Formation à la décoration événementielle chez Kinnov’art",
+                "imageSecondaryAlt": "Atelier de décoration événementielle Kinnov’art",
+                "examples": [
+                    "Décoration de salles",
+                    "Habillage de scènes"
                 ]
             }
         }
@@ -154,14 +164,14 @@
     },
     "pageMeta": {
         "siteTitle": "Kinnov'art - L'Art de l'Innovation Créative",
-        "siteDescription": "Kinnov'art - Centre créatif à Nongo : scénographie, meubles en pneus, kiosques, aménagement d'espaces et production artistique.",
+        "siteDescription": "Kinnov'art - Centre créatif à Nongo : scénographie, meubles en pneus, kiosques, aménagement d'espaces, production artistique et formation en décoration événementielle.",
         "home": {
             "title": "Accueil",
-            "description": "Kinnov'art à Nongo : scénographie, meubles en pneus, kiosques, aménagement d'espaces et production artistique."
+            "description": "Kinnov'art à Nongo : scénographie, meubles en pneus, kiosques, aménagement d'espaces, production artistique et formation en décoration événementielle."
         },
         "services": {
             "title": "Nos Services",
-            "description": "Scénographie, meubles en pneus, kiosques, aménagement d'espaces et production artistique par Kinnov'art à Nongo."
+            "description": "Scénographie, meubles en pneus, kiosques, aménagement d'espaces, production artistique et formation en décoration événementielle par Kinnov'art à Nongo."
         },
         "about": {
             "title": "À Propos",
@@ -173,7 +183,7 @@
         },
         "contact": {
             "title": "Contact",
-            "description": "Kinnov'art à Nongo, Conakry : scénographie, meubles en pneus, kiosques, aménagement d'espaces et production artistique."
+            "description": "Kinnov'art à Nongo, Conakry : scénographie, meubles en pneus, kiosques, aménagement d'espaces, production artistique et formation en décoration événementielle."
         },
         "gallery": {
             "title": "Galerie",
