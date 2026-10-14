@@ -10,7 +10,7 @@
               <img src="/logo-transparent.png" alt="Kinnov'art" class="footer__logo-img" />
             </NuxtLink>
             <p class="footer__description">
-              {{ $t('home.brandIntro') }}
+              {{ $t('footer.description') }}
             </p>
             <p class="footer__location">
               {{ $t('about.location') }}
