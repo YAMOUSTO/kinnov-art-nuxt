@@ -135,6 +135,8 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#FFFFFF', media: '(prefers-color-scheme: light)' },
         { name: 'theme-color', content: '#0A0A0A', media: '(prefers-color-scheme: dark)' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        // Standard replacement for the deprecated apple- prefixed flag.
+        { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
         { name: 'apple-mobile-web-app-title', content: "Kinnov'art" },
         { name: 'application-name', content: "Kinnov'art" },

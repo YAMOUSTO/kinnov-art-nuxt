@@ -77,6 +77,19 @@
   [headers.values]
     Cache-Control = "public, max-age=3600"
 
+# --- Web app manifest ----------------------------------------------------------
+# Netlify's MIME table does not map `.webmanifest` to the media type the spec
+# requires (it falls back to application/octet-stream), which can stop Chrome
+# from accepting the manifest and thus from offering install. Declaring it
+# explicitly is a no-op if the MIME table is ever fixed.
+# Cache is deliberately revalidated rather than long-lived so a manifest change
+# is picked up promptly on the next visit.
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 # --- Deploy previews / branch deploys -----------------------------------------
 # Never let a preview URL be indexed, and keep it out of the sitemap's reach.
 [context.deploy-preview]

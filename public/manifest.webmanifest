@@ -4,6 +4,7 @@
   "description": "Centre créatif à Nongo (Conakry) : scénographie, meubles en pneus recyclés, kiosques sur mesure, aménagement d'espaces, production artistique et formation en décoration événementielle.",
   "lang": "fr",
   "dir": "ltr",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
