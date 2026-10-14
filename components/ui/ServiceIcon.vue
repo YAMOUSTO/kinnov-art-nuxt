@@ -89,6 +89,13 @@ const ICONS: Record<string, Shape[]> = {
     { tag: 'path', attrs: { d: 'M22 10 12 5 2 10l10 5 10-5z' } },
     { tag: 'path', attrs: { d: 'M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5' } },
     { tag: 'line', attrs: { x1: 22, y1: 10, x2: 22, y2: 16 } }
+  ],
+  // Recycling: two arrows chasing each other in a closed loop (used by the
+  // « Notre démarche » pillars on the home page). Same shape format as the rest.
+  recycle: [
+    { tag: 'polyline', attrs: { points: '23 4 23 10 17 10' } },
+    { tag: 'polyline', attrs: { points: '1 20 1 14 7 14' } },
+    { tag: 'path', attrs: { d: 'M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15' } }
   ]
 }
 
