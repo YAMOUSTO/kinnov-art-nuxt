@@ -9,9 +9,12 @@
     />
 
     <!-- Jump nav: the six services are the reason to visit this page, so they get
-         an in-page index rather than making the visitor scroll to find them. It is
-         sticky under the site header so the scroll-spy highlight stays visible
-         while the visitor reads. -->
+         an in-page index rather than making the visitor scroll to find them.
+         Phones wrap it into a two-column grid of short labels (six full titles in
+         one row measured 1682px inside a 364px window, so barely one of the six
+         was visible) and it stays in the flow there; from `lg` up it is a single
+         sticky row under the site header so the scroll-spy highlight stays
+         visible while the visitor reads. -->
     <div ref="navEl" class="services-nav">
       <div class="container">
         <nav class="services-index" :aria-label="$t('services.indexLabel')">
@@ -24,15 +27,24 @@
             :aria-current="activeSlug === service.slug ? 'true' : undefined"
           >
             <span class="services-index__number">{{ String(i + 1).padStart(2, '0') }}</span>
-            <span class="services-index__label">{{ $t(`services.items.${service.slug}.title`) }}</span>
+            <!-- Two labels, one per breakpoint, because the full service titles do
+                 not fit a phone grid. Both stay in the DOM so the server and the
+                 client render identical markup; `display: none` also keeps the
+                 unused one out of the accessibility tree, so it is read once. -->
+            <span class="services-index__label services-index__label--full">{{ $t(`services.items.${service.slug}.title`) }}</span>
+            <span class="services-index__label services-index__label--short">{{ $t(`services.items.${service.slug}.shortTitle`) }}</span>
           </a>
         </nav>
       </div>
     </div>
 
     <Section v-for="(service, i) in services" :key="service.slug" padding="lg" :bg="i % 2 === 0 ? 'white' : 'gray'">
-      <div class="container">
-        <div :id="service.slug" class="service scroll-reveal" :class="{ 'service--reverse': i % 2 === 1 }">
+      <!-- The anchor id belongs to this wrapper, not to the animated `.service`
+           below it: `.service` reveals in from `translateY(30px)`, and the browser
+           measured an anchor jump against that pre-reveal transform, landing every
+           jumped-to section 30px under the sticky nav. -->
+      <div :id="service.slug" class="container service-section">
+        <div class="service scroll-reveal" :class="{ 'service--reverse': i % 2 === 1 }">
           <!-- One identical layout for all six services: a large photo over two
                smaller thumbnails. All image data lives in composables/useServices.ts. -->
           <div class="service__media">
@@ -211,11 +223,15 @@ const quoteUrl = (service: Service): string =>
 const ctaWhatsappUrl = computed(() => whatsappLink(t('contact.whatsappMessage')))
 
 /**
- * Offset bookkeeping. The nav sticks directly under the sticky site header, so
- * both heights are measured and published as CSS vars: the nav uses
+ * Offset bookkeeping. From `lg` up the nav sticks directly under the sticky site
+ * header, so both heights are measured and published as CSS vars: the nav uses
  * `--svc-header-h` for its `top`, and the sections use header + nav +
- * `--svc-nav-h` for their `scroll-margin-top` so an anchor jump clears both.
+ * `--svc-nav-h` for their `scroll-margin-top` so an anchor jump clears both. On
+ * phones the nav is part of the flow, so only the header offset applies (see the
+ * `.service-section` styles) and `navPinned` keeps the scroll-spy in step.
  */
+const navPinned = ref(false)
+
 const syncOffsets = () => {
   const root = pageEl.value
   if (!root) return
@@ -227,6 +243,8 @@ const syncOffsets = () => {
   if (navEl.value?.offsetHeight) {
     navH.value = navEl.value.offsetHeight
     root.style.setProperty('--svc-nav-h', `${navEl.value.offsetHeight}px`)
+    // Ask CSS instead of repeating the breakpoint here.
+    navPinned.value = getComputedStyle(navEl.value).position === 'sticky'
   }
 }
 
@@ -238,7 +256,9 @@ const syncOffsets = () => {
 let ticking = false
 const updateActive = () => {
   ticking = false
-  const line = headerH.value + navH.value + 8
+  // The line sits just past where an anchor jump lands a section (sticky chrome
+  // + 1rem), so the service that was jumped to becomes the active one.
+  const line = headerH.value + (navPinned.value ? navH.value : 0) + 24
   let current = ''
   for (const service of services) {
     const el = document.getElementById(service.slug)
@@ -290,39 +310,45 @@ usePageSeo({
 }
 
 .services-nav {
-  // Sticks right under the sticky site header, one z-index below it so the
-  // header always wins the overlap.
-  position: sticky;
-  top: var(--svc-header-h);
-  z-index: $z-index-sticky - 1;
+  // Phones: in the flow, not pinned. A two-column grid of six labelled services
+  // is too tall to keep on screen for the whole page.
   background-color: var(--color-background);
   border-bottom: 1px solid var(--border-color);
+
+  // Desktop: sticks right under the sticky site header, one z-index below it so
+  // the header always wins the overlap.
+  @include respond-to('lg') {
+    position: sticky;
+    top: var(--svc-header-h);
+    z-index: $z-index-sticky - 1;
+  }
 }
 
 .services-index {
-  // Mobile/tablet: a single row that scrolls horizontally, so the six items and
-  // their labels stay on one reading line.
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
+  // Phones/tablets: a wrapping grid, so all six services are on screen at once.
+  // `minmax(0, 1fr)` lets a column shrink below its label's min-content width,
+  // which is what lets a long label wrap instead of overflowing the row.
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: $spacing-2;
-  overflow-x: auto;
   padding: $spacing-2 0;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+
+  // Tablets: three columns keep the index to two rows.
+  @include respond-to('sm') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 
   // Desktop: all six in one row, equal columns, no wrapping.
   @include respond-to('lg') {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    overflow-x: visible;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     padding: $spacing-3 0;
-    scrollbar-width: auto;
   }
 
   &__link {
-    flex-shrink: 0;
-    display: inline-flex;
+    // Grid items default to `min-width: auto`, which would hold each chip at its
+    // min-content width and overflow the grid on a narrow phone.
+    min-width: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: $spacing-2;
@@ -355,6 +381,8 @@ usePageSeo({
   }
 
   &__number {
+    // The number should never be the thing that gets squeezed.
+    flex-shrink: 0;
     font-family: $font-heading;
     font-size: $font-size-xs;
     font-weight: $font-weight-bold;
@@ -365,6 +393,34 @@ usePageSeo({
     font-size: $font-size-sm;
     line-height: $line-height-normal;
   }
+
+  // Which label shows is a breakpoint decision, so both are in the DOM and CSS
+  // picks one: identical markup on server and client, and `display: none` also
+  // keeps the unused one out of the accessibility tree.
+  &__label--full {
+    display: none;
+
+    @include respond-to('lg') {
+      display: inline;
+    }
+  }
+
+  &__label--short {
+    @include respond-to('lg') {
+      display: none;
+    }
+  }
+}
+
+.service-section {
+  // Anchor target for the jump nav, on the wrapper that does not animate away
+  // from its own flow position. The nav is only pinned from `lg` up, so on
+  // phones just the header has to be cleared.
+  scroll-margin-top: calc(var(--svc-header-h) + #{$spacing-4});
+
+  @include respond-to('lg') {
+    scroll-margin-top: calc(var(--svc-header-h) + var(--svc-nav-h) + #{$spacing-4});
+  }
 }
 
 .service {
@@ -372,8 +428,6 @@ usePageSeo({
   grid-template-columns: 1fr;
   gap: $spacing-8;
   align-items: center;
-  // Anchored from the jump nav: clear both sticky layers (header + nav).
-  scroll-margin-top: calc(var(--svc-header-h) + var(--svc-nav-h) + #{$spacing-4});
 
   @include respond-to('lg') {
     grid-template-columns: 1fr 1fr;

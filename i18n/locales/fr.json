@@ -127,6 +127,7 @@
         "items": {
             "scenography": {
                 "title": "Scénographie",
+                "shortTitle": "Scénographie",
                 "description": "Conception et tirage de décors pour clips, concerts et plateaux de télévision.",
                 "imageAlt": "Décor blanc conçu par Kinnov’art pour un clip, avec fauteuil et mannequin",
                 "imageSecondaryAlt": "Décor de scène habillé par Kinnov’art pour un artiste",
@@ -142,6 +143,7 @@
             },
             "tireFurniture": {
                 "title": "Confection de meubles à base de pneus",
+                "shortTitle": "Mobilier pneus",
                 "description": "Des meubles façonnés dans des pneus recyclés, à la forme et à l'image de Kinnov'art.",
                 "imageAlt": "Meuble réalisé par Kinnov’art à partir de pneus recyclés",
                 "imageSecondaryAlt": "Pneus recyclés utilisés par Kinnov’art pour la confection de meubles",
@@ -157,6 +159,7 @@
             },
             "kiosks": {
                 "title": "Confection de kiosques",
+                "shortTitle": "Kiosques",
                 "description": "Des kiosques conçus et réalisés sur mesure pour vos espaces et vos événements.",
                 "imageAlt": "Kiosque conçu et réalisé par Kinnov’art",
                 "imageSecondaryAlt": "Autre kiosque réalisé par Kinnov’art",
@@ -174,6 +177,7 @@
             },
             "spaceDesign": {
                 "title": "Aménagement des espaces publics et privés",
+                "shortTitle": "Aménagement",
                 "description": "Aménagement et décoration d'espaces pour vos événements et vos productions.",
                 "imageAlt": "Espace événementiel entièrement aménagé et habillé par Kinnov’art",
                 "imageSecondaryAlt": "Espace aménagé et décoré par Kinnov’art",
@@ -192,6 +196,7 @@
             },
             "production": {
                 "title": "Production et management artistique",
+                "shortTitle": "Production",
                 "description": "Production, couverture photo et montage pour vos concerts et vos tournées.",
                 "imageAlt": "Cams, artiste produit par Kinnov’art, en concert",
                 "imageSecondaryAlt": "Prise de vue photo lors d’une production Kinnov’art",
@@ -209,6 +214,7 @@
             },
             "training": {
                 "title": "Formation en décoration événementielle",
+                "shortTitle": "Formation",
                 "description": "Formation pratique à la décoration et à l'habillage d'espaces pour vos événements.",
                 "imageAlt": "Formation à la décoration événementielle chez Kinnov’art",
                 "imageSecondaryAlt": "Atelier de décoration événementielle Kinnov’art",

@@ -397,7 +397,10 @@ onUnmounted(() => {
 
     &--mobile {
       display: flex;
-      margin-right: $spacing-12; // Space for hamburger
+      // The hamburger is a flex sibling inside `.header__actions`, whose own gap
+      // already spaces them; the old `$spacing-12` reserved room for it twice and
+      // cost the logo a third of its width on a phone (it measured 24x9 at 320px).
+      margin-right: $spacing-2;
       z-index: $z-index-fixed + 20; // Above nav
       
       @include respond-to('lg') {

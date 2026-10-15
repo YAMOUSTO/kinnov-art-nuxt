@@ -127,6 +127,7 @@
         "items": {
             "scenography": {
                 "title": "Set Design",
+                "shortTitle": "Set Design",
                 "description": "Designing and producing sets for music videos, concerts and television studios.",
                 "imageAlt": "White set designed by Kinnov’art for a music video, with an armchair and a mannequin",
                 "imageSecondaryAlt": "Stage set dressed by Kinnov’art for an artist",
@@ -142,6 +143,7 @@
             },
             "tireFurniture": {
                 "title": "Furniture Made From Tyres",
+                "shortTitle": "Tyre Furniture",
                 "description": "Furniture crafted from recycled tyres, in Kinnov'art's own signature style.",
                 "imageAlt": "Furniture crafted by Kinnov’art from recycled tyres",
                 "imageSecondaryAlt": "Recycled tyres used by Kinnov’art to craft furniture",
@@ -157,6 +159,7 @@
             },
             "kiosks": {
                 "title": "Kiosk Making",
+                "shortTitle": "Kiosks",
                 "description": "Kiosks designed and built to order for your spaces and your events.",
                 "imageAlt": "Kiosk designed and built by Kinnov’art",
                 "imageSecondaryAlt": "Another kiosk built by Kinnov’art",
@@ -174,6 +177,7 @@
             },
             "spaceDesign": {
                 "title": "Public and Private Space Design",
+                "shortTitle": "Space Design",
                 "description": "Setting up and dressing spaces for your events and your productions.",
                 "imageAlt": "Event space fully fitted out and dressed by Kinnov’art",
                 "imageSecondaryAlt": "Space fitted out and decorated by Kinnov’art",
@@ -192,6 +196,7 @@
             },
             "production": {
                 "title": "Production and Artistic Management",
+                "shortTitle": "Production",
                 "description": "Production, photo coverage and editing for your concerts and your tours.",
                 "imageAlt": "Cams, an artist produced by Kinnov’art, in concert",
                 "imageSecondaryAlt": "Photo shoot during a Kinnov’art production",
@@ -209,6 +214,7 @@
             },
             "training": {
                 "title": "Event Decoration Training",
+                "shortTitle": "Training",
                 "description": "Hands-on training in decorating and dressing spaces for your events.",
                 "imageAlt": "Event decoration training at Kinnov’art",
                 "imageSecondaryAlt": "Kinnov’art event decoration workshop",
