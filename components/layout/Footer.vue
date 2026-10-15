@@ -7,7 +7,15 @@
           <!-- Brand Section -->
           <div class="footer__section">
             <NuxtLink :to="localePath('/')" class="footer__logo-link">
-              <img src="/logo-transparent.png" alt="Kinnov'art" class="footer__logo-img" />
+              <img
+                src="/logo-transparent.webp"
+                alt="Kinnov'art"
+                class="footer__logo-img"
+                width="600"
+                height="238"
+                loading="lazy"
+                decoding="async"
+              />
             </NuxtLink>
             <p class="footer__description">
               {{ $t('footer.description') }}
@@ -19,7 +27,7 @@
 
           <!-- Quick Links -->
           <div class="footer__section">
-            <h4 class="footer__title">{{ $t('footer.quickLinks') }}</h4>
+            <h2 class="footer__title">{{ $t('footer.quickLinks') }}</h2>
             <ul class="footer__links">
               <li><NuxtLink :to="localePath('/')">{{ $t('nav.home') }}</NuxtLink></li>
               <li><NuxtLink :to="localePath('/services')">{{ $t('nav.services') }}</NuxtLink></li>
@@ -31,7 +39,7 @@
 
           <!-- Contact Info -->
           <div class="footer__section">
-            <h4 class="footer__title">{{ $t('nav.contact') }}</h4>
+            <h2 class="footer__title">{{ $t('nav.contact') }}</h2>
             <ul class="footer__contact">
               <li v-if="config.public.contactEmail">
                 <svg class="footer__icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -64,7 +72,7 @@
 
           <!-- Newsletter -->
           <div class="footer__section">
-            <h4 class="footer__title">{{ $t('footer.newsletter') }}</h4>
+            <h2 class="footer__title">{{ $t('footer.newsletter') }}</h2>
             <p class="footer__newsletter-text">{{ $t('footer.newsletterDesc') }}</p>
             <form class="footer__newsletter-form" @submit.prevent="handleNewsletterSubmit">
               <label for="footer-email" class="sr-only">{{ $t('footer.emailPlaceholder') }}</label>

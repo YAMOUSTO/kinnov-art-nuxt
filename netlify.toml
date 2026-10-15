@@ -18,9 +18,10 @@
   NPM_CONFIG_PRODUCTION = "false"
 
 # --- Security headers ---------------------------------------------------------
-# No Content-Security-Policy here on purpose: the site legitimately loads Google
-# Fonts, embeds an OpenStreetMap iframe and opens wa.me links, so a CSP needs
-# per-source tuning rather than a guess. Add one deliberately if you want it.
+# No Content-Security-Policy here on purpose: the site embeds an OpenStreetMap
+# iframe and opens wa.me links, so a CSP needs per-source tuning rather than a
+# guess. Add one deliberately if you want it. (Web fonts are self-hosted under
+# /fonts, so no third-party font origin is needed.)
 [[headers]]
   for = "/*"
   [headers.values]
@@ -47,6 +48,13 @@
 # Image derivatives generated at build time by @nuxt/image.
 [[headers]]
   for = "/_ipx/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Self-hosted web fonts (see assets/scss/_fonts.scss). Filenames are stable, so
+# use the same long-but-not-immutable window as the images.
+[[headers]]
+  for = "/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=604800"
 

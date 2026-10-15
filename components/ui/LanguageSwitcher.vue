@@ -6,10 +6,9 @@
       @click="switchLanguage(locale.code)"
       class="lang-switcher__button"
       :class="{ 'lang-switcher__button--active': currentLocale === locale.code }"
-      :aria-label="$t('a11y.switchLanguage', { language: locale.name })"
       :aria-current="currentLocale === locale.code ? 'true' : undefined"
     >
-      {{ locale.code.toUpperCase() }}
+      {{ locale.code.toUpperCase() }}<span class="sr-only"> — {{ $t('a11y.switchLanguage', { language: locale.name }) }}</span>
     </button>
   </div>
 </template>

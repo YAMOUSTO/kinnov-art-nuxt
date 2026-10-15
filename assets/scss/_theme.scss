@@ -21,6 +21,12 @@
     --color-accent: #B91C1C; // Deep Red (Muted)
     --color-accent-light: #dc2626;
     --color-accent-dark: #991b1b;
+    // Filled buttons pair white text with the accent, which needs >=4.5:1. The
+    // per-theme --color-accent is tuned for *text/icons on the theme surface*
+    // (dark mode's #ef4444 is only 3.76:1 under white), so buttons use their own
+    // surface token that is identical in both themes. See button-accent.
+    --color-accent-button: #B91C1C; // white on it = 6.5:1
+    --color-accent-button-hover: #991b1b; // white on it = 8.5:1
 
     // Background & Text - Minimalist Gallery
     --color-background: #FFFFFF; // Pure White
@@ -85,6 +91,10 @@
     --color-accent: #ef4444;
     --color-accent-light: #f87171;
     --color-accent-dark: #b91c1c;
+    // Deliberately NOT following --color-accent: white on #ef4444 is 3.76:1 and
+    // fails WCAG AA. Filled buttons keep the deeper red in dark mode too.
+    --color-accent-button: #b91c1c; // white on it = 6.5:1
+    --color-accent-button-hover: #991b1b; // white on it = 8.5:1
 
     // Background & Text - Minimalist Dark
     --color-background: #0A0A0A; // Rich Ebony

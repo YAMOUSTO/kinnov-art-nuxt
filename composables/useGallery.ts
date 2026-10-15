@@ -173,7 +173,13 @@ const GALLERY: GalleryPhoto[] = [
   { src: '/images/webp/g-481477524-800.webp', categorie: null, width: 800, height: 1068, color: '#e8e8e8' },
 
   // --- Kiosques ---
-  { src: '/images/webp/kisque-800.webp', categorie: 'kiosks', width: 800, height: 450, color: '#f8d8b8' }
+  { src: '/images/webp/kisque-800.webp', categorie: 'kiosks', width: 800, height: 450, color: '#f8d8b8' },
+  // Le filtre « Kiosques » n'avait qu'une seule photo : le propriétaire a
+  // demandé d'en ajouter pour que la catégorie ne soit pas si pauvre.
+  // TODO propriétaire: vérifier que ces deux photos sont bien des kiosques et
+  //   qu'elles ne montrent pas d'enseigne tierce lisible.
+  { src: '/images/webp/fb-470202327-800.webp', categorie: 'kiosks', width: 800, height: 800, color: '#d8d8d8' },
+  { src: '/images/webp/svc-kiosks-2-800.webp', categorie: 'kiosks', width: 540, height: 960, color: '#988888' }
 ]
 
 export const useGallery = () => ({

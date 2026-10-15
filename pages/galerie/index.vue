@@ -107,16 +107,6 @@
 
         <!-- Shown when a category has no photos yet. -->
         <p v-else class="gallery-empty">{{ $t('gallery.empty') }}</p>
-
-        <!-- Infinite-scroll sentinel + explicit fallback button. The button is the
-             only path when IntersectionObserver is unavailable, so it is always in
-             the DOM while more photos remain. -->
-        <div v-if="hasMore" ref="sentinelEl" class="gallery-sentinel" aria-hidden="true"></div>
-        <div v-if="hasMore" class="gallery-more">
-          <Button variant="outline" size="md" @click="loadMore">
-            {{ $t('gallery.loadMore') }}
-          </Button>
-        </div>
       </div>
     </Section>
 
@@ -230,12 +220,8 @@ import type { GalleryPhoto } from '~/composables/useGallery'
 const { t } = useI18n()
 const { photos, categories } = useGallery()
 
-/** How many photos are shown per batch before the sentinel / button reveals more. */
-const BATCH_SIZE = 16
-
 const pageEl = ref<HTMLElement | null>(null)
 const activeFilter = ref<string>('all')
-const displayedCount = ref(BATCH_SIZE)
 
 const countOf = (slug: string) => photos.filter((photo) => photo.categorie === slug).length
 
@@ -253,64 +239,35 @@ const altFor = (photo: GalleryPhoto) => {
   return t(key, { n, total: group.length })
 }
 
-// Filters always apply to the ENTIRE list; `displayedPhotos` is only the first
-// `displayedCount` of it. Counts therefore reflect the full category, not the
-// visible batch.
+// Filters always apply to the ENTIRE list; the grid renders every photo of the
+// active filter (no client-side batching — see the note below). Counts reflect
+// the full category.
 const filteredPhotos = computed(() =>
   activeFilter.value === 'all'
     ? photos
     : photos.filter((photo) => photo.categorie === activeFilter.value)
 )
 
-const displayedPhotos = computed(() => filteredPhotos.value.slice(0, displayedCount.value))
-
-const hasMore = computed(() => displayedCount.value < filteredPhotos.value.length)
+// IMPORTANT — every photo is rendered in the HTML on purpose.
+//
+// The grid uses `<NuxtImg sizes="...">`, which emits a `/_ipx/...` srcset whose
+// derivatives are only produced at build time for the URLs present in the
+// prerendered HTML. Batching (showing 16, revealing more on scroll) put photos
+// 17+ in the DOM only after hydration, so the browser requested `/_ipx/...`
+// files that were never generated → 404 and broken images on a static host.
+// Rendering the whole filtered list keeps every derivative prerendered;
+// `loading="lazy"` below still defers the offscreen downloads.
+const displayedPhotos = computed(() => filteredPhotos.value)
 
 const setFilter = (slug: string) => {
   activeFilter.value = slug
 }
 
-// Switching category restarts the batch and dismisses the lightbox (its index
-// would otherwise point at a stale position in the new list).
+// Switching category dismisses the lightbox (its index would otherwise point at
+// a stale position in the new list).
 watch(activeFilter, () => {
-  displayedCount.value = BATCH_SIZE
   closeLightbox()
 })
-
-const loadMore = () => {
-  if (displayedCount.value < filteredPhotos.value.length) {
-    displayedCount.value = Math.min(
-      displayedCount.value + BATCH_SIZE,
-      filteredPhotos.value.length
-    )
-  }
-}
-
-// --- Batching via IntersectionObserver (sentinel) -----------------------------
-const sentinelEl = ref<HTMLElement | null>(null)
-let observer: IntersectionObserver | null = null
-
-onMounted(() => {
-  if ('IntersectionObserver' in window) {
-    observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) loadMore()
-      },
-      { rootMargin: '300px 0px' }
-    )
-    if (sentinelEl.value) observer.observe(sentinelEl.value)
-  }
-})
-
-// The sentinel is mounted/unmounted as `hasMore` flips; (re)observe it whenever
-// the ref changes.
-watch(sentinelEl, (el, oldEl) => {
-  if (!observer) return
-  if (oldEl) observer.unobserve(oldEl)
-  if (el) observer.observe(el)
-})
-
-onUnmounted(() => observer?.disconnect())
 
 // --- Lightbox -----------------------------------------------------------------
 const dialogEl = ref<HTMLElement | null>(null)
@@ -488,6 +445,10 @@ usePageSeo({
 .gallery-page {
   // Measured at runtime (see syncHeaderOffset); this is the fallback.
   --gal-header-h: 97px;
+  // Owner feedback: the near-opaque white band hid most of the banner photo.
+  // Lower the shared light scrim here only, so more of the photo shows while
+  // the heading keeps its soft white halo (see PageHeader `--scrim-light`).
+  --page-header-scrim-opacity: 0.6;
 }
 
 .gallery-filterbar {
@@ -650,16 +611,6 @@ usePageSeo({
   color: var(--color-text-muted);
   padding: $spacing-12 0;
   margin: 0;
-}
-
-.gallery-sentinel {
-  height: 1px;
-}
-
-.gallery-more {
-  display: flex;
-  justify-content: center;
-  margin-top: $spacing-8;
 }
 
 // Lightbox

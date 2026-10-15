@@ -2,9 +2,26 @@
   <div class="home">
     <!-- Hero Section -->
     <section class="hero">
+      <!-- Full-bleed photo. A real <img> (rather than a CSS background-image)
+           so the browser can discover, prioritise and paint it like any other
+           image — the CSS-background version showed a ~4 s LCP "render delay"
+           because the background was only painted after the layer settled. -->
+      <div class="hero__media" aria-hidden="true">
+        <NuxtImg
+          src="/images/webp/image_acceuil-1920.webp"
+          alt=""
+          class="hero__bg"
+          width="1920"
+          height="1081"
+          sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
       <div class="hero__overlay"></div>
       <div class="container hero__container">
-        <div class="hero__content scroll-reveal">
+        <div class="hero__content">
           <h1 class="hero__title">{{ $t('home.heroTitle') }}</h1>
           <p class="hero__subtitle">{{ $t('home.heroSubtitle') }}</p>
           <div class="hero__actions">
@@ -379,13 +396,13 @@ interface HomeGalleryPhoto {
 }
 
 /**
- * Galerie « Réalisations » de l'accueil — huit tuiles, avec AU PLUS un kiosque
- * et un mobilier/pouf. Dérivés WebP 800px dans public/images/webp/ ; originaux
- * hors déploiement (source-images/, gitignoré).
+ * Galerie « Réalisations » de l'accueil. Au moins deux tuiles par service, pour
+ * qu'aucun filtre ne se retrouve avec une seule image (retour du propriétaire).
+ * Dérivés WebP 800px dans public/images/webp/ ; originaux hors déploiement
+ * (source-images/, gitignoré).
  * Ne jamais utiliser rouge-couteau.jpg (exclusion demandée par le propriétaire).
- *
- * Les `service` ci-dessous sont provisoires : la photo ne permet pas toujours de
- * trancher, et elle n'est pas visible depuis le code.
+ * Les `service` ci-dessous restent provisoires : la photo ne permet pas toujours
+ * de trancher, et elle n'est pas visible depuis le code.
  * TODO propriétaire : confirmer le type de chaque réalisation (donc son filtre)
  *   et corriger `service` (ou mettre `null`) selon le contenu réel.
  * TODO propriétaire : décrire chaque photo (alt) pour l'accessibilité et le SEO.
@@ -396,9 +413,13 @@ const gallery: HomeGalleryPhoto[] = [
   { src: '/images/webp/meilleur-img-800.webp', service: 'spaceDesign' },
   { src: '/images/webp/best0-800.webp', service: 'production' },
   { src: '/images/webp/fb-470202327-800.webp', service: 'kiosks' },
-  { src: '/images/webp/best4-800.webp', service: 'spaceDesign' },
+  { src: '/images/webp/kisque-800.webp', service: 'kiosks' },
   { src: '/images/webp/fauteuil-800.webp', service: 'furniture' },
-  { src: '/images/webp/best2-800.webp', service: 'training' }
+  { src: '/images/webp/pneux-800.webp', service: 'furniture' },
+  { src: '/images/webp/event-artist-1-800.webp', service: 'scenography' },
+  { src: '/images/webp/event-media-1-800.webp', service: 'production' },
+  { src: '/images/webp/best2-800.webp', service: 'training' },
+  { src: '/images/webp/craft-metier-2-800.webp', service: 'training' }
 ]
 
 const galleryFilters = [
@@ -491,17 +512,12 @@ const scrollToSection = (id: string) => {
   }
 }
 
-// SEO. The hero is a CSS background, so its image is preloaded explicitly —
-// the browser would otherwise discover it only after the stylesheet parses
-// (LCP regression).
+// SEO. The hero photo is an eager `<img>` in the initial HTML (see the template),
+// so the preload scanner discovers it immediately — no manual preload needed.
 usePageSeo({
   titleKey: 'pageMeta.home.title',
   descriptionKey: 'pageMeta.home.description',
   image: '/og/og-home.jpg'
-})
-
-useHead({
-  link: [{ rel: 'preload', as: 'image', href: '/images/webp/image_acceuil-1920.webp' }]
 })
 </script>
 
@@ -511,12 +527,23 @@ useHead({
   position: relative;
   min-height: 90vh;
   @include flex-center;
-  // Owner's own photo (facade with neon, tyres and painted drums), preloaded in
-  // useHead above. The dark scrim overlay below keeps the white text readable.
-  background-image: url('/images/webp/image_acceuil-1920.webp');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  // The photo is an <img> in `.hero__media` (below), not a CSS background: see
+  // the template comment. The dark scrim overlay keeps the white text readable.
+  overflow: hidden;
+
+  // Full-bleed photo layer.
+  &__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  &__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 
   &__overlay {
     position: absolute;
@@ -1221,11 +1248,22 @@ useHead({
 
 // Location CTA — owner's photo behind a dark scrim so the gold title and white
 // text stay readable (WCAG) over any part of the image.
+//
+// Mobile first: the 800px derivative is plenty under a 65% dark scrim and saves
+// ~80 KiB that would otherwise be fetched with the critical hero image (CSS
+// background images are downloaded as soon as the stylesheet is parsed, even
+// though the section sits far below the fold). The `lg` breakpoint swaps in the
+// full-size file.
 .section--cta {
   background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
-    url('/images/webp/best1-1920.webp');
+    url('/images/webp/best1-800.webp');
   background-size: cover;
   background-position: center;
+
+  @include respond-to('lg') {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+      url('/images/webp/best1-1920.webp');
+  }
 }
 
 .cta-title {

@@ -16,11 +16,14 @@
         :src="image"
         alt=""
         class="page-header__bg"
-        loading="lazy"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        preload
       />
       <div class="page-header__scrim"></div>
     </div>
-    <div class="container text-center scroll-reveal page-header__content">
+    <div class="container text-center page-header__content">
       <h1 class="page-header__title">
         {{ title }}
       </h1>
@@ -143,19 +146,24 @@ withDefaults(defineProps<Props>(), {
   // the heading area so near-black text keeps a comfortable margin over AA
   // (≈ 18:1 at the band centre). Must come after `&--image` to win the override.
   &--scrim-light {
+    // Opacity of the light band is tunable per page through
+    // `--page-header-scrim-opacity`, so a page can reveal more of the photo
+    // without touching the shared default (0.92 suits bright photos).
     .page-header__scrim {
       background: linear-gradient(
         180deg,
         rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.92) 20%,
-        rgba(255, 255, 255, 0.92) 80%,
+        rgba(255, 255, 255, var(--page-header-scrim-opacity, 0.92)) 20%,
+        rgba(255, 255, 255, var(--page-header-scrim-opacity, 0.92)) 80%,
         rgba(255, 255, 255, 0) 100%
       );
     }
 
     .page-header__title {
       color: $color-black;
-      text-shadow: none;
+      // Soft white halo keeps the near-black title legible even where a lighter
+      // band lets a busy part of the photo show through.
+      text-shadow: 0 1px 14px rgba(255, 255, 255, 0.9);
     }
 
     .page-header__subtitle {

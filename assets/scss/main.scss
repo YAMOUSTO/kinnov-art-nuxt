@@ -3,6 +3,7 @@
 // ========================================
 
 // Import Partials using modern Sass @use
+@use "fonts";
 @use "theme";
 @use "variables" as *;
 @use "mixins" as *;

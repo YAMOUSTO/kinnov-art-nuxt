@@ -7,7 +7,15 @@
              blanc rendu transparent) faute d'asset sans fond. -->
         <NuxtLink :to="localePath('/')" class="header__logo" aria-label="Kinnov'art">
           <div class="header__logo-container">
-            <img src="/logo-transparent.png" alt="Kinnov'art" class="header__logo-img" />
+            <img
+              src="/logo-transparent.webp"
+              alt="Kinnov'art"
+              class="header__logo-img"
+              width="600"
+              height="238"
+              decoding="async"
+              fetchpriority="high"
+            />
           </div>
         </NuxtLink>
 

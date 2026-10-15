@@ -112,6 +112,12 @@ export default defineNuxtConfig({
 
   // Vite Configuration
   vite: {
+    build: {
+      // One stylesheet instead of one chunk per component: the extra files were
+      // separate render-blocking requests (~300 ms each under mobile
+      // throttling) that delayed first paint on every page.
+      cssCodeSplit: false
+    },
     css: {
       preprocessorOptions: {
         scss: {
@@ -158,18 +164,27 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icons/favicon-32x32.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/icons/apple-touch-icon.png' },
         { rel: 'manifest', href: '/manifest.webmanifest' },
+        // Fonts are self-hosted (assets/scss/_fonts.scss) so the browser does not
+        // have to pay a third-party round-trip before the first text paint.
+        // Preloading starts the fetch before the stylesheet is parsed, but at low
+        // priority: every audited page has an *image* as its LCP element, so the
+        // fonts must not outrank it on the wire. Preloading them at high priority
+        // measured worse on image-led pages such as /services.
         {
-          rel: 'preconnect',
-          href: 'https://fonts.googleapis.com'
+          rel: 'preload',
+          as: 'font',
+          type: 'font/woff2',
+          href: '/fonts/montserrat-latin.woff2',
+          crossorigin: '',
+          fetchpriority: 'low'
         },
         {
-          rel: 'preconnect',
-          href: 'https://fonts.gstatic.com',
-          crossorigin: ''
-        },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap'
+          rel: 'preload',
+          as: 'font',
+          type: 'font/woff2',
+          href: '/fonts/opensans-latin.woff2',
+          crossorigin: '',
+          fetchpriority: 'low'
         }
       ]
     },

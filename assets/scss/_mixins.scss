@@ -182,13 +182,14 @@
 
 @mixin button-accent {
     @include button-base;
-    background-color: $color-accent;
-    // White on #B91C1C ≈ 6.5:1. The previous gold text measured ~3.1:1 and
-    // failed AA (the two brand colours are close in luminance).
+    // A dedicated surface token, not --color-accent: the latter is tuned per
+    // theme for text/icons on the theme surface, and dark mode's #ef4444 only
+    // reaches 3.76:1 under white text (WCAG AA needs 4.5:1). See _theme.scss.
+    background-color: $color-accent-button;
     color: $color-white;
 
     &:hover:not(:disabled) {
-        background-color: $color-accent-dark;
+        background-color: $color-accent-button-hover;
         transform: translateY(-2px);
         box-shadow: $shadow-lg;
     }
