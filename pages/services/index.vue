@@ -307,6 +307,12 @@ usePageSeo({
   // Measured at runtime (see syncOffsets); these are the fallbacks.
   --svc-header-h: 97px;
   --svc-nav-h: 56px;
+  // Owner feedback: the near-opaque white band hid most of the banner photo —
+  // same fix as /galerie. Reveal more of the photo here only, without touching
+  // the shared default. 0.6 is the point where the photo reads again while the
+  // near-black title and 82%-black subtitle keep WCAG AA over the darkest 10%
+  // of this photo (measured 8.2:1 / 6.6:1; 0.5 is the AA floor, 0.4 fails).
+  --page-header-scrim-opacity: 0.6;
 }
 
 .services-nav {
