@@ -216,7 +216,14 @@ export default defineNuxtConfig({
     preset: 'static',
     prerender: {
       crawlLinks: true,
-      routes: ['/sitemap.xml', '/robots.txt']
+      routes: ['/sitemap.xml', '/robots.txt'],
+      // Emit `services.html` instead of `services/index.html`. Netlify answers
+      // a request for a directory index with a 301 to the trailing-slash form
+      // (`/services` → `/services/`), which contradicts the canonical/hreflang
+      // URLs the site already advertises and adds a redirect to every internal
+      // link. Verified on a Netlify deploy: an extensionless `.html` file is
+      // served directly at `/services` with a 200 and no redirect.
+      autoSubfolderIndex: false
     }
   },
 

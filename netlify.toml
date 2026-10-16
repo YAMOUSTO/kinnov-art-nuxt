@@ -111,3 +111,17 @@
     for = "/*"
     [context.branch-deploy.headers.values]
       X-Robots-Tag = "noindex, nofollow"
+
+# --- URL normalisation ---------------------------------------------------------
+# The canonical URLs the site advertises carry no trailing slash (see the
+# canonical/hreflang tags and the sitemap). `nitro.prerender.autoSubfolderIndex`
+# is off so a route is emitted as `services.html` — which Netlify serves at
+# `/services` with a 200 and no redirect — instead of `services/index.html`,
+# which Netlify answers with a 301 to `/services/`. Anything requested with a
+# trailing slash is sent to the canonical form rather than 404ing. Verified on a
+# Netlify deploy: `/*/` matches any path with a trailing slash and `:splat`
+# preserves the rest of the path (`/en/services/` → `/en/services`).
+[[redirects]]
+  from = "/*/"
+  to = "/:splat"
+  status = 301
