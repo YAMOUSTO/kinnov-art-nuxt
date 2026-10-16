@@ -16,7 +16,7 @@
         "mission": "Mission",
         "team": "Équipe",
         "missionTitle": "Notre Engagement",
-        "missionText": "De la scénographie au montage artistique, Kinnov'art met ses cinq savoir-faire au service de la jeunesse créative de Guinée.",
+        "missionText": "De la scénographie au montage artistique, Kinnov'art met ses six savoir-faire au service de la jeunesse créative de Guinée.",
         "missionBody": "Depuis notre création, nous nous engageons à fournir un espace où la créativité peut s'épanouir. Notre atelier situé à Nongo, face à la Mosquée Bilal Mansour Fadiga, est devenu un hub pour les artistes, designers et créateurs de toute la Guinée.",
         "teamTitle": "Le Cœur de Kinnov'art",
         "location": "À la Maison des Jeunes, en face de la Mosquée Bilal Fadiga, Conakry, Guinée."
@@ -41,7 +41,7 @@
         "phone": "Téléphone",
         "directEmail": "Email Direct",
         "location": "Atelier Kinnov'art",
-        "locationDetails": "Nongo, à la Maison des Jeunes, face à la Mosquée Bilal Fadiga, Conakry, Guinée"
+        "locationDetails": "Nongo, à la Maison des Jeunes, face à la Mosquée Bilal Mansour Fadiga, Conakry, Guinée"
     },
     "home": {
         "heroTitle": "L'Art de l'Innovation Créative",
@@ -72,7 +72,7 @@
         },
         "galleryTitle": "Réalisations",
         "gallerySubtitle": "Un aperçu de nos projets : décors, mobilier, espaces et productions.",
-        "galleryAlt": "Réalisation Kinnov’art — {type} ({n}/8)",
+        "galleryAlt": "Réalisation Kinnov'art — {type} ({n}/{total})",
         "galleryCaption": "Type de réalisation",
         "galleryEmpty": "Aucune réalisation dans cette catégorie pour le moment.",
         "galleryFilters": {
@@ -84,31 +84,31 @@
             "production": "Production",
             "training": "Formation"
         },
-        "introImageAlt": "Portrait du PDG de Kinnov’art",
+        "introImageAlt": "Portrait du PDG de Kinnov'art",
         "testimonialsTitle": "Ils nous font confiance",
-        "testimonialsSubtitle": "Une sélection de clips produits, tournés et montés par Kinnov’art pour des artistes guinéens.",
+        "testimonialsSubtitle": "Une sélection de clips produits, tournés et montés par Kinnov'art pour des artistes guinéens.",
         "clipLabel": "Clip produit",
         "testimonialsPrev": "Clip précédent",
         "testimonialsNext": "Clip suivant",
         "testimonials": [
-            { "quote": "Kinnov’art a habillé mon clip avec un décor qui colle parfaitement à la chanson.", "artist": "Azaya feat Binta Diakité", "song": "Mon Nutella" },
+            { "quote": "Kinnov'art a habillé mon clip avec un décor qui colle parfaitement à la chanson.", "artist": "Azaya feat Binta Diakité", "song": "Mon Nutella" },
             { "quote": "Décors, lumière et montage : tout était prêt. Le clip de « Woulé » a dépassé mes espérances.", "artist": "Mousto Camara", "song": "Woulé" },
-            { "quote": "Kinnov’art a donné une âme à mon clip ; chaque plan raconte quelque chose.", "artist": "Cams Melodie", "song": "Awama N’tanan khonma" },
-            { "quote": "Un travail soigné du début à la fin, et un montage qui rend le morceau encore plus vivant.", "artist": "Tenin Diawara", "song": "C’est pas possible" },
-            { "quote": "Tout était au rendez-vous : le décor, la lumière et le montage. Le clip parle de lui-même.", "artist": "Soul Bangs feat Manamba", "song": "T’es mon choix" },
-            { "quote": "Ils ont transformé une idée simple en un clip mémorable. Merci à toute l’équipe.", "artist": "Ab Sylla", "song": "Ekha Idole" },
-            { "quote": "Le résultat a dépassé mes attentes. Kinnov’art, c’est du travail sérieux et créatif.", "artist": "Issa Diabaté", "song": "Dounia" },
+            { "quote": "Kinnov'art a donné une âme à mon clip ; chaque plan raconte quelque chose.", "artist": "Cams Melodie", "song": "Awama N'tanan khonma" },
+            { "quote": "Un travail soigné du début à la fin, et un montage qui rend le morceau encore plus vivant.", "artist": "Tenin Diawara", "song": "C'est pas possible" },
+            { "quote": "Tout était au rendez-vous : le décor, la lumière et le montage. Le clip parle de lui-même.", "artist": "Soul Bangs feat Manamba", "song": "T'es mon choix" },
+            { "quote": "Ils ont transformé une idée simple en un clip mémorable. Merci à toute l'équipe.", "artist": "Ab Sylla", "song": "Ekha Idole" },
+            { "quote": "Le résultat a dépassé mes attentes. Kinnov'art, c'est du travail sérieux et créatif.", "artist": "Issa Diabaté", "song": "Dounia" },
             { "quote": "Un clip propre, livré à temps, avec une vraie direction artistique.", "artist": "Saifon Baldé", "song": "Moudhe Allah" },
-            { "quote": "L’équipe a mis en scène nos kiosques avec une créativité remarquable.", "artist": "DG Lonagui", "song": "Kiosques Lonagui" },
-            { "quote": "Une équipe à l’écoute, qui respecte l’univers de l’artiste du début à la fin.", "artist": "Djinxi B", "song": "O ma fin kai n’na" },
+            { "quote": "L'équipe a mis en scène nos kiosques avec une créativité remarquable.", "artist": "DG Lonagui", "song": "Kiosques Lonagui" },
+            { "quote": "Une équipe à l'écoute, qui respecte l'univers de l'artiste du début à la fin.", "artist": "Djinxi B", "song": "O ma fin kai n'na" },
             { "quote": "À plusieurs sur le morceau, chacun a trouvé sa place dans un clip cohérent.", "artist": "Grand P feat NumberJ et Talon Pilon", "song": "Si a nati" },
-            { "quote": "La production a su capter l’énergie de la chanson et la traduire à l’image.", "artist": "Ibro Gnamet", "song": "Femme Capable" },
-            { "quote": "Des décors pensés dans le détail : le clip ressemble exactement à ce que j’imaginais.", "artist": "Habib Fatako", "song": "Hersinalan" },
+            { "quote": "La production a su capter l'énergie de la chanson et la traduire à l'image.", "artist": "Ibro Gnamet", "song": "Femme Capable" },
+            { "quote": "Des décors pensés dans le détail : le clip ressemble exactement à ce que j'imaginais.", "artist": "Habib Fatako", "song": "Hersinalan" },
             { "quote": "Un accompagnement du tournage au montage, avec beaucoup de professionnalisme.", "artist": "Djilikaba Bintou", "song": "Mansaya" },
-            { "quote": "Un rendu chaleureux et fidèle à l’ambiance du morceau. Bravo à l’équipe.", "artist": "Levi Bobo feat Zena Choco", "song": "Yiguitèguè" },
-            { "quote": "Kinnov’art a compris mon style et l’a mis en valeur dans chaque plan.", "artist": "Ibro Diabaté", "song": "Nidari" },
+            { "quote": "Un rendu chaleureux et fidèle à l'ambiance du morceau. Bravo à l'équipe.", "artist": "Levi Bobo feat Zena Choco", "song": "Yiguitèguè" },
+            { "quote": "Kinnov'art a compris mon style et l'a mis en valeur dans chaque plan.", "artist": "Ibro Diabaté", "song": "Nidari" },
             { "quote": "Du premier repérage au montage final, tout a été fait avec sérieux.", "artist": "Fode Kouyaté", "song": "Abèta" },
-            { "quote": "Un clip soigné et une équipe disponible : je referai appel à Kinnov’art.", "artist": "Viviane N’Dour", "song": "KPC" }
+            { "quote": "Un clip soigné et une équipe disponible : je referai appel à Kinnov'art.", "artist": "Viviane N'Dour", "song": "KPC" }
         ],
         "galleryViewAll": "Voir toute la galerie",
         "locationTitle": "Retrouvez-nous à Nongo"
@@ -129,9 +129,9 @@
                 "title": "Scénographie",
                 "shortTitle": "Scénographie",
                 "description": "Conception et tirage de décors pour clips, concerts et plateaux de télévision.",
-                "imageAlt": "Décor blanc conçu par Kinnov’art pour un clip, avec fauteuil et mannequin",
-                "imageSecondaryAlt": "Décor de scène habillé par Kinnov’art pour un artiste",
-                "imageTertiaryAlt": "Scène installée par Kinnov’art lors d’un concert",
+                "imageAlt": "Décor blanc conçu par Kinnov'art pour un clip, avec fauteuil et mannequin",
+                "imageSecondaryAlt": "Décor de scène habillé par Kinnov'art pour un artiste",
+                "imageTertiaryAlt": "Scène installée par Kinnov'art lors d'un concert",
                 "includes": [
                     "Conception des décors",
                     "Tirage des décors",
@@ -145,13 +145,13 @@
                 "title": "Confection de meubles à base de pneus",
                 "shortTitle": "Mobilier pneus",
                 "description": "Des meubles façonnés dans des pneus recyclés, à la forme et à l'image de Kinnov'art.",
-                "imageAlt": "Meuble réalisé par Kinnov’art à partir de pneus recyclés",
-                "imageSecondaryAlt": "Pneus recyclés utilisés par Kinnov’art pour la confection de meubles",
-                "imageTertiaryAlt": "Fauteuil en pneus recyclés réalisé par Kinnov’art",
+                "imageAlt": "Meuble réalisé par Kinnov'art à partir de pneus recyclés",
+                "imageSecondaryAlt": "Pneus recyclés utilisés par Kinnov'art pour la confection de meubles",
+                "imageTertiaryAlt": "Fauteuil en pneus recyclés réalisé par Kinnov'art",
                 "includes": [
                     "Façonnage de meubles",
                     "À partir de pneus recyclés",
-                    "À la forme et à l’image de Kinnov’art"
+                    "À la forme et à l'image de Kinnov'art"
                 ],
                 "examples": [
                     "Fauteuil en pneus"
@@ -161,9 +161,9 @@
                 "title": "Confection de kiosques",
                 "shortTitle": "Kiosques",
                 "description": "Des kiosques conçus et réalisés sur mesure pour vos espaces et vos événements.",
-                "imageAlt": "Kiosque conçu et réalisé par Kinnov’art",
-                "imageSecondaryAlt": "Autre kiosque réalisé par Kinnov’art",
-                "imageTertiaryAlt": "Kiosque de vente réalisé sur mesure par Kinnov’art",
+                "imageAlt": "Kiosque conçu et réalisé par Kinnov'art",
+                "imageSecondaryAlt": "Autre kiosque réalisé par Kinnov'art",
+                "imageTertiaryAlt": "Kiosque de vente réalisé sur mesure par Kinnov'art",
                 "includes": [
                     "Conception sur mesure",
                     "Réalisation sur mesure",
@@ -179,9 +179,9 @@
                 "title": "Aménagement des espaces publics et privés",
                 "shortTitle": "Aménagement",
                 "description": "Aménagement et décoration d'espaces pour vos événements et vos productions.",
-                "imageAlt": "Espace événementiel entièrement aménagé et habillé par Kinnov’art",
-                "imageSecondaryAlt": "Espace aménagé et décoré par Kinnov’art",
-                "imageTertiaryAlt": "Salon aménagé et décoré par Kinnov’art",
+                "imageAlt": "Espace événementiel entièrement aménagé et habillé par Kinnov'art",
+                "imageSecondaryAlt": "Espace aménagé et décoré par Kinnov'art",
+                "imageTertiaryAlt": "Salon aménagé et décoré par Kinnov'art",
                 "includes": [
                     "Aménagement des espaces",
                     "Décoration des espaces",
@@ -198,9 +198,9 @@
                 "title": "Production et management artistique",
                 "shortTitle": "Production",
                 "description": "Production, couverture photo et montage pour vos concerts et vos tournées.",
-                "imageAlt": "Cams, artiste produit par Kinnov’art, en concert",
-                "imageSecondaryAlt": "Prise de vue photo lors d’une production Kinnov’art",
-                "imageTertiaryAlt": "Couverture média d’un événement par Kinnov’art",
+                "imageAlt": "Cams, artiste produit par Kinnov'art, en concert",
+                "imageSecondaryAlt": "Prise de vue photo lors d'une production Kinnov'art",
+                "imageTertiaryAlt": "Couverture média d'un événement par Kinnov'art",
                 "includes": [
                     "Production",
                     "Couverture photo et montage",
@@ -216,12 +216,12 @@
                 "title": "Formation en décoration événementielle",
                 "shortTitle": "Formation",
                 "description": "Formation pratique à la décoration et à l'habillage d'espaces pour vos événements.",
-                "imageAlt": "Formation à la décoration événementielle chez Kinnov’art",
-                "imageSecondaryAlt": "Atelier de décoration événementielle Kinnov’art",
-                "imageTertiaryAlt": "Apprentissage de la décoration événementielle à l’atelier Kinnov’art",
+                "imageAlt": "Formation à la décoration événementielle chez Kinnov'art",
+                "imageSecondaryAlt": "Atelier de décoration événementielle Kinnov'art",
+                "imageTertiaryAlt": "Apprentissage de la décoration événementielle à l'atelier Kinnov'art",
                 "includes": [
                     "Formation pratique",
-                    "Décoration et habillage d’espaces",
+                    "Décoration et habillage d'espaces",
                     "Pour vos événements"
                 ],
                 "examples": [
@@ -278,7 +278,7 @@
         },
         "gallery": {
             "title": "Galerie",
-            "description": "Photos des réalisations de Kinnov’art à Nongo, Conakry : scénographie, mobilier, kiosques, aménagement, production et formation."
+            "description": "Photos des réalisations de Kinnov'art à Nongo, Conakry : scénographie, mobilier, kiosques, aménagement, production et formation."
         }
     },
     "aboutContent": {
@@ -314,7 +314,7 @@
     },
     "gallery": {
         "title": "Notre Galerie",
-        "subtitle": "Scénographie, mobilier, kiosques, aménagement, production et formation — un aperçu du travail de Kinnov’art.",
+        "subtitle": "Scénographie, mobilier, kiosques, aménagement, production et formation — un aperçu du travail de Kinnov'art.",
         "filterLabel": "Filtrer les photos",
         "all": "Tout",
         "loadMore": "Voir plus",
@@ -331,13 +331,13 @@
         "prev": "Photo précédente",
         "next": "Photo suivante",
         "alt": {
-            "generic": "Photo Kinnov’art ({n}/{total})",
-            "scenography": "Décor de scénographie Kinnov’art ({n}/{total})",
-            "furniture": "Mobilier en pneus recyclés Kinnov’art ({n}/{total})",
-            "kiosks": "Kiosque réalisé par Kinnov’art ({n}/{total})",
-            "spaceDesign": "Aménagement d’espace Kinnov’art ({n}/{total})",
-            "production": "Production Kinnov’art ({n}/{total})",
-            "training": "Formation Kinnov’art ({n}/{total})"
+            "generic": "Photo Kinnov'art ({n}/{total})",
+            "scenography": "Décor de scénographie Kinnov'art ({n}/{total})",
+            "furniture": "Mobilier en pneus recyclés Kinnov'art ({n}/{total})",
+            "kiosks": "Kiosque réalisé par Kinnov'art ({n}/{total})",
+            "spaceDesign": "Aménagement d'espace Kinnov'art ({n}/{total})",
+            "production": "Production Kinnov'art ({n}/{total})",
+            "training": "Formation Kinnov'art ({n}/{total})"
         }
     }
 }

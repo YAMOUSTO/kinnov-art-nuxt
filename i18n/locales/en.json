@@ -16,7 +16,7 @@
         "mission": "Mission",
         "team": "Team",
         "missionTitle": "Our Commitment",
-        "missionText": "From set design to artistic editing, Kinnov'art puts its five crafts to work for creative youth across Guinea.",
+        "missionText": "From set design to artistic editing, Kinnov'art puts its six crafts to work for creative youth across Guinea.",
         "missionBody": "Since our creation, we have been committed to providing a space where creativity can flourish. Our workshop located in Nongo, opposite the Bilal Mansour Fadiga Mosque, has become a hub for artists, designers, and creators from across Guinea.",
         "teamTitle": "The Heart of Kinnov'art",
         "location": "At the Maison des Jeunes, opposite the Bilal Fadiga Mosque, Conakry, Guinea."
@@ -41,11 +41,11 @@
         "phone": "Phone",
         "directEmail": "Direct Email",
         "location": "Kinnov'art Workshop",
-        "locationDetails": "Nongo, Maison des Jeunes, Opposite Bilal Mansour Fadiga Mosque, Conakry, Guinea"
+        "locationDetails": "Nongo, Maison des Jeunes, opposite Bilal Mansour Fadiga Mosque, Conakry, Guinea"
     },
     "home": {
         "heroTitle": "The Art of Creative Innovation",
-        "heroSubtitle": "Based in Nongo at the Maison des Jeunes, Kinnov'art builds sets, furniture and productions for Guinean creative talent.",
+        "heroSubtitle": "Based in Nongo at the Maison des Jeunes, Kinnov'art builds sets, furniture and productions for Guinea's creative youth.",
         "heroCta": "Discover our services",
         "brandIntro": "Kinnov'art is a company specialised in set design, furniture made from used tyres, the layout of private and public spaces, event decoration, artistic production and management, as well as a range of related services. Our experience in adding value to recycled materials lets us develop creative solutions that are at once economical, aesthetic and environmentally friendly.",
         "stats": {
@@ -72,7 +72,7 @@
         },
         "galleryTitle": "Our Work",
         "gallerySubtitle": "A glimpse of our projects: sets, furniture, spaces and productions.",
-        "galleryAlt": "Kinnov’art work — {type} ({n}/8)",
+        "galleryAlt": "Kinnov'art work — {type} ({n}/{total})",
         "galleryCaption": "Type of work",
         "galleryEmpty": "No work in this category yet.",
         "galleryFilters": {
@@ -84,31 +84,31 @@
             "production": "Production",
             "training": "Training"
         },
-        "introImageAlt": "Portrait of the Kinnov’art director",
+        "introImageAlt": "Portrait of the Kinnov'art CEO",
         "testimonialsTitle": "They trust us",
-        "testimonialsSubtitle": "A selection of music videos produced, filmed and edited by Kinnov’art for Guinean artists.",
+        "testimonialsSubtitle": "A selection of music videos produced, filmed and edited by Kinnov'art for Guinean artists.",
         "clipLabel": "Music video produced",
         "testimonialsPrev": "Previous music video",
         "testimonialsNext": "Next music video",
         "testimonials": [
-            { "quote": "Kinnov’art dressed my video with a set that fits the song perfectly.", "artist": "Azaya feat Binta Diakité", "song": "Mon Nutella" },
+            { "quote": "Kinnov'art dressed my video with a set that fits the song perfectly.", "artist": "Azaya feat Binta Diakité", "song": "Mon Nutella" },
             { "quote": "Sets, lighting and editing: everything was ready. The video went beyond my expectations.", "artist": "Mousto Camara", "song": "Woulé" },
-            { "quote": "Kinnov’art gave my video a soul; every shot tells a story.", "artist": "Cams Melodie", "song": "Awama N’tanan khonma" },
-            { "quote": "Careful work from start to finish, and an edit that makes the song even more alive.", "artist": "Tenin Diawara", "song": "C’est pas possible" },
-            { "quote": "Everything came together: the set, the lighting and the editing. The video speaks for itself.", "artist": "Soul Bangs feat Manamba", "song": "T’es mon choix" },
+            { "quote": "Kinnov'art gave my video a soul; every shot tells a story.", "artist": "Cams Melodie", "song": "Awama N'tanan khonma" },
+            { "quote": "Careful work from start to finish, and an edit that makes the song even more alive.", "artist": "Tenin Diawara", "song": "C'est pas possible" },
+            { "quote": "Everything came together: the set, the lighting and the editing. The video speaks for itself.", "artist": "Soul Bangs feat Manamba", "song": "T'es mon choix" },
             { "quote": "They turned a simple idea into a memorable video. Thanks to the whole team.", "artist": "Ab Sylla", "song": "Ekha Idole" },
-            { "quote": "The result exceeded my expectations. Kinnov’art is serious and creative work.", "artist": "Issa Diabaté", "song": "Dounia" },
+            { "quote": "The result exceeded my expectations. Kinnov'art is serious and creative work.", "artist": "Issa Diabaté", "song": "Dounia" },
             { "quote": "A clean video, delivered on time, with a real artistic direction.", "artist": "Saifon Baldé", "song": "Moudhe Allah" },
             { "quote": "The team staged our kiosks with remarkable creativity.", "artist": "DG Lonagui", "song": "Kiosques Lonagui" },
-            { "quote": "A team that listens and respects the artist’s world from start to finish.", "artist": "Djinxi B", "song": "O ma fin kai n’na" },
-            { "quote": "With several of us on the track, everyone found their place in a coherent video.", "artist": "Grand P feat NumberJ et Talon Pilon", "song": "Si a nati" },
+            { "quote": "A team that listens and respects the artist's world from start to finish.", "artist": "Djinxi B", "song": "O ma fin kai n'na" },
+            { "quote": "With several of us on the track, everyone found their place in a coherent video.", "artist": "Grand P feat NumberJ and Talon Pilon", "song": "Si a nati" },
             { "quote": "The production captured the energy of the song and translated it on screen.", "artist": "Ibro Gnamet", "song": "Femme Capable" },
             { "quote": "Sets thought through in detail: the video looks exactly like what I imagined.", "artist": "Habib Fatako", "song": "Hersinalan" },
             { "quote": "Support from the shoot to the edit, with a lot of professionalism.", "artist": "Djilikaba Bintou", "song": "Mansaya" },
             { "quote": "A warm result, faithful to the mood of the track. Well done to the team.", "artist": "Levi Bobo feat Zena Choco", "song": "Yiguitèguè" },
-            { "quote": "Kinnov’art understood my style and brought it out in every shot.", "artist": "Ibro Diabaté", "song": "Nidari" },
+            { "quote": "Kinnov'art understood my style and brought it out in every shot.", "artist": "Ibro Diabaté", "song": "Nidari" },
             { "quote": "From the first location scout to the final edit, everything was done seriously.", "artist": "Fode Kouyaté", "song": "Abèta" },
-            { "quote": "A polished video and an available team: I will call on Kinnov’art again.", "artist": "Viviane N’Dour", "song": "KPC" }
+            { "quote": "A polished video and an available team: I will call on Kinnov'art again.", "artist": "Viviane N'Dour", "song": "KPC" }
         ],
         "galleryViewAll": "View the full gallery",
         "locationTitle": "Find us in Nongo"
@@ -129,9 +129,9 @@
                 "title": "Set Design",
                 "shortTitle": "Set Design",
                 "description": "Designing and producing sets for music videos, concerts and television studios.",
-                "imageAlt": "White set designed by Kinnov’art for a music video, with an armchair and a mannequin",
-                "imageSecondaryAlt": "Stage set dressed by Kinnov’art for an artist",
-                "imageTertiaryAlt": "Stage set up by Kinnov’art at a concert",
+                "imageAlt": "White set designed by Kinnov'art for a music video, with an armchair and a mannequin",
+                "imageSecondaryAlt": "Stage set dressed by Kinnov'art for an artist",
+                "imageTertiaryAlt": "Stage set up by Kinnov'art at a concert",
                 "includes": [
                     "Set design",
                     "Set production",
@@ -145,13 +145,13 @@
                 "title": "Furniture Made From Tyres",
                 "shortTitle": "Tyre Furniture",
                 "description": "Furniture crafted from recycled tyres, in Kinnov'art's own signature style.",
-                "imageAlt": "Furniture crafted by Kinnov’art from recycled tyres",
-                "imageSecondaryAlt": "Recycled tyres used by Kinnov’art to craft furniture",
-                "imageTertiaryAlt": "Armchair made from recycled tyres by Kinnov’art",
+                "imageAlt": "Furniture crafted by Kinnov'art from recycled tyres",
+                "imageSecondaryAlt": "Recycled tyres used by Kinnov'art to craft furniture",
+                "imageTertiaryAlt": "Armchair made from recycled tyres by Kinnov'art",
                 "includes": [
                     "Furniture crafting",
                     "From recycled tyres",
-                    "In Kinnov’art's own signature style"
+                    "In Kinnov'art's own signature style"
                 ],
                 "examples": [
                     "Tyre armchair"
@@ -161,9 +161,9 @@
                 "title": "Kiosk Making",
                 "shortTitle": "Kiosks",
                 "description": "Kiosks designed and built to order for your spaces and your events.",
-                "imageAlt": "Kiosk designed and built by Kinnov’art",
-                "imageSecondaryAlt": "Another kiosk built by Kinnov’art",
-                "imageTertiaryAlt": "Sales kiosk built to order by Kinnov’art",
+                "imageAlt": "Kiosk designed and built by Kinnov'art",
+                "imageSecondaryAlt": "Another kiosk built by Kinnov'art",
+                "imageTertiaryAlt": "Sales kiosk built to order by Kinnov'art",
                 "includes": [
                     "Custom design",
                     "Built to order",
@@ -179,9 +179,9 @@
                 "title": "Public and Private Space Design",
                 "shortTitle": "Space Design",
                 "description": "Setting up and dressing spaces for your events and your productions.",
-                "imageAlt": "Event space fully fitted out and dressed by Kinnov’art",
-                "imageSecondaryAlt": "Space fitted out and decorated by Kinnov’art",
-                "imageTertiaryAlt": "Lounge space fitted out and decorated by Kinnov’art",
+                "imageAlt": "Event space fully fitted out and dressed by Kinnov'art",
+                "imageSecondaryAlt": "Space fitted out and decorated by Kinnov'art",
+                "imageTertiaryAlt": "Lounge space fitted out and decorated by Kinnov'art",
                 "includes": [
                     "Space fitting",
                     "Space decoration",
@@ -198,9 +198,9 @@
                 "title": "Production and Artistic Management",
                 "shortTitle": "Production",
                 "description": "Production, photo coverage and editing for your concerts and your tours.",
-                "imageAlt": "Cams, an artist produced by Kinnov’art, in concert",
-                "imageSecondaryAlt": "Photo shoot during a Kinnov’art production",
-                "imageTertiaryAlt": "Media coverage of an event by Kinnov’art",
+                "imageAlt": "Cams, an artist produced by Kinnov'art, in concert",
+                "imageSecondaryAlt": "Photo shoot during a Kinnov'art production",
+                "imageTertiaryAlt": "Media coverage of an event by Kinnov'art",
                 "includes": [
                     "Production",
                     "Photo coverage and editing",
@@ -216,9 +216,9 @@
                 "title": "Event Decoration Training",
                 "shortTitle": "Training",
                 "description": "Hands-on training in decorating and dressing spaces for your events.",
-                "imageAlt": "Event decoration training at Kinnov’art",
-                "imageSecondaryAlt": "Kinnov’art event decoration workshop",
-                "imageTertiaryAlt": "Learning event decoration at the Kinnov’art workshop",
+                "imageAlt": "Event decoration training at Kinnov'art",
+                "imageSecondaryAlt": "Kinnov'art event decoration workshop",
+                "imageTertiaryAlt": "Learning event decoration at the Kinnov'art workshop",
                 "includes": [
                     "Hands-on training",
                     "Decorating and dressing spaces",
@@ -278,7 +278,7 @@
         },
         "gallery": {
             "title": "Gallery",
-            "description": "Photos of Kinnov’art's work in Nongo, Conakry: set design, furniture, kiosks, space design, production and training."
+            "description": "Photos of Kinnov'art's work in Nongo, Conakry: set design, furniture, kiosks, space design, production and training."
         }
     },
     "aboutContent": {
@@ -314,7 +314,7 @@
     },
     "gallery": {
         "title": "Our Gallery",
-        "subtitle": "Set design, furniture, kiosks, space design, production and training — a glimpse of Kinnov’art’s work.",
+        "subtitle": "Set design, furniture, kiosks, space design, production and training — a glimpse of Kinnov'art's work.",
         "filterLabel": "Filter photos",
         "all": "All",
         "loadMore": "Load more",
@@ -331,13 +331,13 @@
         "prev": "Previous photo",
         "next": "Next photo",
         "alt": {
-            "generic": "Kinnov’art photo ({n}/{total})",
-            "scenography": "Kinnov’art set design ({n}/{total})",
-            "furniture": "Kinnov’art recycled-tyre furniture ({n}/{total})",
-            "kiosks": "Kiosk made by Kinnov’art ({n}/{total})",
-            "spaceDesign": "Kinnov’art space design ({n}/{total})",
-            "production": "Kinnov’art production ({n}/{total})",
-            "training": "Kinnov’art training ({n}/{total})"
+            "generic": "Kinnov'art photo ({n}/{total})",
+            "scenography": "Kinnov'art set design ({n}/{total})",
+            "furniture": "Kinnov'art recycled-tyre furniture ({n}/{total})",
+            "kiosks": "Kiosk made by Kinnov'art ({n}/{total})",
+            "spaceDesign": "Kinnov'art space design ({n}/{total})",
+            "production": "Kinnov'art production ({n}/{total})",
+            "training": "Kinnov'art training ({n}/{total})"
         }
     }
 }

@@ -192,7 +192,7 @@
           >
             <NuxtImg
               :src="photo.src"
-              :alt="galleryAlt(photo)"
+              :alt="galleryAlt(photo, i)"
               class="gallery-item__image"
               :style="photo.position ? { objectPosition: photo.position } : undefined"
               width="800"
@@ -446,10 +446,15 @@ const galleryCaption = (photo: HomeGalleryPhoto) =>
     ? t(`home.galleryFilters.${photo.service}`)
     : t('home.galleryCaption')
 
-const galleryAlt = (photo: HomeGalleryPhoto) => {
-  const n = gallery.indexOf(photo) + 1
-  return t('home.galleryAlt', { type: galleryCaption(photo), n })
-}
+// Alt localisé : position dans la liste *visible* et total réellement affiché.
+// Le total est interpolé (et non figé dans la traduction, qui annonçait « /8 »
+// alors que la galerie d'accueil compte 12 photos).
+const galleryAlt = (photo: HomeGalleryPhoto, index: number) =>
+  t('home.galleryAlt', {
+    type: galleryCaption(photo),
+    n: index + 1,
+    total: visibleGallery.value.length
+  })
 
 // Clips: length comes from `tm()` (compiled AST structure, so only the
 // count is usable); every visible string is resolved through `t()` per index.
