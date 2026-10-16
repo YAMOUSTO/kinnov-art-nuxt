@@ -27,8 +27,16 @@ const ROBOTS = `<meta name="robots" content="noindex">`
 const MARKER = 'data-static-404'
 
 if (!existsSync(target)) {
-  console.warn('[finalize-static] .output/public/404.html not found - skipping.')
-  process.exit(0)
+  // Fail instead of skipping: a silent skip shipped a 404.html without its
+  // title/noindex once, and let a build pass whose publish directory did not
+  // exist. The expected directory comes from `nitro.preset = 'static'`
+  // (nuxt.config.ts), which is what writes `.output/public`.
+  console.error(
+    '[finalize-static] .output/public/404.html not found — the static output is missing or went to another directory.\n' +
+      '  Check `nitro.preset` in nuxt.config.ts (pinned to "static" → .output/public)\n' +
+      '  and the `publish` setting in netlify.toml. Refusing to continue.'
+  )
+  process.exit(1)
 }
 
 let html = await readFile(target, 'utf8')

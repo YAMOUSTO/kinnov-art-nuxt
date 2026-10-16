@@ -204,6 +204,13 @@ export default defineNuxtConfig({
   // deploy ships a real /sitemap.xml and /robots.txt (public/robots.txt is
   // removed — the server route is the single source of truth).
   nitro: {
+    // Pin the preset. Left to auto-detection, Nitro switches to `netlify-static`
+    // inside a Netlify build and writes the site to `dist/` instead of
+    // `.output/public/`, so Netlify's `publish = ".output/public"` found nothing
+    // ("Deploy directory '.output/public' does not exist") and
+    // scripts/finalize-static.mjs quietly skipped its 404.html fixup. `static`
+    // keeps one canonical output directory locally and on Netlify.
+    preset: 'static',
     prerender: {
       crawlLinks: true,
       routes: ['/sitemap.xml', '/robots.txt']
