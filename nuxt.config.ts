@@ -61,11 +61,14 @@ export default defineNuxtConfig({
     // than pointing at a guessed domain.
     baseUrl: siteUrl,
     strategy: 'prefix_except_default',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root'
-    }
+    // French is the language of the audience: the site must always land on the
+    // French page, and English is an explicit choice (the FR/EN switcher), never
+    // an automatic one. With detection enabled, a browser sending
+    // `Accept-Language: en` was redirected from `/` to `/en` — and the choice was
+    // then remembered in a cookie, so that visitor kept landing on the English
+    // site. The canonical, `x-default` and og:locale tags already advertise
+    // French at `/`.
+    detectBrowserLanguage: false
   },
 
   // Runtime configuration

@@ -47,10 +47,14 @@ useHead({
   ]
 })
 
+// Home in the visitor's current locale: `/` for French, `/en` for English.
+// This used to rely on detectBrowserLanguage re-routing an English visitor
+// away from `/`, which no longer happens now that the automatic redirect is
+// disabled — so the locale has to be applied explicitly.
+const localePath = useLocalePath()
+
 const goHome = () => {
-  // '/' is the default locale root; detectBrowserLanguage re-routes an English
-  // visitor from there, so this is locale-correct without needing the router.
-  clearError({ redirect: '/' })
+  clearError({ redirect: localePath('/') })
 }
 
 const retry = () => {
