@@ -102,6 +102,15 @@ export default defineNuxtConfig({
 
   // Image Configuration
   image: {
+    // Pin the provider. Left to auto-detection, @nuxt/image switches to the
+    // `netlify` provider as soon as it sees a Netlify build and emits
+    // `/.netlify/images?url=…` URLs, which only resolve at Netlify's edge.
+    // `nuxt generate` crawls every page and tries to prerender those URLs, gets
+    // a 404 and aborts ("Exiting due to prerender errors") — while a local build
+    // passes, because there the provider stays `ipx`. With `ipx` the variants
+    // are rendered to real files under `/_ipx/…` at build time (netlify.toml
+    // already has a `/_ipx/*` cache rule), so Netlify matches the local build.
+    provider: 'ipx',
     domains: ['images.unsplash.com', 'i.pravatar.cc']
   },
 
