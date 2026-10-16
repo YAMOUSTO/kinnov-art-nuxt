@@ -121,6 +121,28 @@ See [`.env.example`](.env.example) for the full list. The important one:
 Deploy previews and branch deploys get `X-Robots-Tag: noindex` from `netlify.toml`, so they
 can never compete with production in search results.
 
+### Custom domain
+
+The site answers on `https://kinnovart.netlify.app`. When `kinnovart.com` is attached in
+Netlify (Domain management → *Add a domain*, then **set it as the primary domain**), Netlify
+injects the new origin as `URL`, so canonical URLs, `hreflang`, `og:url`/`og:image`, the
+sitemap and the `Sitemap:` line in `robots.txt` all follow with **no code change** — trigger a
+redeploy so the prerendered HTML picks it up. Set `NUXT_PUBLIC_SITE_URL` explicitly instead if
+the site is ever served from another origin.
+
+### URL behaviour
+
+- A route is prerendered as `services.html` and served at `/services` with a **200** — the
+  extensionless URL the canonical tag advertises. This relies on
+  `nitro.prerender.autoSubfolderIndex: false`; the default (`services/index.html`) makes
+  Netlify answer `/services` with a 301 to `/services/`.
+- A trailing slash is normalised by Netlify to the extensionless URL and an unknown path
+  returns a real 404. Both are Netlify's own behaviour.
+- **Do not add redirect rules** to `netlify.toml` or a `public/_redirects` file. Any custom
+  rule makes Netlify answer an unmatched path with a 301 to *itself*, so a typo'd address
+  spins until the browser reports "too many redirects" — a catch-all `404` rule does not
+  prevent it. The reproduction is recorded in `netlify.toml`.
+
 ### Regenerating brand assets
 
 App icons (`public/icons/`) and social cards (`public/og/`) are committed. To rebuild them
